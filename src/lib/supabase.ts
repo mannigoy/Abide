@@ -5,6 +5,8 @@ import 'expo-sqlite/localStorage/install';
 import { createClient } from '@supabase/supabase-js';
 import { AppState, Platform } from 'react-native';
 
+import type { Database } from '@/lib/database.types';
+
 // Variables starting with EXPO_PUBLIC_ are copied into the app at build time.
 // That means anyone with the app can read them, so only the *publishable*
 // key goes here — never the service-role key or any other secret.
@@ -18,7 +20,10 @@ if (!supabaseUrl || !supabasePublishableKey) {
 }
 
 /** The one Supabase client for the whole app. Import it from here; don't create another. */
-export const supabase = createClient(supabaseUrl, supabasePublishableKey, {
+// <Database> lets TypeScript know every table and column, so typos in queries
+// are caught before the app runs. Regenerate the types after each migration:
+//   npx supabase gen types typescript --linked --schema public > src/lib/database.types.ts
+export const supabase = createClient<Database>(supabaseUrl, supabasePublishableKey, {
   auth: {
     storage: localStorage,
     autoRefreshToken: true,
