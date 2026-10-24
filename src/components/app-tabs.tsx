@@ -1,15 +1,24 @@
 import { NativeTabs } from 'expo-router/native-tabs';
 
 import { Colors, Fonts } from '@/constants/theme';
+import { usesOverseerTabs } from '@/lib/profiles';
+import { useSession } from '@/lib/session';
 
 /**
- * The leader tab bar. Each `name` matches a file in `src/app/`
- * (`index` is Home). `md` icons are Material Symbols for Android and
- * `sf` icons are SF Symbols for iOS.
+ * The tab bar. Each `name` matches a file in `src/app/(tabs)/`.
+ * `md` icons are Material Symbols for Android and `sf` icons are SF Symbols for iOS.
  *
- * Overseers get different tabs; that comes in Phase 2, once we know a user's role.
+ * Leader tabs:   Home,  Bible, Chats, Heroes,  Profile
+ * Overseer tabs: Today, Leaders, Bible, Chats, Profile
+ *
+ * The first tab (`index`) is shared: it shows Home or Today depending on the
+ * role, so everyone lands on the right screen when the app opens. `hidden`
+ * removes a tab completely: it can't be opened at all.
  */
 export default function AppTabs() {
+  const { profile } = useSession();
+  const isOverseer = usesOverseerTabs(profile?.role);
+
   return (
     <NativeTabs
       backgroundColor={Colors.surface}
@@ -20,8 +29,22 @@ export default function AppTabs() {
         selected: { color: Colors.primary, fontFamily: Fonts.semiBold },
       }}>
       <NativeTabs.Trigger name="index">
-        <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon md="home" sf="house.fill" />
+        {isOverseer ? (
+          <>
+            <NativeTabs.Trigger.Label>Today</NativeTabs.Trigger.Label>
+            <NativeTabs.Trigger.Icon md="today" sf="sun.max.fill" />
+          </>
+        ) : (
+          <>
+            <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
+            <NativeTabs.Trigger.Icon md="home" sf="house.fill" />
+          </>
+        )}
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="leaders" hidden={!isOverseer}>
+        <NativeTabs.Trigger.Label>Leaders</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon md="groups" sf="person.3.fill" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="bible">
@@ -34,7 +57,7 @@ export default function AppTabs() {
         <NativeTabs.Trigger.Icon md="chat" sf="bubble.left.and.bubble.right.fill" />
       </NativeTabs.Trigger>
 
-      <NativeTabs.Trigger name="heroes">
+      <NativeTabs.Trigger name="heroes" hidden={isOverseer}>
         <NativeTabs.Trigger.Label>Heroes</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="military_tech" sf="star.fill" />
       </NativeTabs.Trigger>
