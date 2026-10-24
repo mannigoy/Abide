@@ -13,15 +13,15 @@ Leaders do **RRR** (Read, Reflect, Respond) in a paper notebook, then check in o
 
 ## Status
 
-**Phase 2 of 9 (sign-in and accounts): code complete, being tested on a phone.**
+**Phases 2 and 3 of 9 (accounts and daily check-ins): code complete, being tested on a phone.**
 
 ```
-Overall  ████░░░░░░░░░░░░░░░░  ~22%
+Overall  ██████░░░░░░░░░░░░░░  ~30%
 ```
 
 ```mermaid
 flowchart LR
-  P1["1 · Setup"]:::done --> P2["2 · Sign-in"]:::wip --> P3["3 · Check-in"]:::todo --> P4["4 · Bible reader"]:::todo --> P5["5 · Notebook scan"]:::todo
+  P1["1 · Setup"]:::done --> P2["2 · Sign-in"]:::wip --> P3["3 · Check-in"]:::wip --> P4["4 · Bible reader"]:::todo --> P5["5 · Notebook scan"]:::todo
   P5 --> P6["6 · Overseer view + streaks"]:::todo --> P7["7 · Badges & Heroes"]:::todo --> P8["8 · Pilot"]:::todo --> P9["9 · Chat"]:::todo
 
   classDef done fill:#2F5D50,stroke:#2F5D50,color:#FFFFFF
@@ -33,7 +33,7 @@ flowchart LR
 |---|---|---|---|
 | 1 | **Setup** | Runs on a phone, Supabase connected, theme, tab layout | ✅ Done |
 | 2 | **Sign-in & roles** | Accounts, profiles, invite codes, leader/overseer/admin roles | 🟡 Testing |
-| 3 | **Check-in** | Simple mode, then guided Read → Reflect → Respond screens | ⬜ Planned |
+| 3 | **Check-in** | Simple mode, then guided Read → Reflect → Respond screens | 🟡 Testing |
 | 4 | **Bible reader** | Read Scripture in the app, version picker, highlights | ⬜ Planned |
 | 5 | **Notebook scan** | Snap your notebook page; on-device text recognition fills in your check-in | ⬜ Planned |
 | 6 | **Overseer view & streaks** | "Who read today" for overseers; streaks with a weekly grace day | ⬜ Planned |
@@ -49,6 +49,15 @@ flowchart LR
 - [x] Profile screen with sign-out
 - [x] Separate tabs for overseers (Today, Leaders) and leaders (Home, Heroes)
 - [x] Overseers create invite codes and share them from the Leaders tab
+- [ ] Tested end-to-end on an Android phone
+
+### Phase 3 progress
+
+- [x] `checkins` table: one per leader per day, today or yesterday only (Philippine time), enforced by the database
+- [x] Simple mode: one tap on Home, with an optional passage
+- [x] Guided mode: Read → Reflect → Respond steps with notebook reminders
+- [x] Check in for yesterday if you forgot
+- [x] Celebration screen after each check-in
 - [ ] Tested end-to-end on an Android phone
 
 ---

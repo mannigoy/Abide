@@ -14,6 +14,50 @@ export type Database = {
   }
   public: {
     Tables: {
+      checkins: {
+        Row: {
+          created_at: string
+          id: string
+          passage: string | null
+          read_text: string | null
+          reading_date: string
+          reflect_text: string | null
+          respond_text: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          passage?: string | null
+          read_text?: string | null
+          reading_date: string
+          reflect_text?: string | null
+          respond_text?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          passage?: string | null
+          read_text?: string | null
+          reading_date?: string
+          reflect_text?: string | null
+          respond_text?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "checkins_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       invite_codes: {
         Row: {
           code: string
@@ -90,6 +134,7 @@ export type Database = {
     }
     Functions: {
       is_invite_code_valid: { Args: { p_code: string }; Returns: boolean }
+      manila_today: { Args: never; Returns: string }
       my_role: {
         Args: never
         Returns: Database["public"]["Enums"]["user_role"]
