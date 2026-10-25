@@ -13,19 +13,18 @@ export default function SignUpScreen() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [inviteCode, setInviteCode] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [checkEmail, setCheckEmail] = useState(false);
   const [loading, setLoading] = useState(false);
 
   async function handleSignUp() {
-    if (!fullName.trim() || !email.trim() || !password || !inviteCode.trim()) {
+    if (!fullName.trim() || !email.trim() || !password) {
       setError('Please fill in every field.');
       return;
     }
     setError(null);
     setLoading(true);
-    const result = await signUp({ fullName, email, password, inviteCode });
+    const result = await signUp({ fullName, email, password });
     setLoading(false);
     setError(result.error);
     setCheckEmail(result.needsEmailConfirmation);
@@ -49,7 +48,9 @@ export default function SignUpScreen() {
     <Screen>
       <View style={styles.header}>
         <AppText variant="title">Join Abide</AppText>
-        <AppText variant="caption">Your overseer will give you an invite code.</AppText>
+        <AppText variant="caption">
+          Create your account, then join your small group with the code from your overseer.
+        </AppText>
       </View>
 
       <TextField
@@ -77,13 +78,6 @@ export default function SignUpScreen() {
         autoComplete="new-password"
         textContentType="newPassword"
         placeholder="At least 6 characters"
-      />
-      <TextField
-        label="Invite code"
-        value={inviteCode}
-        onChangeText={setInviteCode}
-        autoCapitalize="characters"
-        autoCorrect={false}
         onSubmitEditing={handleSignUp}
       />
 

@@ -58,29 +58,68 @@ export type Database = {
           },
         ]
       }
-      invite_codes: {
+      group_members: {
         Row: {
-          code: string
-          created_by: string | null
-          expires_at: string
-          uses_left: number
+          group_id: string
+          joined_at: string
+          user_id: string
         }
         Insert: {
-          code: string
-          created_by?: string | null
-          expires_at?: string
-          uses_left?: number
+          group_id: string
+          joined_at?: string
+          user_id: string
         }
         Update: {
-          code?: string
-          created_by?: string | null
-          expires_at?: string
-          uses_left?: number
+          group_id?: string
+          joined_at?: string
+          user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "invite_codes_created_by_fkey"
-            columns: ["created_by"]
+            foreignKeyName: "group_members_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      groups: {
+        Row: {
+          created_at: string
+          id: string
+          join_code: string
+          name: string
+          overseer_id: string
+          type: Database["public"]["Enums"]["group_type"]
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          join_code: string
+          name: string
+          overseer_id: string
+          type?: Database["public"]["Enums"]["group_type"]
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          join_code?: string
+          name?: string
+          overseer_id?: string
+          type?: Database["public"]["Enums"]["group_type"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "groups_overseer_id_fkey"
+            columns: ["overseer_id"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
@@ -133,15 +172,18 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      is_invite_code_valid: { Args: { p_code: string }; Returns: boolean }
+      is_group_member: { Args: { p_group_id: string }; Returns: boolean }
+      join_group: { Args: { p_code: string }; Returns: string }
       manila_today: { Args: never; Returns: string }
       my_role: {
         Args: never
         Returns: Database["public"]["Enums"]["user_role"]
       }
+      oversees: { Args: { p_user_id: string }; Returns: boolean }
     }
     Enums: {
       checkin_mode: "guided" | "simple"
+      group_type: "cell_group" | "ministry"
       user_role: "leader" | "overseer" | "admin"
     }
     CompositeTypes: {
@@ -271,6 +313,7 @@ export const Constants = {
   public: {
     Enums: {
       checkin_mode: ["guided", "simple"],
+      group_type: ["cell_group", "ministry"],
       user_role: ["leader", "overseer", "admin"],
     },
   },

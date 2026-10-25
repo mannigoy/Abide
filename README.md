@@ -32,7 +32,7 @@ flowchart LR
 | | Phase | What it delivers | Status |
 |---|---|---|---|
 | 1 | **Setup** | Runs on a phone, Supabase connected, theme, tab layout | ✅ Done |
-| 2 | **Sign-in & roles** | Accounts, profiles, invite codes, leader/overseer/admin roles | 🟡 Testing |
+| 2 | **Sign-in & roles** | Accounts, profiles, small groups with join codes, leader/overseer/admin roles | 🟡 Testing |
 | 3 | **Check-in** | Simple mode, then guided Read → Reflect → Respond screens | 🟡 Testing |
 | 4 | **Bible reader** | Read Scripture in the app, version picker, highlights | ⬜ Planned |
 | 5 | **Notebook scan** | Snap your notebook page; on-device text recognition fills in your check-in | ⬜ Planned |
@@ -43,12 +43,12 @@ flowchart LR
 
 ### Phase 2 progress
 
-- [x] Database: `profiles` and `invite_codes` tables, with Row Level Security
-- [x] Sign-up requires a valid invite code, which assigns the leader to their overseer
+- [x] Database: `profiles`, `groups` and `group_members` tables, with Row Level Security
+- [x] Open sign-up; a new account only sees its own data until it joins a group
 - [x] Sign-in / sign-up screens; the app remembers who's signed in
-- [x] Profile screen with sign-out
 - [x] Separate tabs for overseers (Today, Leaders) and leaders (Home, Heroes)
-- [x] Overseers create invite codes and share them from the Leaders tab
+- [x] Overseers create small groups (cell groups or ministries) and share each group's join code
+- [x] Leaders join one or more groups with a code from Profile; their group's overseer can then see them
 - [ ] Tested end-to-end on an Android phone
 
 ### Phase 3 progress

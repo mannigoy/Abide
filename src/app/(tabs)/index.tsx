@@ -10,6 +10,7 @@ import { SimpleCheckinForm } from '@/components/simple-checkin-form';
 import { Colors, Spacing } from '@/constants/theme';
 import { getCheckin, type Checkin } from '@/lib/checkins';
 import { manilaDate } from '@/lib/dates';
+import { getMyGroups } from '@/lib/groups';
 import { usesOverseerTabs } from '@/lib/profiles';
 import { useSession } from '@/lib/session';
 
@@ -27,6 +28,7 @@ function HomeScreen() {
   const userId = profile?.id;
   const [today, setToday] = useState<DayStatus>(undefined);
   const [yesterday, setYesterday] = useState<DayStatus>(undefined);
+  const [hasGroup, setHasGroup] = useState(true);
 
   // useFocusEffect is like useEffect, but runs every time this tab comes back
   // into view — e.g. after finishing a check-in — so the status is always fresh.
@@ -36,13 +38,17 @@ function HomeScreen() {
     useCallback(() => {
       if (!userId) return;
       let ignore = false;
-      Promise.all([getCheckin(userId, manilaDate(0)), getCheckin(userId, manilaDate(-1))]).then(
-        ([todayResult, yesterdayResult]) => {
-          if (ignore) return;
-          setToday(todayResult);
-          setYesterday(yesterdayResult);
-        },
-      );
+      Promise.all([
+        getCheckin(userId, manilaDate(0)),
+        getCheckin(userId, manilaDate(-1)),
+        getMyGroups(userId),
+      ]).then(([todayResult, yesterdayResult, groups]) => {
+        if (ignore) return;
+        setToday(todayResult);
+        setYesterday(yesterdayResult);
+        // If loading groups failed (null), don't nag.
+        setHasGroup(groups === null || groups.length > 0);
+      });
       return () => {
         ignore = true;
       };
@@ -56,6 +62,16 @@ function HomeScreen() {
     <Screen>
       <AppText variant="title">Good morning</AppText>
       <AppText variant="caption">Read · Reflect · Respond</AppText>
+
+      {!hasGroup && (
+        <Card>
+          <AppText variant="heading">Join your small group</AppText>
+          <AppText>
+            Ask your overseer for your group’s code so they can cheer you on.
+          </AppText>
+          <Button title="Enter a group code" variant="secondary" onPress={() => router.push('/profile')} />
+        </Card>
+      )}
 
       <Card highlight>
         {today === undefined && <AppText variant="caption">Loading…</AppText>}

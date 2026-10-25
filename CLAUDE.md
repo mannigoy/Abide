@@ -13,7 +13,7 @@ Full plan: "Church Leaders Bible Reading Tracker – App Plan" (Google Doc). Des
 - Sometimes leave a small, clearly marked TODO for me to write myself, and check it after.
 
 ## Stack
-- Expo (React Native) with TypeScript and Expo Router (file-based routes in `app/`)
+- Expo (React Native) with TypeScript and Expo Router (file-based routes in `src/app/`)
 - Supabase: Postgres, Auth, Realtime, Edge Functions – Free plan
 - On-device OCR: Google ML Kit text recognition (needs an Expo development build, not Expo Go)
 - expo-image-picker, expo-image-manipulator, expo-notifications (local reminders), expo-sqlite (local cache)
@@ -27,18 +27,19 @@ Full plan: "Church Leaders Bible Reading Tracker – App Plan" (Google Doc). Des
 - Never store Bible text in the database. Store verse references only (e.g. `JHN.3.16`). Show the version's copyright line wherever Scripture is displayed.
 - A "day" is midnight to midnight in Asia/Manila time. Compute `reading_date` in that timezone.
 - Check-ins allowed for today and yesterday only. One check-in per leader per day.
-- Sign-up requires a valid invite code.
+- Sign-up is open to anyone. Joining a small group (cell group or ministry) requires that group's join code. A new account sees only its own data until it joins a group.
 - Android first. Don't rely on iOS-only APIs.
 
 ## Data model (version 1)
 - profiles: id (= auth user id), full_name, role (leader/overseer/admin), overseer_id, mode (guided/simple), reminder_time, push_token, created_at
-- invite_codes: code, created_by, uses_left, expires_at
+- groups: id, name, type (cell_group/ministry), overseer_id, join_code, created_at
+- group_members: group_id, user_id, joined_at – a leader can be in several groups. Overseers see members of the groups they lead. The first group a leader joins sets profiles.overseer_id (their main overseer, for 1:1 chat).
 - checkins: id, user_id, reading_date, passage, read_text, reflect_text, respond_text, created_at, updated_at – unique (user_id, reading_date)
 - streak_adjustments: id, user_id, admin_id, reading_date, reason, created_at
 - user_badges: user_id, badge_key, unlocked_at (badge/character definitions live in app code)
 - highlights: id, user_id, verse_id, color, note, created_at
 - feedback: id, user_id, message, created_at
-- Later (chat): groups, group_members, conversations, conversation_members (last_read_at), messages
+- Later (chat): conversations, conversation_members (last_read_at), messages
 Streaks are calculated from checkins + streak_adjustments, never stored. One grace day per week.
 
 ## Conventions
@@ -50,7 +51,7 @@ Streaks are calculated from checkins + streak_adjustments, never stored. One gra
 
 ## Build phases
 1. Setup: run on phone, Supabase client, env vars, theme, tab layout
-2. Sign-in + profiles + invite codes + roles
+2. Sign-in + profiles + small groups (join codes) + roles
 3. Check-in: Simple mode, then Guided RRR screens
 4. Bible reader: API.Bible, version picker, highlights
 5. Notebook scan: camera/gallery, on-device OCR, review screen (dev build)
@@ -58,3 +59,4 @@ Streaks are calculated from checkins + streak_adjustments, never stored. One gra
 7. Gamification: badges, My Bible Heroes
 8. Pilot: reminders, weekly backups, 5–10 leaders, Android APK
 9. After launch: chat (1:1 leader–overseer, cell-group chats)
+yow 

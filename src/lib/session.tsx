@@ -11,6 +11,8 @@ type SessionState = {
   profile: Profile | null;
   /** True until we know whether someone is signed in and, if so, have loaded their profile. */
   isLoading: boolean;
+  /** Loads the profile again, e.g. after joining a group changes your overseer. */
+  refreshProfile: () => void;
 };
 
 // Context lets any screen read the session without passing it down through
@@ -20,6 +22,7 @@ const SessionContext = createContext<SessionState>({
   session: null,
   profile: null,
   isLoading: true,
+  refreshProfile: () => {},
 });
 
 export function SessionProvider({ children }: { children: ReactNode }) {
@@ -28,6 +31,8 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   // Remember whose profile we loaded, so a stale profile is never shown after
   // switching accounts.
   const [loaded, setLoaded] = useState<{ userId: string; profile: Profile | null } | null>(null);
+  // Bumping this number makes the profile effect below run again.
+  const [reloadCount, setReloadCount] = useState(0);
 
   useEffect(() => {
     // Supabase calls this right away with any saved session (INITIAL_SESSION),
@@ -57,13 +62,14 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     return () => {
       ignore = true;
     };
-  }, [userId]);
+  }, [userId, reloadCount]);
 
   const profileReady = userId !== null && loaded?.userId === userId;
   const value: SessionState = {
     session,
     profile: profileReady ? loaded.profile : null,
     isLoading: !sessionChecked || (userId !== null && !profileReady),
+    refreshProfile: () => setReloadCount((count) => count + 1),
   };
 
   return <SessionContext.Provider value={value}>{children}</SessionContext.Provider>;

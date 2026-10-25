@@ -24,19 +24,3 @@ export async function getMyProfile(userId: string): Promise<Profile | null> {
   }
   return data;
 }
-
-export type LeaderSummary = Pick<Profile, 'id' | 'full_name'>;
-
-/** Leaders assigned to this overseer. RLS only returns leaders whose overseer_id is the signed-in user. */
-export async function getMyLeaders(overseerId: string): Promise<LeaderSummary[] | null> {
-  const { data, error } = await supabase
-    .from('profiles')
-    .select('id, full_name')
-    .eq('overseer_id', overseerId)
-    .order('full_name');
-  if (error) {
-    console.warn('Could not load leaders', error.message);
-    return null;
-  }
-  return data;
-}
