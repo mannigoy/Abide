@@ -13,15 +13,15 @@ Leaders do **RRR** (Read, Reflect, Respond) in a paper notebook, then check in o
 
 ## Status
 
-**Phases 2 and 3 of 9 (accounts and daily check-ins): code complete, being tested on a phone.**
+**Phases 2–4 of 9 (accounts, daily check-ins, Bible reader): code complete, being tested on a phone.** An admin website is also in progress.
 
 ```
-Overall  ██████░░░░░░░░░░░░░░  ~30%
+Overall  ████████░░░░░░░░░░░░  ~40%
 ```
 
 ```mermaid
 flowchart LR
-  P1["1 · Setup"]:::done --> P2["2 · Sign-in"]:::wip --> P3["3 · Check-in"]:::wip --> P4["4 · Bible reader"]:::todo --> P5["5 · Notebook scan"]:::todo
+  P1["1 · Setup"]:::done --> P2["2 · Sign-in"]:::wip --> P3["3 · Check-in"]:::wip --> P4["4 · Bible reader"]:::wip --> P5["5 · Notebook scan"]:::todo
   P5 --> P6["6 · Overseer view + streaks"]:::todo --> P7["7 · Badges & Heroes"]:::todo --> P8["8 · Pilot"]:::todo --> P9["9 · Chat"]:::todo
 
   classDef done fill:#2F5D50,stroke:#2F5D50,color:#FFFFFF
@@ -34,7 +34,7 @@ flowchart LR
 | 1 | **Setup** | Runs on a phone, Supabase connected, theme, tab layout | ✅ Done |
 | 2 | **Sign-in & roles** | Accounts, profiles, small groups with join codes, leader/overseer/admin roles | 🟡 Testing |
 | 3 | **Check-in** | Simple mode, then guided Read → Reflect → Respond screens | 🟡 Testing |
-| 4 | **Bible reader** | Read Scripture in the app, version picker, highlights | ⬜ Planned |
+| 4 | **Bible reader** | Read Scripture in the app, version picker, highlights | 🟡 Testing |
 | 5 | **Notebook scan** | Snap your notebook page; on-device text recognition fills in your check-in | ⬜ Planned |
 | 6 | **Overseer view & streaks** | "Who read today" for overseers; streaks with a weekly grace day | ⬜ Planned |
 | 7 | **Gamification** | Badges and *My Bible Heroes* | ⬜ Planned |
@@ -60,6 +60,16 @@ flowchart LR
 - [x] Celebration screen after each check-in
 - [ ] Tested end-to-end on an Android phone
 
+### Phase 4 progress
+
+- [x] Bible tab: pick a book and chapter, previous/next, remembers where you were
+- [x] Versions: English (BSB, WEB, KJV), Tagalog (ULB), Cebuano (OCB, ULB)
+- [x] Chapters saved on the phone, so re-reading works offline
+- [x] Each version's copyright and licence shown under the text
+- [x] Highlights: tap a verse, pick one of 4 colours; only the verse reference (e.g. `JHN.3.16`) is stored
+- [ ] Connect to check-in: the Read step opens today's passage
+- [ ] Tested end-to-end on an Android phone
+
 ---
 
 ## Tech stack
@@ -69,7 +79,7 @@ flowchart LR
 | App | [Expo](https://expo.dev) (React Native) + TypeScript, [Expo Router](https://docs.expo.dev/router/introduction/) |
 | Backend | [Supabase](https://supabase.com): Postgres, Auth, Realtime, Edge Functions (free plan) |
 | Text recognition | Google ML Kit, on-device |
-| Scripture | [API.Bible](https://scripture.api.bible) (free, non-commercial) |
+| Scripture | [Free Use Bible API](https://bible.helloao.org) (free, no key, no limits) |
 
 ## Running it locally
 

@@ -17,7 +17,7 @@ Full plan: "Church Leaders Bible Reading Tracker – App Plan" (Google Doc). Des
 - Supabase: Postgres, Auth, Realtime, Edge Functions – Free plan
 - On-device OCR: Google ML Kit text recognition (needs an Expo development build, not Expo Go)
 - expo-image-picker, expo-image-manipulator, expo-notifications (local reminders), expo-sqlite (local cache)
-- Bible text: API.Bible (free Starter plan, non-commercial)
+- Bible text: Free Use Bible API (https://bible.helloao.org) – free, no API key, no request limit. Chapters are cached on the phone (expo-sqlite kv-store).
 
 ## Hard rules
 - Must stay $0. Do not add paid services or libraries that need a paid plan.
@@ -53,7 +53,7 @@ Streaks are calculated from checkins + streak_adjustments, never stored. One gra
 1. Setup: run on phone, Supabase client, env vars, theme, tab layout
 2. Sign-in + profiles + small groups (join codes) + roles
 3. Check-in: Simple mode, then Guided RRR screens
-4. Bible reader: API.Bible, version picker, highlights
+4. Bible reader: Free Use Bible API, version picker, highlights
 5. Notebook scan: camera/gallery, on-device OCR, review screen (dev build)
 6. Overseer view + streaks with grace days
 7. Gamification: badges, My Bible Heroes

@@ -126,6 +126,41 @@ export type Database = {
           },
         ]
       }
+      highlights: {
+        Row: {
+          color: string
+          created_at: string
+          id: string
+          note: string | null
+          user_id: string
+          verse_id: string
+        }
+        Insert: {
+          color: string
+          created_at?: string
+          id?: string
+          note?: string | null
+          user_id: string
+          verse_id: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          id?: string
+          note?: string | null
+          user_id?: string
+          verse_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "highlights_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string

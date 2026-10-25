@@ -13,6 +13,15 @@ export const Colors = {
   text: '#1F2A26',
   textSecondary: '#5E6B66',
   border: '#E8E2D8',
+  overlay: 'rgba(31, 42, 38, 0.4)', // dims the screen behind a bottom sheet
+} as const;
+
+/** Soft verse highlight colours, light enough to read dark text on. */
+export const HighlightColors = {
+  yellow: '#FCE8A6',
+  green: '#CFE5D8',
+  blue: '#D3E3F3',
+  pink: '#F6D5DC',
 } as const;
 
 export const Spacing = {
