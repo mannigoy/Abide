@@ -172,6 +172,32 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_list_people: {
+        Args: never
+        Returns: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          last_checkin: string
+          mode: Database["public"]["Enums"]["checkin_mode"]
+          overseer_id: string
+          role: Database["public"]["Enums"]["user_role"]
+        }[]
+      }
+      admin_set_group_overseer: {
+        Args: { p_group_id: string; p_overseer_id: string }
+        Returns: undefined
+      }
+      admin_update_profile: {
+        Args: {
+          p_mode: Database["public"]["Enums"]["checkin_mode"]
+          p_overseer_id: string
+          p_role: Database["public"]["Enums"]["user_role"]
+          p_user_id: string
+        }
+        Returns: undefined
+      }
       is_group_member: { Args: { p_group_id: string }; Returns: boolean }
       join_group: { Args: { p_code: string }; Returns: string }
       manila_today: { Args: never; Returns: string }
@@ -180,6 +206,7 @@ export type Database = {
         Returns: Database["public"]["Enums"]["user_role"]
       }
       oversees: { Args: { p_user_id: string }; Returns: boolean }
+      require_admin: { Args: never; Returns: undefined }
     }
     Enums: {
       checkin_mode: "guided" | "simple"

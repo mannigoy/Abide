@@ -88,6 +88,24 @@ flowchart LR
    npx expo start
    ```
 
+## Admin website
+
+Admins manage the church's people and groups from a separate website in [`admin/`](admin/) (React + Vite). The phone app is for leaders and overseers; admins who sign in on the phone get the overseer tabs.
+
+- **People & roles:** make someone an overseer or admin, set Guided/Simple mode, change a leader's main overseer, see each person's last check-in
+- **Groups:** see every group and its members, move a group to another overseer, remove members
+
+Run it locally:
+
+```bash
+cd admin
+npm install
+cp .env.example .env.local   # same Supabase URL + publishable key as the app
+npm run dev                  # http://localhost:5174
+```
+
+Admin powers are enforced by the database (functions that check the caller is an admin), not by the website.
+
 ## Project layout
 
 ```
@@ -97,5 +115,6 @@ src/app/          Screens (file-based routes)
 src/components/   Reusable UI (Button, TextField, Screen, …)
 src/constants/    Theme: colours, spacing, fonts
 src/lib/          Supabase client and data functions
-supabase/         Database migrations
+supabase/         Database migrations and Edge Functions
+admin/            Admin website (separate app)
 ```
