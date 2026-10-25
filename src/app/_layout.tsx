@@ -64,11 +64,13 @@ function RootNavigator() {
           headerShown: false,
           contentStyle: { backgroundColor: Colors.background },
         }}>
-        <Stack.Protected guard={isSignedIn}>
+        {/* redirectTo says where to go when a guard says no. Without it the router
+            falls back to "/", which is hidden when signed out: "Unmatched route". */}
+        <Stack.Protected guard={isSignedIn} redirectTo="/sign-in">
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="check-in" />
         </Stack.Protected>
-        <Stack.Protected guard={!isSignedIn}>
+        <Stack.Protected guard={!isSignedIn} redirectTo="/">
           <Stack.Screen name="(auth)" />
         </Stack.Protected>
       </Stack>
