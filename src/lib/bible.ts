@@ -23,8 +23,6 @@ export const VERSIONS: BibleVersion[] = [
   { id: 'tgl_ulb', shortName: 'ULB', name: 'Tagalog Bible', language: 'Tagalog' },
   { id: 'ceb_ocb', shortName: 'OCB', name: 'Ang Pulong sa Dios', language: 'Cebuano' },
   { id: 'ceb_ulb', shortName: 'ULB', name: 'Cebuano Bible', language: 'Cebuano' },
-  // TODO(you): add Hiligaynon. Its id in the API is 'hil_bib' and its name is
-  // 'Ang Pulong Sang Dios'. Then check it appears in the version picker.
 ];
 
 export const DEFAULT_VERSION_ID = 'BSB';

@@ -17,7 +17,8 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.mannigoy.abide"
     },
     "web": {
       "output": "single",
@@ -33,7 +34,15 @@
           "imageWidth": 76
         }
       ],
-      "expo-sqlite"
+      "expo-sqlite",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Abide lets you pick a photo of your notebook page so it can read your handwriting. The photo is never uploaded or saved.",
+          "cameraPermission": "Abide uses the camera to photograph your notebook page so it can read your handwriting. The photo is never uploaded or saved.",
+          "microphonePermission": false
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

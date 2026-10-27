@@ -10,7 +10,9 @@ import { Spacing } from '@/constants/theme';
 const MESSAGES = [
   'Well done! Every day you spend with God matters.',
   'Faithful in the small things. Keep going!',
-  // TODO(you): add two more short, encouraging messages here.
+  'You are making a difference!',
+  'You are doing great! Keep it up!',
+  'Your efforts are noticed and appreciated!',
 ];
 
 /** The celebration after a check-in is saved. */

@@ -5,12 +5,14 @@ import { StyleSheet, View } from 'react-native';
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
 import { Card } from '@/components/card';
+import { NotebookScanButtons } from '@/components/notebook-scan-buttons';
 import { Screen } from '@/components/screen';
 import { SimpleCheckinForm } from '@/components/simple-checkin-form';
 import { TextField } from '@/components/text-field';
 import { Colors, Radius, Spacing } from '@/constants/theme';
 import { createCheckin } from '@/lib/checkins';
 import { isCheckinDateAllowed, manilaDate } from '@/lib/dates';
+import type { RrrText } from '@/lib/rrr-text';
 import { useSession } from '@/lib/session';
 
 /**
@@ -54,26 +56,37 @@ export default function CheckinScreen() {
 // Guided mode: Read → Reflect → Respond
 // ---------------------------------------------------------------------------
 
+// Read → Reflect → Respond guide the leader through their notebook; the last
+// step scans the page (or lets them type) and lets them fix the text.
 const STEPS = [
   {
     title: 'Read',
     intro: 'Which passage are you reading?',
     prompts: [] as string[],
-    noteLabel: 'Anything you noted while reading? (optional)',
   },
   {
     title: 'Reflect',
     intro: 'Think about what you read.',
     prompts: ['What does this show you about God?', 'What stood out to you?'],
-    noteLabel: 'A few words from your reflection (optional)',
   },
   {
     title: 'Respond',
     intro: 'Bring it into your day.',
     prompts: ['What will you do or pray about today?'],
-    noteLabel: 'A few words from your response (optional)',
+  },
+  {
+    title: 'Review',
+    intro: 'Scan your notebook page, then check the text. Everything here is optional.',
+    prompts: [] as string[],
   },
 ];
+const REVIEW_STEP = STEPS.length - 1;
+
+/** Adds scanned text after anything already typed, so nothing is lost. */
+function append(existing: string, scanned: string) {
+  if (!scanned) return existing;
+  return existing.trim() ? `${existing.trim()}\n${scanned}` : scanned;
+}
 
 type GuidedCheckinProps = {
   userId: string;
@@ -85,17 +98,24 @@ type GuidedCheckinProps = {
 function GuidedCheckin({ userId, readingDate, dayLabel, onSaved }: GuidedCheckinProps) {
   const [step, setStep] = useState(0);
   const [passage, setPassage] = useState('');
-  // One note per step, in the same order as STEPS.
-  const [notes, setNotes] = useState(['', '', '']);
+  const [text, setText] = useState<RrrText>({ read: '', reflect: '', respond: '' });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const current = STEPS[step];
-  const isLastStep = step === STEPS.length - 1;
+  const isLastStep = step === REVIEW_STEP;
 
-  function updateNote(text: string) {
+  function updatePart(part: keyof RrrText, value: string) {
     // State should be replaced, not changed in place, so React notices the change.
-    setNotes((previous) => previous.map((note, i) => (i === step ? text : note)));
+    setText((previous) => ({ ...previous, [part]: value }));
+  }
+
+  function handleScanned(scanned: RrrText) {
+    setText((previous) => ({
+      read: append(previous.read, scanned.read),
+      reflect: append(previous.reflect, scanned.reflect),
+      respond: append(previous.respond, scanned.respond),
+    }));
   }
 
   function handleBack() {
@@ -122,9 +142,9 @@ function GuidedCheckin({ userId, readingDate, dayLabel, onSaved }: GuidedCheckin
       userId,
       readingDate,
       passage,
-      readText: notes[0],
-      reflectText: notes[1],
-      respondText: notes[2],
+      readText: text.read,
+      reflectText: text.reflect,
+      respondText: text.respond,
     });
     setSaving(false);
     if (message) {
@@ -165,18 +185,41 @@ function GuidedCheckin({ userId, readingDate, dayLabel, onSaved }: GuidedCheckin
         </Card>
       ))}
 
-      <Card highlight>
-        <AppText>📓 Write your answer in your notebook first. Writing by hand helps it stay with you.</AppText>
-      </Card>
+      {step !== REVIEW_STEP && (
+        <Card highlight>
+          <AppText>📓 Write your answer in your notebook. Writing by hand helps it stay with you.</AppText>
+        </Card>
+      )}
 
-      <TextField
-        label={current.noteLabel}
-        value={notes[step]}
-        onChangeText={updateNote}
-        multiline
-        maxLength={5000}
-        style={styles.noteInput}
-      />
+      {step === REVIEW_STEP && (
+        <>
+          <NotebookScanButtons onScanned={handleScanned} />
+          <TextField
+            label="Read"
+            value={text.read}
+            onChangeText={(value) => updatePart('read', value)}
+            multiline
+            maxLength={5000}
+            style={styles.noteInput}
+          />
+          <TextField
+            label="Reflect"
+            value={text.reflect}
+            onChangeText={(value) => updatePart('reflect', value)}
+            multiline
+            maxLength={5000}
+            style={styles.noteInput}
+          />
+          <TextField
+            label="Respond"
+            value={text.respond}
+            onChangeText={(value) => updatePart('respond', value)}
+            multiline
+            maxLength={5000}
+            style={styles.noteInput}
+          />
+        </>
+      )}
 
       {error && <AppText style={styles.error}>{error}</AppText>}
 

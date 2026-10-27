@@ -13,15 +13,15 @@ Leaders do **RRR** (Read, Reflect, Respond) in a paper notebook, then check in o
 
 ## Status
 
-**Phases 2–4 of 9 (accounts, daily check-ins, Bible reader): code complete, being tested on a phone.** An admin website is also in progress.
+**Phases 2–5 of 9 (accounts, check-ins, Bible reader, notebook scan): code complete, being tested on a phone.** An admin website is also in progress.
 
 ```
-Overall  ████████░░░░░░░░░░░░  ~40%
+Overall  ██████████░░░░░░░░░░  ~50%
 ```
 
 ```mermaid
 flowchart LR
-  P1["1 · Setup"]:::done --> P2["2 · Sign-in"]:::wip --> P3["3 · Check-in"]:::wip --> P4["4 · Bible reader"]:::wip --> P5["5 · Notebook scan"]:::todo
+  P1["1 · Setup"]:::done --> P2["2 · Sign-in"]:::wip --> P3["3 · Check-in"]:::wip --> P4["4 · Bible reader"]:::wip --> P5["5 · Notebook scan"]:::wip
   P5 --> P6["6 · Overseer view + streaks"]:::todo --> P7["7 · Badges & Heroes"]:::todo --> P8["8 · Pilot"]:::todo --> P9["9 · Chat"]:::todo
 
   classDef done fill:#2F5D50,stroke:#2F5D50,color:#FFFFFF
@@ -35,7 +35,7 @@ flowchart LR
 | 2 | **Sign-in & roles** | Accounts, profiles, small groups with join codes, leader/overseer/admin roles | 🟡 Testing |
 | 3 | **Check-in** | Simple mode, then guided Read → Reflect → Respond screens | 🟡 Testing |
 | 4 | **Bible reader** | Read Scripture in the app, version picker, highlights | 🟡 Testing |
-| 5 | **Notebook scan** | Snap your notebook page; on-device text recognition fills in your check-in | ⬜ Planned |
+| 5 | **Notebook scan** | Snap your notebook page; on-device text recognition fills in your check-in | 🟡 Testing |
 | 6 | **Overseer view & streaks** | "Who read today" for overseers; streaks with a weekly grace day | ⬜ Planned |
 | 7 | **Gamification** | Badges and *My Bible Heroes* | ⬜ Planned |
 | 8 | **Pilot** | Daily reminders, backups, Android APK for 5–10 leaders | ⬜ Planned |
@@ -69,6 +69,16 @@ flowchart LR
 - [x] Highlights: tap a verse, pick one of 4 colours; only the verse reference (e.g. `JHN.3.16`) is stored
 - [ ] Connect to check-in: the Read step opens today's passage
 - [ ] Tested end-to-end on an Android phone
+
+### Phase 5 progress
+
+- [x] Guided check-in: Read → Reflect → Respond → Review
+- [x] Take a photo of the notebook page or pick one from the gallery
+- [x] Google ML Kit reads the handwriting on the phone; the photo is deleted right after
+- [x] Text is split into Read / Reflect / Respond by the headings on the page (English, Cebuano, Tagalog)
+- [x] Leader reviews and fixes the text before saving
+- [ ] Development build installed on a phone (`eas build --profile development`)
+- [ ] Tested with real handwriting
 
 ---
 
