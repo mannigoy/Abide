@@ -89,7 +89,7 @@ flowchart LR
 - [x] Overseers switch a leader between Guided and Simple
 - [x] Privacy: overseers see that a leader read and the passage, never their Read/Reflect/Respond text
 - [x] `streak_adjustments` table for admin corrections
-- [ ] Admin website: add a streak adjustment (e.g. dead phone battery)
+- [x] Admin website: add a streak adjustment (e.g. dead phone battery)
 - [ ] Tested end-to-end on an Android phone
 
 ---
@@ -126,6 +126,9 @@ Admins manage the church's people and groups from a separate website in [`admin/
 
 - **People & roles:** make someone an overseer or admin, set Guided/Simple mode, change a leader's main overseer, see each person's last check-in
 - **Groups:** see every group and its members, move a group to another overseer, remove members
+- **Check-in fixes:** see anyone's last 30 days, add a streak adjustment (with a reason) for a day they read but couldn't check in, remove an adjustment, or delete a mistaken check-in. Check-in text is never shown.
+- **Feedback:** messages from "Report a problem" in the app's Profile tab; mark them resolved
+- **Reports:** a monthly summary per person (days read, current streak, groups) with a CSV download for pastors
 
 Run it locally:
 

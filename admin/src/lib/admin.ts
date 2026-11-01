@@ -77,3 +77,87 @@ export async function removeMember(groupId: string, userId: string) {
     .eq('user_id', userId);
   if (error) throw new Error(error.message);
 }
+
+// ---------------------------------------------------------------------------
+// Check-in fixes
+// ---------------------------------------------------------------------------
+
+export type HistoryDay = { reading_date: string; passage: string | null; is_adjustment: boolean };
+export type Adjustment = { id: string; reading_date: string; reason: string; created_at: string };
+
+/** Days read in the last `days` days (check-ins and adjustments). Never the RRR text. */
+export async function getHistory(userId: string, days: number): Promise<HistoryDay[]> {
+  const { data, error } = await supabase.rpc('leader_history', { p_user_id: userId, p_days: days });
+  if (error) throw new Error(error.message);
+  return data as HistoryDay[];
+}
+
+export async function getStreak(userId: string): Promise<number> {
+  const { data, error } = await supabase.rpc('get_streak', { p_user_id: userId });
+  if (error) throw new Error(error.message);
+  return data[0]?.streak ?? 0;
+}
+
+export async function getAdjustments(userId: string): Promise<Adjustment[]> {
+  const { data, error } = await supabase
+    .from('streak_adjustments')
+    .select('id, reading_date, reason, created_at')
+    .eq('user_id', userId)
+    .order('reading_date', { ascending: false });
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+export async function addAdjustment(userId: string, adminId: string, readingDate: string, reason: string) {
+  const { error } = await supabase
+    .from('streak_adjustments')
+    .insert({ user_id: userId, admin_id: adminId, reading_date: readingDate, reason: reason.trim() });
+  if (error) {
+    throw new Error(error.code === '23505' ? 'That day already has an adjustment.' : error.message);
+  }
+}
+
+export async function removeAdjustment(id: string) {
+  const { error } = await supabase.from('streak_adjustments').delete().eq('id', id);
+  if (error) throw new Error(error.message);
+}
+
+export async function deleteCheckin(userId: string, readingDate: string) {
+  const { error } = await supabase.rpc('admin_delete_checkin', { p_user_id: userId, p_reading_date: readingDate });
+  if (error) throw new Error(error.message);
+}
+
+// ---------------------------------------------------------------------------
+// Feedback
+// ---------------------------------------------------------------------------
+
+type FeedbackRow = Functions['admin_list_feedback']['Returns'][number];
+export type Feedback = Omit<FeedbackRow, 'resolved_at'> & { resolved_at: string | null };
+
+export async function listFeedback(): Promise<Feedback[]> {
+  const { data, error } = await supabase.rpc('admin_list_feedback');
+  if (error) throw new Error(error.message);
+  return data as Feedback[];
+}
+
+export async function setFeedbackResolved(id: string, resolved: boolean) {
+  const { error } = await supabase
+    .from('feedback')
+    .update({ resolved_at: resolved ? new Date().toISOString() : null })
+    .eq('id', id);
+  if (error) throw new Error(error.message);
+}
+
+// ---------------------------------------------------------------------------
+// Monthly report
+// ---------------------------------------------------------------------------
+
+type ReportRow = Functions['admin_monthly_report']['Returns'][number];
+export type MonthlyReportRow = Omit<ReportRow, 'groups'> & { groups: string | null };
+
+/** `month` is 'YYYY-MM'. */
+export async function getMonthlyReport(month: string): Promise<MonthlyReportRow[]> {
+  const { data, error } = await supabase.rpc('admin_monthly_report', { p_month: `${month}-01` });
+  if (error) throw new Error(error.message);
+  return data as MonthlyReportRow[];
+}

@@ -251,3 +251,62 @@ tr.saving {
 .members li:last-child {
   border-bottom: none;
 }
+
+/* Check-in fixes */
+
+.status.read {
+  color: var(--primary);
+}
+
+.status.adjusted {
+  color: #8a5a12;
+}
+
+.inline-form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.inline-form input {
+  min-width: 260px;
+}
+
+td.actions {
+  text-align: right;
+}
+
+/* Feedback */
+
+.checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.card.resolved {
+  opacity: 0.6;
+}
+
+.message {
+  white-space: pre-wrap;
+  color: var(--text);
+}
+
+/* Reports */
+
+.row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.stats .card strong {
+  font-size: 1.6rem;
+}

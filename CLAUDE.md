@@ -38,7 +38,7 @@ Full plan: "Church Leaders Bible Reading Tracker – App Plan" (Google Doc). Des
 - streak_adjustments: id, user_id, admin_id, reading_date, reason, created_at
 - user_badges: user_id, badge_key, unlocked_at (badge/character definitions live in app code)
 - highlights: id, user_id, verse_id, color, note, created_at
-- feedback: id, user_id, message, created_at
+- feedback: id, user_id, message, resolved_at, created_at
 - Later (chat): conversations, conversation_members (last_read_at), messages
 Streaks are calculated from checkins + streak_adjustments, never stored. One grace day per week.
 

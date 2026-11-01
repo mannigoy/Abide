@@ -6,6 +6,7 @@ import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
 import { Card } from '@/components/card';
 import { JoinGroupForm } from '@/components/join-group-form';
+import { ReportProblemSheet } from '@/components/report-problem-sheet';
 import { Screen } from '@/components/screen';
 import { Spacing } from '@/constants/theme';
 import { signOut } from '@/lib/auth';
@@ -19,6 +20,7 @@ export default function ProfileScreen() {
   const userId = profile?.id;
   // undefined = still loading, null = failed to load
   const [groups, setGroups] = useState<MemberGroup[] | null | undefined>(undefined);
+  const [reporting, setReporting] = useState(false);
 
   // Reload every time this tab comes back into view.
   useFocusEffect(
@@ -73,8 +75,11 @@ export default function ProfileScreen() {
       <JoinGroupForm onJoined={handleJoined} />
 
       <View style={styles.section}>
+        <Button title="Report a problem" variant="secondary" onPress={() => setReporting(true)} />
         <Button title="Sign out" variant="secondary" onPress={() => signOut()} />
       </View>
+
+      {userId && <ReportProblemSheet visible={reporting} userId={userId} onClose={() => setReporting(false)} />}
     </Screen>
   );
 }

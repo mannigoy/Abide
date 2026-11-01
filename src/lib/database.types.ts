@@ -58,6 +58,38 @@ export type Database = {
           },
         ]
       }
+      feedback: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          resolved_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          resolved_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          resolved_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feedback_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       group_members: {
         Row: {
           group_id: string
@@ -264,6 +296,22 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_delete_checkin: {
+        Args: { p_reading_date: string; p_user_id: string }
+        Returns: undefined
+      }
+      admin_list_feedback: {
+        Args: never
+        Returns: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          message: string
+          resolved_at: string
+          user_id: string
+        }[]
+      }
       admin_list_people: {
         Args: never
         Returns: {
@@ -275,6 +323,18 @@ export type Database = {
           mode: Database["public"]["Enums"]["checkin_mode"]
           overseer_id: string
           role: Database["public"]["Enums"]["user_role"]
+        }[]
+      }
+      admin_monthly_report: {
+        Args: { p_month: string }
+        Returns: {
+          current_streak: number
+          days_read: number
+          email: string
+          full_name: string
+          groups: string
+          role: Database["public"]["Enums"]["user_role"]
+          user_id: string
         }[]
       }
       admin_set_group_overseer: {

@@ -2,11 +2,20 @@ import type { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 
 import { supabase } from './lib/supabase';
+import { FeedbackPage } from './pages/FeedbackPage';
+import { FixesPage } from './pages/FixesPage';
 import { GroupsPage } from './pages/GroupsPage';
 import { PeoplePage } from './pages/PeoplePage';
+import { ReportsPage } from './pages/ReportsPage';
 import { SignInPage } from './pages/SignInPage';
 
-const PAGES = { people: 'People & roles', groups: 'Groups' } as const;
+const PAGES = {
+  people: 'People & roles',
+  groups: 'Groups',
+  fixes: 'Check-in fixes',
+  feedback: 'Feedback',
+  reports: 'Reports',
+} as const;
 type Page = keyof typeof PAGES;
 
 /** The page lives in the URL hash (#people, #groups) so refreshing keeps your place. */
@@ -87,6 +96,9 @@ export function App() {
       <main className="content">
         {page === 'people' && <PeoplePage currentUserId={session.user.id} />}
         {page === 'groups' && <GroupsPage />}
+        {page === 'fixes' && <FixesPage currentUserId={session.user.id} />}
+        {page === 'feedback' && <FeedbackPage />}
+        {page === 'reports' && <ReportsPage />}
       </main>
     </div>
   );
