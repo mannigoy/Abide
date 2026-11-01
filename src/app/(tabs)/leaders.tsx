@@ -1,4 +1,4 @@
-import { useFocusEffect } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { Pressable, Share, StyleSheet, View } from 'react-native';
 
@@ -74,7 +74,14 @@ function GroupCard({ group }: { group: LedGroup }) {
       </AppText>
 
       {group.members.map((member) => (
-        <AppText key={member.id}>{member.full_name}</AppText>
+        <Pressable
+          key={member.id}
+          onPress={() => router.push({ pathname: '/leader/[id]', params: { id: member.id } })}
+          accessibilityRole="button"
+          style={styles.memberRow}>
+          <AppText>{member.full_name}</AppText>
+          <AppText style={styles.chevron}>›</AppText>
+        </Pressable>
       ))}
 
       <View style={styles.codeRow}>
@@ -162,6 +169,16 @@ const styles = StyleSheet.create({
   section: {
     gap: Spacing.xs,
     marginTop: Spacing.lg,
+  },
+  memberRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: Spacing.xs,
+  },
+  chevron: {
+    fontSize: 20,
+    color: Colors.textSecondary,
   },
   codeRow: {
     flexDirection: 'row',

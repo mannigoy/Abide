@@ -161,6 +161,21 @@ export type Database = {
           },
         ]
       }
+      keep_alive: {
+        Row: {
+          id: number
+          pinged_at: string | null
+        }
+        Insert: {
+          id: number
+          pinged_at?: string | null
+        }
+        Update: {
+          id?: number
+          pinged_at?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -202,6 +217,48 @@ export type Database = {
           },
         ]
       }
+      streak_adjustments: {
+        Row: {
+          admin_id: string | null
+          created_at: string
+          id: string
+          reading_date: string
+          reason: string
+          user_id: string
+        }
+        Insert: {
+          admin_id?: string | null
+          created_at?: string
+          id?: string
+          reading_date: string
+          reason: string
+          user_id: string
+        }
+        Update: {
+          admin_id?: string | null
+          created_at?: string
+          id?: string
+          reading_date?: string
+          reason?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "streak_adjustments_admin_id_fkey"
+            columns: ["admin_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "streak_adjustments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -233,14 +290,54 @@ export type Database = {
         }
         Returns: undefined
       }
+      can_view_progress: { Args: { p_user_id: string }; Returns: boolean }
+      compute_streak: {
+        Args: { p_user_id: string }
+        Returns: Record<string, unknown>
+      }
+      get_streak: {
+        Args: { p_user_id: string }
+        Returns: {
+          grace_used_this_week: boolean
+          streak: number
+        }[]
+      }
       is_group_member: { Args: { p_group_id: string }; Returns: boolean }
       join_group: { Args: { p_code: string }; Returns: string }
+      leader_history: {
+        Args: { p_days: number; p_user_id: string }
+        Returns: {
+          is_adjustment: boolean
+          passage: string
+          reading_date: string
+        }[]
+      }
       manila_today: { Args: never; Returns: string }
+      my_leaders_today: {
+        Args: never
+        Returns: {
+          checked_in_today: boolean
+          full_name: string
+          grace_used_this_week: boolean
+          last_read_date: string
+          mode: Database["public"]["Enums"]["checkin_mode"]
+          streak: number
+          user_id: string
+        }[]
+      }
       my_role: {
         Args: never
         Returns: Database["public"]["Enums"]["user_role"]
       }
+      overseer_set_mode: {
+        Args: {
+          p_mode: Database["public"]["Enums"]["checkin_mode"]
+          p_user_id: string
+        }
+        Returns: undefined
+      }
       oversees: { Args: { p_user_id: string }; Returns: boolean }
+      read_on: { Args: { p_day: string; p_user_id: string }; Returns: boolean }
       require_admin: { Args: never; Returns: undefined }
     }
     Enums: {

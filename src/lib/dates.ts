@@ -18,6 +18,20 @@ export function manilaDate(daysFromToday = 0): string {
     .slice(0, 10);
 }
 
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const WEEKDAY_LETTERS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+
+/** '2026-10-30' → 'Oct 30' */
+export function formatShortDate(date: string): string {
+  const [, month, day] = date.split('-').map(Number);
+  return `${MONTHS[month - 1]} ${day}`;
+}
+
+/** '2026-10-30' → 'F' (the weekday's first letter) */
+export function weekdayLetter(date: string): string {
+  return WEEKDAY_LETTERS[new Date(`${date}T00:00:00Z`).getUTCDay()];
+}
+
 /** True if the date is today or yesterday in Manila (the only days you can check in). */
 export function isCheckinDateAllowed(date: string): boolean {
   return date === manilaDate(0) || date === manilaDate(-1);

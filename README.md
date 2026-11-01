@@ -13,16 +13,16 @@ Leaders do **RRR** (Read, Reflect, Respond) in a paper notebook, then check in o
 
 ## Status
 
-**Phases 2–5 of 9 (accounts, check-ins, Bible reader, notebook scan): code complete, being tested on a phone.** An admin website is also in progress.
+**Phases 2–6 of 9 (accounts, check-ins, Bible reader, notebook scan, overseer view and streaks): code complete, being tested on a phone.** An admin website is also in progress.
 
 ```
-Overall  ██████████░░░░░░░░░░  ~50%
+Overall  ████████████░░░░░░░░  ~60%
 ```
 
 ```mermaid
 flowchart LR
   P1["1 · Setup"]:::done --> P2["2 · Sign-in"]:::wip --> P3["3 · Check-in"]:::wip --> P4["4 · Bible reader"]:::wip --> P5["5 · Notebook scan"]:::wip
-  P5 --> P6["6 · Overseer view + streaks"]:::todo --> P7["7 · Badges & Heroes"]:::todo --> P8["8 · Pilot"]:::todo --> P9["9 · Chat"]:::todo
+  P5 --> P6["6 · Overseer view + streaks"]:::wip --> P7["7 · Badges & Heroes"]:::todo --> P8["8 · Pilot"]:::todo --> P9["9 · Chat"]:::todo
 
   classDef done fill:#2F5D50,stroke:#2F5D50,color:#FFFFFF
   classDef wip fill:#E9A23B,stroke:#E9A23B,color:#1F2A26
@@ -36,7 +36,7 @@ flowchart LR
 | 3 | **Check-in** | Simple mode, then guided Read → Reflect → Respond screens | 🟡 Testing |
 | 4 | **Bible reader** | Read Scripture in the app, version picker, highlights | 🟡 Testing |
 | 5 | **Notebook scan** | Snap your notebook page; on-device text recognition fills in your check-in | 🟡 Testing |
-| 6 | **Overseer view & streaks** | "Who read today" for overseers; streaks with a weekly grace day | ⬜ Planned |
+| 6 | **Overseer view & streaks** | "Who read today" for overseers; streaks with a weekly grace day | 🟡 Testing |
 | 7 | **Gamification** | Badges and *My Bible Heroes* | ⬜ Planned |
 | 8 | **Pilot** | Daily reminders, backups, Android APK for 5–10 leaders | ⬜ Planned |
 | 9 | **Chat** | 1:1 leader–overseer and cell-group chats | ⬜ After launch |
@@ -79,6 +79,18 @@ flowchart LR
 - [x] Leader reviews and fixes the text before saving
 - [ ] Development build installed on a phone (`eas build --profile development`)
 - [ ] Tested with real handwriting
+
+### Phase 6 progress
+
+- [x] Streaks with one grace day per Monday–Sunday week (Philippine time), calculated in the database
+- [x] Home shows your streak and whether this week's grace day is still available
+- [x] Overseer **Today**: "Not yet today" and "Read today", with streaks and last reading date
+- [x] Leader page: streak, last 7 days, days read in the last 30, recent passages
+- [x] Overseers switch a leader between Guided and Simple
+- [x] Privacy: overseers see that a leader read and the passage, never their Read/Reflect/Respond text
+- [x] `streak_adjustments` table for admin corrections
+- [ ] Admin website: add a streak adjustment (e.g. dead phone battery)
+- [ ] Tested end-to-end on an Android phone
 
 ---
 
