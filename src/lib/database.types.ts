@@ -19,6 +19,8 @@ export type Database = {
           created_at: string
           id: string
           passage: string | null
+          plan_day: number | null
+          plan_id: string | null
           read_text: string | null
           reading_date: string
           reflect_text: string | null
@@ -30,6 +32,8 @@ export type Database = {
           created_at?: string
           id?: string
           passage?: string | null
+          plan_day?: number | null
+          plan_id?: string | null
           read_text?: string | null
           reading_date: string
           reflect_text?: string | null
@@ -41,6 +45,8 @@ export type Database = {
           created_at?: string
           id?: string
           passage?: string | null
+          plan_day?: number | null
+          plan_id?: string | null
           read_text?: string | null
           reading_date?: string
           reflect_text?: string | null
@@ -291,6 +297,44 @@ export type Database = {
           },
         ]
       }
+      user_plans: {
+        Row: {
+          completed_at: string | null
+          current_day: number
+          plan_id: string
+          started_at: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          current_day?: number
+          plan_id: string
+          started_at?: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          current_day?: number
+          plan_id?: string
+          started_at?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_plans_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -351,6 +395,24 @@ export type Database = {
         Returns: undefined
       }
       can_view_progress: { Args: { p_user_id: string }; Returns: boolean }
+      complete_plan_day: {
+        Args: { p_day: number; p_plan_id: string; p_total_days: number }
+        Returns: {
+          completed_at: string | null
+          current_day: number
+          plan_id: string
+          started_at: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_plans"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       compute_streak: {
         Args: { p_user_id: string }
         Returns: Record<string, unknown>
@@ -397,8 +459,44 @@ export type Database = {
         Returns: undefined
       }
       oversees: { Args: { p_user_id: string }; Returns: boolean }
+      pause_plan: {
+        Args: { p_plan_id: string }
+        Returns: {
+          completed_at: string | null
+          current_day: number
+          plan_id: string
+          started_at: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_plans"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       read_on: { Args: { p_day: string; p_user_id: string }; Returns: boolean }
       require_admin: { Args: never; Returns: undefined }
+      start_plan: {
+        Args: { p_plan_id: string }
+        Returns: {
+          completed_at: string | null
+          current_day: number
+          plan_id: string
+          started_at: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_plans"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
     }
     Enums: {
       checkin_mode: "guided" | "simple"

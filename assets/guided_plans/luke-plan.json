@@ -1,0 +1,464 @@
+{
+  "id": "luke-24-day",
+  "title": "Luke: A 24-Day Devotional",
+  "description": "One chapter of Luke each day, with a short theme and reflection questions.",
+  "durationDays": 24,
+  "source": {
+    "name": "NewSpring Church",
+    "url": "https://newspring.cc/devotionals/luke-a-24-day-devotional"
+  },
+  "days": [
+    {
+      "day": 1,
+      "originalSession": 1,
+      "title": "You are never too weak to make a difference",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 1,
+          "reference": "Luke 1"
+        }
+      ],
+      "summary": "God uses people who feel unqualified, like Mary.",
+      "reflectionQuestions": [
+        "What are your weaknesses?",
+        "How might God use them?",
+        "What attitude needs to change?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/you-are-never-too-weak-to-make-a-difference"
+    },
+    {
+      "day": 2,
+      "originalSession": 2,
+      "title": "Obedience isn't always easy",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 2,
+          "reference": "Luke 2"
+        }
+      ],
+      "summary": "Mary and Joseph's inconvenient trip to Bethlehem was part of God's plan.",
+      "reflectionQuestions": [
+        "Have you wanted to quit a calling?",
+        "Why is obedience hard?",
+        "Where is God asking for uncomfortable obedience now?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/obedience-isnt-always-easy"
+    },
+    {
+      "day": 3,
+      "originalSession": 3,
+      "title": "Where your family tree begins matters more than where it ends",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 3,
+          "reference": "Luke 3"
+        }
+      ],
+      "summary": "Belonging to God's family comes through faith in Jesus, not heredity.",
+      "reflectionQuestions": [
+        "How can you rest in being God's child?",
+        "Is your name in God's family?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/where-your-family-tree-begins-matters-more-than-where-it-ends"
+    },
+    {
+      "day": 4,
+      "originalSession": 4,
+      "title": "The most powerful speaker to ever live",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 4,
+          "reference": "Luke 4"
+        }
+      ],
+      "summary": "Jesus' words carry unmatched authority because He is fully God and fully man.",
+      "reflectionQuestions": [
+        "What are the most powerful words you know?",
+        "What is your favorite verse?",
+        "Have you personally encountered Jesus?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/the-most-powerful-speaker-to-ever-live"
+    },
+    {
+      "day": 5,
+      "originalSession": 5,
+      "title": "What it means to be made new",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 5,
+          "reference": "Luke 5"
+        }
+      ],
+      "summary": "The miraculous catch shows new life comes from obeying Jesus' word.",
+      "reflectionQuestions": [
+        "What old way is Jesus breaking in you?",
+        "What new thing is He teaching you?",
+        "Who holds you accountable?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/what-it-means-to-be-made-new"
+    },
+    {
+      "day": 6,
+      "originalSession": 6,
+      "title": "Following Jesus doesn't always make friends",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 6,
+          "reference": "Luke 6"
+        }
+      ],
+      "summary": "Rejection for following Jesus is met with His love and eternal reward.",
+      "reflectionQuestions": [
+        "How do you respond when others reject your faith?",
+        "Where do you find strength in hard times?",
+        "How can you fix your eyes on Jesus?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/following-jesus-doesnt-always-make-friends"
+    },
+    {
+      "day": 7,
+      "originalSession": 7,
+      "title": "What do you think you're entitled to?",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 7,
+          "reference": "Luke 7"
+        }
+      ],
+      "summary": "The centurion humbly knew he didn't deserve Jesus' help.",
+      "reflectionQuestions": [
+        "Where has entitlement crept into your life?",
+        "How can you be humble before God?",
+        "What blessings exceed what you deserve?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/what-do-you-think-youre-entitled-to"
+    },
+    {
+      "day": 8,
+      "originalSession": 8,
+      "title": "What do your actions say about who you are?",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 8,
+          "reference": "Luke 8"
+        }
+      ],
+      "summary": "Jesus' family are those who hear God's word and act on it.",
+      "reflectionQuestions": [
+        "How do you hear Jesus most clearly?",
+        "Is there sin He's asking you to repent of?",
+        "What truth should you put into practice?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/what-do-your-actions-say-about-who-you-are"
+    },
+    {
+      "day": 9,
+      "originalSession": 9,
+      "title": "Who do you say Jesus is?",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 9,
+          "reference": "Luke 9"
+        }
+      ],
+      "summary": "Peter confesses Jesus as Messiah—is He central to your life?",
+      "reflectionQuestions": [
+        "Who do you say Jesus is?",
+        "Does your life reflect it?",
+        "What step can you take today to surrender to Him?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/who-do-you-say-jesus-is"
+    },
+    {
+      "day": 10,
+      "originalSession": 10,
+      "title": "Busyness can cost you the best part of living",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 10,
+          "reference": "Luke 10"
+        }
+      ],
+      "summary": "Mary sat and listened while Martha worried; Jesus values that better part.",
+      "reflectionQuestions": [
+        "Are you more like Martha or Mary?",
+        "Where are you settling for less than Jesus' best?",
+        "How can you listen to Him more?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/busyness-can-cost-you-the-best-part-of-living"
+    },
+    {
+      "day": 11,
+      "originalSession": 11,
+      "title": "What Jesus says about how to pray",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 11,
+          "reference": "Luke 11"
+        }
+      ],
+      "summary": "The Lord's Prayer is a model: simple, bold and persistent, like a child to a father.",
+      "reflectionQuestions": [
+        "How would you describe your prayer life?",
+        "How can you engage God more meaningfully?",
+        "When can you pray today?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/what-jesus-says-about-how-to-pray"
+    },
+    {
+      "day": 12,
+      "originalSession": 12,
+      "title": "Why you don't have to worry",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 12,
+          "reference": "Luke 12"
+        }
+      ],
+      "summary": "God values us far above birds and flowers, so worry loses its hold.",
+      "reflectionQuestions": [
+        "What are you worried about?",
+        "What keeps you from trusting God with your future?",
+        "How can you hand that worry to Jesus?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/why-you-dont-have-to-worry"
+    },
+    {
+      "day": 13,
+      "originalSession": 13,
+      "title": "How to not be fake in your faith",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 13,
+          "reference": "Luke 13"
+        }
+      ],
+      "summary": "Real faith bears fruit; it doesn't just look good.",
+      "reflectionQuestions": [
+        "Where have you seen growth recently?",
+        "What change would make you more like Jesus?",
+        "What needs pruning?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/how-to-not-be-fake-in-your-faith"
+    },
+    {
+      "day": 14,
+      "originalSession": 14,
+      "title": "Who is in charge of your life?",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 14,
+          "reference": "Luke 14"
+        }
+      ],
+      "summary": "Pharisees' pride vs. Jesus' humility at the dinner—does He have the place of honor in your life?",
+      "reflectionQuestions": [
+        "Is Jesus at the head of your life?",
+        "What's hindering your next step?",
+        "What should you start or stop doing?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/who-is-in-charge-of-your-life"
+    },
+    {
+      "day": 15,
+      "originalSession": 15,
+      "title": "Where to turn when you feel lost",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 15,
+          "reference": "Luke 15"
+        }
+      ],
+      "summary": "The lost sheep, coin and son show the Father welcomes the lost home.",
+      "reflectionQuestions": [
+        "When did you feel closest to Jesus?",
+        "What moved you closer or farther?",
+        "What step can you take today?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/where-to-turn-when-you-feel-lost"
+    },
+    {
+      "day": 16,
+      "originalSession": 16,
+      "title": "How to make investments that last",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 16,
+          "reference": "Luke 16"
+        }
+      ],
+      "summary": "Money is God's; we are stewards called to invest in true riches.",
+      "reflectionQuestions": [
+        "Have you acted more like owner or steward?",
+        "How much do you consult God about money?",
+        "Where can your money make a difference for God?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/how-to-make-investments-that-last"
+    },
+    {
+      "day": 17,
+      "originalSession": 17,
+      "title": "Instead of being quick to blame, be quick to thank",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 17,
+          "reference": "Luke 17"
+        }
+      ],
+      "summary": "Ten men are healed, but only one returns to thank Jesus.",
+      "reflectionQuestions": [
+        "Have you forgotten to thank God for an answered prayer?",
+        "What blessings do you take for granted?",
+        "What can you thank Jesus for today?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/instead-of-being-quick-to-blame-be-quick-to-thank"
+    },
+    {
+      "day": 18,
+      "originalSession": 18,
+      "title": "How to know what you worship",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 18,
+          "reference": "Luke 18"
+        }
+      ],
+      "summary": "The rich ruler's wealth and self-righteousness competed with God.",
+      "reflectionQuestions": [
+        "What is most likely to compete with God for your affection?",
+        "Is anything in the way of your worship?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/how-to-know-what-you-worship"
+    },
+    {
+      "day": 19,
+      "originalSession": 19,
+      "title": "Jesus wants you as you are",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 19,
+          "reference": "Luke 19"
+        }
+      ],
+      "summary": "Jesus calls Zacchaeus by name and welcomes him as he is.",
+      "reflectionQuestions": [
+        "Have you decided to follow Jesus, and how has it changed you?",
+        "If not, what holds you back?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/jesus-wants-you-as-you-are"
+    },
+    {
+      "day": 20,
+      "originalSession": 20,
+      "title": "What will relationships be like in heaven?",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 20,
+          "reference": "Luke 20"
+        }
+      ],
+      "summary": "Our deepest intimacy in heaven will be with God; earth is a temporary home.",
+      "reflectionQuestions": [
+        "How does this affect your view of death?",
+        "How can you trust Jesus with what you can't control?",
+        "Are you sure of your place in heaven?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/what-will-relationships-be-like-in-heaven"
+    },
+    {
+      "day": 21,
+      "originalSession": 21,
+      "title": "What does Jesus want from me?",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 21,
+          "reference": "Luke 21"
+        }
+      ],
+      "summary": "The widow's offering shows Jesus wants total surrender, not a percentage.",
+      "reflectionQuestions": [
+        "Is any area of your life not fully His?",
+        "Is He asking you to give something up?",
+        "What step can you take today?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/what-does-jesus-want-from-me"
+    },
+    {
+      "day": 22,
+      "originalSession": 22,
+      "title": "How to be the greatest",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 22,
+          "reference": "Luke 22"
+        }
+      ],
+      "summary": "Jesus says greatness means serving; pride is the enemy of service.",
+      "reflectionQuestions": [
+        "Where has pride crept in?",
+        "Who can you confess it to?",
+        "How can you serve someone today?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/how-to-be-the-greatest"
+    },
+    {
+      "day": 23,
+      "originalSession": 23,
+      "title": "Why should I forgive?",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 23,
+          "reference": "Luke 23"
+        }
+      ],
+      "summary": "Jesus forgave from the cross; we extend the forgiveness we've received.",
+      "reflectionQuestions": [
+        "Do you see pain as a reason for a grudge or a chance to share in Christ's suffering?",
+        "Who should you forgive today?",
+        "What step can you take toward forgiveness?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/why-should-i-forgive"
+    },
+    {
+      "day": 24,
+      "originalSession": 24,
+      "title": "Jesus meets us where we are",
+      "reading": [
+        {
+          "book": "Luke",
+          "chapter": 24,
+          "reference": "Luke 24"
+        }
+      ],
+      "summary": "On the road to Emmaus, Jesus reveals Himself to disciples who urge Him to stay.",
+      "reflectionQuestions": [
+        "What are you hoping God will move in?",
+        "When did you later see God working in a season He felt absent?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/luke-a-24-day-devotional/jesus-meets-us-where-we-are"
+    }
+  ]
+}

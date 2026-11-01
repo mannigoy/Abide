@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Linking, Pressable, StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/app-text';
@@ -7,13 +7,15 @@ import { ChapterText } from '@/components/bible/chapter-text';
 import { HighlightSheet } from '@/components/bible/highlight-sheet';
 import { VersionPicker } from '@/components/bible/version-picker';
 import { Button } from '@/components/button';
+import { PlansView } from '@/components/plans/plans-view';
 import { Screen } from '@/components/screen';
+import { SegmentedControl } from '@/components/segmented-control';
 import { Colors, Fonts, Radius, Spacing } from '@/constants/theme';
 import {
+  BibleError,
   getChapter,
   loadReaderState,
   saveReaderState,
-  VERSIONS,
   type BiblePosition,
   type Chapter,
   type ChapterItem,
@@ -29,7 +31,32 @@ import { useSession } from '@/lib/session';
 
 type Verse = Extract<ChapterItem, { type: 'verse' }>;
 
-export default function BibleScreen() {
+const LOAD_ERRORS: Record<BibleError['reason'], string> = {
+  offline: 'Couldn’t load this chapter. Check your internet connection.',
+  busy: 'The Bible service is busy right now. Please try again in a minute.',
+  not_licensed: 'This version isn’t available in Abide yet. Please choose another version.',
+  other: 'Something went wrong loading this chapter. Please try again.',
+};
+
+type TabView = 'bible' | 'plans';
+
+/** The Bible tab: a switch at the top between the reader and reading plans. */
+export default function BibleTab() {
+  const [view, setView] = useState<TabView>('bible');
+  const header = (
+    <SegmentedControl
+      options={[
+        { value: 'bible', label: 'Bible' },
+        { value: 'plans', label: 'Plans' },
+      ]}
+      value={view}
+      onChange={setView}
+    />
+  );
+  return view === 'bible' ? <BibleReader header={header} /> : <PlansView header={header} />;
+}
+
+function BibleReader({ header }: { header: ReactNode }) {
   const { profile } = useSession();
   const userId = profile?.id;
 
@@ -37,7 +64,7 @@ export default function BibleScreen() {
   const [reader, setReader] = useState<{ versionId: string; position: BiblePosition } | null>(null);
   const [retryCount, setRetryCount] = useState(0);
   // Remember which chapter was loaded, so a different one counts as "still loading".
-  const [loaded, setLoaded] = useState<{ key: string; chapter: Chapter | null } | null>(null);
+  const [loaded, setLoaded] = useState<{ key: string; chapter: Chapter | null; error?: string } | null>(null);
   const [highlights, setHighlights] = useState<ChapterHighlights>({});
   const [picker, setPicker] = useState<'book' | 'version' | null>(null);
   const [selectedVerse, setSelectedVerse] = useState<Verse | null>(null);
@@ -59,8 +86,9 @@ export default function BibleScreen() {
       .then((result) => {
         if (!ignore) setLoaded({ key: chapterKey, chapter: result });
       })
-      .catch(() => {
-        if (!ignore) setLoaded({ key: chapterKey, chapter: null });
+      .catch((error: unknown) => {
+        const reason = error instanceof BibleError ? error.reason : 'other';
+        if (!ignore) setLoaded({ key: chapterKey, chapter: null, error: LOAD_ERRORS[reason] });
       });
     return () => {
       ignore = true;
@@ -109,19 +137,21 @@ export default function BibleScreen() {
   }
 
   if (!reader) return null;
-  const version = VERSIONS.find((v) => v.id === reader.versionId);
+  // While a new chapter loads, keep showing the last version name instead of a blank.
+  const versionLabel = (chapter ?? loaded?.chapter)?.attribution.shortName ?? 'Version';
   const placeLabel = chapter ? `${chapter.bookName} ${chapter.chapter}` : 'Choose a book';
 
   return (
     <>
       {/* The key makes the screen start again at the top when the chapter changes. */}
       <Screen key={`${reader.versionId}.${reader.position.bookId}.${reader.position.chapter}`}>
+        {header}
         <View style={styles.toolbar}>
           <Pressable style={[styles.chip, styles.placeChip]} onPress={() => setPicker('book')}>
             <AppText style={styles.chipText}>{placeLabel} ▾</AppText>
           </Pressable>
           <Pressable style={styles.chip} onPress={() => setPicker('version')}>
-            <AppText style={styles.chipText}>{version?.shortName ?? reader.versionId} ▾</AppText>
+            <AppText style={styles.chipText}>{versionLabel} ▾</AppText>
           </Pressable>
         </View>
 
@@ -129,9 +159,7 @@ export default function BibleScreen() {
 
         {chapter === null && (
           <>
-            <AppText variant="caption">
-              Couldn’t load this chapter. Check your internet connection.
-            </AppText>
+            <AppText variant="caption">{loaded?.error}</AppText>
             <Button title="Try again" variant="secondary" onPress={() => setRetryCount((n) => n + 1)} />
           </>
         )}
@@ -174,17 +202,14 @@ export default function BibleScreen() {
             {/* Copyright: shown wherever Scripture is displayed. */}
             <View style={styles.attribution}>
               <AppText variant="caption">
-                {chapter.attribution.name} ({chapter.attribution.shortName}).{' '}
-                {chapter.attribution.publicDomain ? 'Public domain.' : 'Used under its free licence.'}
+                {chapter.attribution.name} ({chapter.attribution.shortName})
               </AppText>
-              <Pressable onPress={() => Linking.openURL(chapter.attribution.licenseUrl)}>
+              {chapter.attribution.copyright !== '' && (
+                <AppText variant="caption">{chapter.attribution.copyright}</AppText>
+              )}
+              <Pressable onPress={() => Linking.openURL(chapter.attribution.url)}>
                 <AppText variant="caption" style={styles.link}>
-                  Copyright and licence details
-                </AppText>
-              </Pressable>
-              <Pressable onPress={() => Linking.openURL('https://bible.helloao.org')}>
-                <AppText variant="caption" style={styles.link}>
-                  Text from the Free Use Bible API
+                  Bible text provided by YouVersion
                 </AppText>
               </Pressable>
             </View>

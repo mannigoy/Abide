@@ -6,6 +6,7 @@ import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
 import { Card } from '@/components/card';
 import { NotebookScanButtons } from '@/components/notebook-scan-buttons';
+import { PassagePicker } from '@/components/passage-picker';
 import { Screen } from '@/components/screen';
 import { SimpleCheckinForm } from '@/components/simple-checkin-form';
 import { TextField } from '@/components/text-field';
@@ -130,7 +131,7 @@ function GuidedCheckin({ userId, readingDate, dayLabel, onSaved }: GuidedCheckin
   async function handleNext() {
     setError(null);
     if (step === 0 && !passage.trim()) {
-      setError('Please add the passage you read, e.g. John 3.');
+      setError('Please choose the passage you read.');
       return;
     }
     if (!isLastStep) {
@@ -169,14 +170,7 @@ function GuidedCheckin({ userId, readingDate, dayLabel, onSaved }: GuidedCheckin
       <AppText>{current.intro}</AppText>
 
       {step === 0 && (
-        <TextField
-          label="Passage"
-          placeholder="e.g. John 3"
-          value={passage}
-          onChangeText={setPassage}
-          maxLength={100}
-          autoCapitalize="words"
-        />
+        <PassagePicker label="Passage" value={passage} onChange={setPassage} />
       )}
 
       {current.prompts.map((prompt) => (

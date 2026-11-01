@@ -1,0 +1,790 @@
+{
+  "id": "mark-41-day",
+  "title": "Mark: A 6-Week Devotional",
+  "description": "41 short readings that walk through the whole Gospel of Mark in order, each with a theme and reflection questions.",
+  "durationDays": 41,
+  "source": {
+    "name": "NewSpring Church",
+    "url": "https://newspring.cc/devotionals/mark-a-6-week-devotional"
+  },
+  "days": [
+    {
+      "day": 1,
+      "originalSession": 26,
+      "title": "How to experience true change",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 1,
+          "reference": "Mark 1:1-8"
+        }
+      ],
+      "summary": "Confession admits sin, repentance turns from it, and the Spirit helps us change.",
+      "reflectionQuestions": [
+        "What have you planned that needs action?",
+        "Is there a sin you keep confessing but not overcoming?",
+        "Is Jesus in control of your life?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/how-to-experience-true-change"
+    },
+    {
+      "day": 2,
+      "originalSession": 27,
+      "title": "Why baptism matters for you",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 1,
+          "reference": "Mark 1:9-13"
+        }
+      ],
+      "summary": "Jesus's baptism was obedience and public identification; baptism declares our faith.",
+      "reflectionQuestions": [
+        "Have you been baptized since trusting Jesus?",
+        "If not, what's holding you back?",
+        "What is God asking of you today?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/why-baptism-matter-for-you"
+    },
+    {
+      "day": 3,
+      "originalSession": 28,
+      "title": "Do you want to be closer to Jesus?",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 1,
+          "reference": "Mark 1:14-20"
+        }
+      ],
+      "summary": "The first disciples left their nets at once; respond to Jesus's call right away.",
+      "reflectionQuestions": [
+        "What holds you back from following Jesus fully?",
+        "How can you look for Jesus more during your day?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/do-you-want-to-be-closer-to-jesus"
+    },
+    {
+      "day": 4,
+      "originalSession": 29,
+      "title": "Do you see Jesus as a healer?",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 1,
+          "reference": "Mark 1:21-34"
+        }
+      ],
+      "summary": "Healing follows as people recognize Jesus's authority and believe.",
+      "reflectionQuestions": [
+        "Who is your authority on right and wrong?",
+        "Have you submitted your life to Jesus as Lord?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/do-you-see-jesus-as-a-healer"
+    },
+    {
+      "day": 5,
+      "originalSession": 30,
+      "title": "Why does time with Jesus matter?",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 1,
+          "reference": "Mark 1:35-39"
+        }
+      ],
+      "summary": "Jesus withdraws to pray; time in prayer and Scripture keeps us connected like a branch to the vine.",
+      "reflectionQuestions": [
+        "How consistently do you read the Bible?",
+        "What in your schedule must change to meet with God daily?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/why-does-time-with-jesus-matter"
+    },
+    {
+      "day": 6,
+      "originalSession": 31,
+      "title": "What does faith look like?",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 1,
+          "reference": "Mark 1:40-45"
+        },
+        {
+          "book": "Mark",
+          "chapter": 2,
+          "reference": "Mark 2:1-12"
+        }
+      ],
+      "summary": "Four friends lower a paralyzed man through a roof; faith shows up in loving action.",
+      "reflectionQuestions": [
+        "What do your actions say about faith?",
+        "Who needs Jesus, and how could you bring them closer?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/what-does-faith-look-like"
+    },
+    {
+      "day": 7,
+      "originalSession": 32,
+      "title": "You don't have to clean up first",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 2,
+          "reference": "Mark 2:13-17"
+        }
+      ],
+      "summary": "Jesus eats with tax collectors and sinners, meeting people in their mess.",
+      "reflectionQuestions": [
+        "Is a mess keeping you from Jesus?",
+        "How can you reach people in the middle of their mess?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/you-dont-have-to-clean-up-first"
+    },
+    {
+      "day": 8,
+      "originalSession": 33,
+      "title": "What is the Sabbath and why does it matter?",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 2,
+          "reference": "Mark 2:18-28"
+        },
+        {
+          "book": "Mark",
+          "chapter": 3,
+          "reference": "Mark 3:1-6"
+        }
+      ],
+      "summary": "The Sabbath is a gift of rest and trust in God, not a list of rules.",
+      "reflectionQuestions": [
+        "What does Sabbath look like for you?",
+        "When do you feel closest to God, and how can you make room for it weekly?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/what-is-the-sabbath-and-why-does-it-matter"
+    },
+    {
+      "day": 9,
+      "originalSession": 34,
+      "title": "How to do life with others like Jesus did",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 3,
+          "reference": "Mark 3:7-19"
+        }
+      ],
+      "summary": "Jesus chose imperfect disciples: we can't do life alone, people will let us down, and Jesus uses anyone.",
+      "reflectionQuestions": [
+        "Who do you lean on and celebrate with?",
+        "Is there someone you need to forgive or ask forgiveness from?",
+        "Who needs to hear the gospel from you this week?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/how-to-do-life-with-others-like-jesus-did"
+    },
+    {
+      "day": 10,
+      "originalSession": 35,
+      "title": "Is your top commitment to Jesus?",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 3,
+          "reference": "Mark 3:20-35"
+        }
+      ],
+      "summary": "Jesus asks for commitment, not perfection, and He should come first.",
+      "reflectionQuestions": [
+        "How committed are you to Jesus (1-10)?",
+        "What most influences your decisions, and where does Jesus rank?",
+        "What step will make Jesus your top priority?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/is-your-top-commitment-to-jesus"
+    },
+    {
+      "day": 11,
+      "originalSession": 36,
+      "title": "Are you growing good soil?",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 4,
+          "reference": "Mark 4:1-20"
+        }
+      ],
+      "summary": "The parable of the sower: faith grows when rooted in God's Word and people, with weeds removed.",
+      "reflectionQuestions": [
+        "Is your life planted in good soil?",
+        "What weeds need pulling this week?",
+        "Who supports you—should you join a group or team?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/are-you-growing-good-soil"
+    },
+    {
+      "day": 12,
+      "originalSession": 37,
+      "title": "Your story is powerful and important",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 4,
+          "reference": "Mark 4:21-34"
+        }
+      ],
+      "summary": "Jesus taught in parables; our story of meeting Him helps reach others.",
+      "reflectionQuestions": [
+        "What is your story of meeting Jesus?",
+        "How could Jesus use it?",
+        "Who could you share it with today?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/your-story-is-powerful-and-important"
+    },
+    {
+      "day": 13,
+      "originalSession": 38,
+      "title": "How to combat fear with faith",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 4,
+          "reference": "Mark 4:35-41"
+        }
+      ],
+      "summary": "The disciples panic while Jesus sleeps in the storm; fear forgets His power.",
+      "reflectionQuestions": [
+        "What are you afraid of, and how has it shaped you?",
+        "Where do your words and actions about Jesus not match?",
+        "How can God guide you through your current storm?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/how-to-combat-fear-with-faith"
+    },
+    {
+      "day": 14,
+      "originalSession": 39,
+      "title": "How has Jesus changed your whole life?",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 5,
+          "reference": "Mark 5:1-20"
+        }
+      ],
+      "summary": "The freed man tells everyone what Jesus did; a changed life leads others to Him.",
+      "reflectionQuestions": [
+        "How has your life changed since following Jesus?",
+        "Who influenced your decision to follow Him?",
+        "Who needs Jesus, and how can you help?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/how-has-jesus-changed-your-whole-life"
+    },
+    {
+      "day": 15,
+      "originalSession": 40,
+      "title": "Why your faith is important",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 5,
+          "reference": "Mark 5:21-43"
+        }
+      ],
+      "summary": "Jairus's daughter and the bleeding woman show God honors faith, even after painful experiences.",
+      "reflectionQuestions": [
+        "Where do you need to trust God right now?",
+        "How has God honored your faith before?",
+        "Do you need to talk with someone about a struggle?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/why-your-faith-is-important"
+    },
+    {
+      "day": 16,
+      "originalSession": 41,
+      "title": "How to believe even when it's hard to see",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 6,
+          "reference": "Mark 6:1-13"
+        }
+      ],
+      "summary": "Jesus's hometown doubts Him; faith trusts before it sees.",
+      "reflectionQuestions": [
+        "Are you waiting for proof before obeying God?",
+        "When have you taken a leap of faith, and what did you learn?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/how-to-believe-even-when-its-hard-to-see"
+    },
+    {
+      "day": 17,
+      "originalSession": 16,
+      "title": "What to do when you face an impossible task",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 6,
+          "reference": "Mark 6:14-44"
+        }
+      ],
+      "summary": "Faced with feeding 5,000, the disciples despair; the answer is to bring it to Jesus.",
+      "reflectionQuestions": [
+        "What are you most afraid of right now?",
+        "What can you learn from the disciples about bringing fears to Jesus?",
+        "When has Jesus brought you through the impossible?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/what-to-do-when-you-face-an-impossible-task"
+    },
+    {
+      "day": 18,
+      "originalSession": 17,
+      "title": "Don't let distraction stop you from seeing the miracle",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 6,
+          "reference": "Mark 6:45-56"
+        }
+      ],
+      "summary": "Focused on the storm, the disciples nearly miss Jesus walking toward them.",
+      "reflectionQuestions": [
+        "When has a storm distracted you from Jesus?",
+        "How can you prepare to notice miracles in hard seasons?",
+        "Which past miracles can you remember and celebrate?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/dont-let-distraction-stop-you-from-seeing-the-miracle"
+    },
+    {
+      "day": 19,
+      "originalSession": 18,
+      "title": "Life with Jesus is more than a list of rules",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 7,
+          "reference": "Mark 7:1-23"
+        }
+      ],
+      "summary": "Pharisaic rule-keeping is contrasted with faith built on relationship and love.",
+      "reflectionQuestions": [
+        "Are you motivated by rules or by following a person?",
+        "Where do Christians today repeat the Pharisees' mistakes?",
+        "What are you allowing to shape your heart?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/life-with-jesus-is-more-than-a-list-of-rules"
+    },
+    {
+      "day": 20,
+      "originalSession": 19,
+      "title": "Are your beliefs based on experience?",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 7,
+          "reference": "Mark 7:24-37"
+        }
+      ],
+      "summary": "Knowing Jesus personally gives weight to what we say about Him.",
+      "reflectionQuestions": [
+        "How has Jesus changed you?",
+        "Who can you tell about that change?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/are-your-beliefs-based-on-experience"
+    },
+    {
+      "day": 21,
+      "originalSession": 20,
+      "title": "When it's time to stop asking for a sign",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 8,
+          "reference": "Mark 8:1-26"
+        }
+      ],
+      "summary": "After feeding 4,000, Jesus refuses a sign; asking for signs can mask unwillingness to obey.",
+      "reflectionQuestions": [
+        "How has God shown Himself faithful recently?",
+        "Are you delaying a next step while waiting for proof?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/when-its-time-to-stop-asking-for-a-sign"
+    },
+    {
+      "day": 22,
+      "originalSession": 21,
+      "title": "Sometimes, saying no is the best yes",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 8,
+          "reference": "Mark 8:27-38"
+        }
+      ],
+      "summary": "Following Jesus means denying ourselves, and the joy is worth the cost.",
+      "reflectionQuestions": [
+        "Who do you say Jesus is?",
+        "What keeps you from Jesus?",
+        "Who needs hope, and how will you share it?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/sometimes-saying-no-is-the-best-yes"
+    },
+    {
+      "day": 23,
+      "originalSession": 22,
+      "title": "What happens when you go to God in prayer",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 9,
+          "reference": "Mark 9:1-29"
+        }
+      ],
+      "summary": "The disciples' failure to drive out a demon shows prayer is our connection to God's power.",
+      "reflectionQuestions": [
+        "Have you asked God for help where you feel called but see no progress?",
+        "Where have you seen growth recently?",
+        "What is your next step with Jesus?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/what-happens-when-you-go-to-god-in-prayer"
+    },
+    {
+      "day": 24,
+      "originalSession": 23,
+      "title": "You are a vital part of the church family",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 9,
+          "reference": "Mark 9:30-41"
+        }
+      ],
+      "summary": "Every believer contributes to the church's mission by serving others.",
+      "reflectionQuestions": [
+        "How can you meet someone's need today?",
+        "What are your gifts, and how might God use them?",
+        "Are you serving yet—what's your next step?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/you-are-a-vital-part-of-the-church-family"
+    },
+    {
+      "day": 25,
+      "originalSession": 24,
+      "title": "What Jesus said you should do with sin",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 9,
+          "reference": "Mark 9:42-50"
+        }
+      ],
+      "summary": "Sin should be cut out completely, not managed, because our lives influence others.",
+      "reflectionQuestions": [
+        "What sin threatens your life, and how will you remove it?",
+        "Does your lifestyle draw people toward Jesus?",
+        "What would a trusted friend say needs to change?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/what-jesus-said-you-should-do-with-sin"
+    },
+    {
+      "day": 26,
+      "originalSession": 25,
+      "title": "Who do you lean on the most?",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 10,
+          "reference": "Mark 10:1-16"
+        }
+      ],
+      "summary": "Self-reliance pushes God out; we must come to Him with childlike trust.",
+      "reflectionQuestions": [
+        "How self-reliant are you?",
+        "When did you last serve someone expecting nothing back?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/who-do-you-lean-on-the-most"
+    },
+    {
+      "day": 27,
+      "originalSession": 1,
+      "title": "How to know what you really value",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 10,
+          "reference": "Mark 10:17-34"
+        }
+      ],
+      "summary": "The rich young man walks away because his possessions mattered more than Jesus.",
+      "reflectionQuestions": [
+        "What do you spend your time and money on—is anything above Jesus?",
+        "Are you tithing, and how has it affected your trust in God?",
+        "Have you put your trust in Jesus?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/how-to-know-what-you-really-value"
+    },
+    {
+      "day": 28,
+      "originalSession": 2,
+      "title": "Tired of not getting your way?",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 11,
+          "reference": "Mark 11:1-33"
+        }
+      ],
+      "summary": "Prayer is less about getting what we ask and more about being shaped so our desires match God's.",
+      "reflectionQuestions": [
+        "What would you ask God for if you could ask anything?",
+        "Do your requests reflect God's priorities?",
+        "How can you spend more time with God this week?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/tired-of-not-getting-your-way"
+    },
+    {
+      "day": 29,
+      "originalSession": 3,
+      "title": "You have a brand, but do you know what it is?",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 12,
+          "reference": "Mark 12:1-17"
+        }
+      ],
+      "summary": "Like the coin bearing Caesar's image, we bear God's image and belong to Him.",
+      "reflectionQuestions": [
+        "Where does your identity come from?",
+        "What area aren't you comfortable giving God control of?",
+        "What does your life say about God's character?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/you-have-a-brand-but-do-you-know-what-it-is"
+    },
+    {
+      "day": 30,
+      "originalSession": 4,
+      "title": "The greatest of all the commandments is love",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 12,
+          "reference": "Mark 12:28-34"
+        }
+      ],
+      "summary": "Jesus sums up the law as loving God and loving others, which matters more than ritual.",
+      "reflectionQuestions": [
+        "What does loving God with heart, mind and soul look like?",
+        "How can you love a coworker, classmate or neighbor this week?",
+        "How does remembering your past help you love hard-to-love people?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/the-greatest-of-all-the-commandments-is-love"
+    },
+    {
+      "day": 31,
+      "originalSession": 5,
+      "title": "It's OK to want to be blessed",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 12,
+          "reference": "Mark 12:35-44"
+        }
+      ],
+      "summary": "The widow who gave everything shows that surrender leads to God's reward.",
+      "reflectionQuestions": [
+        "Do you believe God rewards those who seek Him?",
+        "What area do you want God to move in, and how can you surrender it?",
+        "Do you trust Him enough to give up what He asks?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/its-ok-to-want-to-be-blessed"
+    },
+    {
+      "day": 32,
+      "originalSession": 6,
+      "title": "How to survive the end of the world",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 13,
+          "reference": "Mark 13"
+        }
+      ],
+      "summary": "Peace, the Holy Spirit, perseverance and Scripture equip believers; the warnings shape how we live now.",
+      "reflectionQuestions": [
+        "Do the end times make you uneasy?",
+        "Who is Jesus to you, and how does that shape daily life?",
+        "How do the Spirit and Scripture help you live now?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/how-to-survive-the-end-of-the-world"
+    },
+    {
+      "day": 33,
+      "originalSession": 7,
+      "title": "You're one of the bad guys",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 14,
+          "reference": "Mark 14:1-11"
+        }
+      ],
+      "summary": "Judas's betrayal mirrors our own selfish sin, in contrast to the woman who gave all she had to Jesus.",
+      "reflectionQuestions": [
+        "Where do you struggle to believe Jesus has your best in mind?",
+        "Where have you experienced God's unconditional love?",
+        "When have you settled for less than God's best?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/youre-one-of-the-bad-guys"
+    },
+    {
+      "day": 34,
+      "originalSession": 8,
+      "title": "Why communion is a powerful symbol of our faith",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 14,
+          "reference": "Mark 14:12-26"
+        }
+      ],
+      "summary": "Communion remembers Jesus's sacrifice and the new covenant it began.",
+      "reflectionQuestions": [
+        "Where were you when you first trusted Jesus?",
+        "How does communion remind you of His sacrifice?",
+        "How can you show gratitude for salvation this week?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/why-communion-is-a-powerful-symbol-of-our-faith"
+    },
+    {
+      "day": 35,
+      "originalSession": 9,
+      "title": "When you are weak, Jesus makes you strong",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 14,
+          "reference": "Mark 14:27-42"
+        }
+      ],
+      "summary": "The disciples fail in Gethsemane; our weaknesses are where Jesus's strength shows.",
+      "reflectionQuestions": [
+        "What is your greatest weakness, and how could God use it?",
+        "Where do you need Jesus to be your strength?",
+        "When has God carried you through being overwhelmed?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/when-you-are-weak-jesus-makes-you-strong"
+    },
+    {
+      "day": 36,
+      "originalSession": 10,
+      "title": "Are you scared of sharing your faith?",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 14,
+          "reference": "Mark 14:43-65"
+        }
+      ],
+      "summary": "Peter follows at a distance after the arrest; it's not too late to live and speak openly for Jesus.",
+      "reflectionQuestions": [
+        "Do your actions change depending on who's around?",
+        "What do you fear about declaring your faith?",
+        "What needs to change so you proclaim Jesus rather than please people?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/are-you-scared-of-sharing-your-faith"
+    },
+    {
+      "day": 37,
+      "originalSession": 11,
+      "title": "Does fear drive you to deny Jesus?",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 14,
+          "reference": "Mark 14:66-72"
+        }
+      ],
+      "summary": "Peter's denial comes from fear of others; Jesus welcomes us back when we fall.",
+      "reflectionQuestions": [
+        "Are you denying Jesus in any area, and what fear drives it?",
+        "What support helps you face those fears?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/does-fear-drive-you-to-deny-jesus"
+    },
+    {
+      "day": 38,
+      "originalSession": 12,
+      "title": "You don't have to make everyone happy",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 15,
+          "reference": "Mark 15:1-15"
+        }
+      ],
+      "summary": "Pilate caves to the crowd; security comes from God's approval, not people-pleasing.",
+      "reflectionQuestions": [
+        "Do you feel a need to please others, and why?",
+        "How can you focus on God's plan over others' opinions?",
+        "Where has people-pleasing caused harm in your life?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/you-dont-have-to-make-everyone-happy"
+    },
+    {
+      "day": 39,
+      "originalSession": 13,
+      "title": "You are not alone in your suffering",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 15,
+          "reference": "Mark 15:16-41"
+        }
+      ],
+      "summary": "Jesus's cry on the cross shows He understands suffering and God is with us in ours.",
+      "reflectionQuestions": [
+        "Have you opened up to anyone about your problems?",
+        "Where do you feel abandoned—can you tell Jesus now?",
+        "What decision do you need the Spirit's guidance on?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/you-are-not-alone-in-your-suffering"
+    },
+    {
+      "day": 40,
+      "originalSession": 14,
+      "title": "Some things are too important to worry about fitting in",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 15,
+          "reference": "Mark 15:42-47"
+        }
+      ],
+      "summary": "Joseph of Arimathea steps out openly to ask for Jesus's body, putting faith above fitting in.",
+      "reflectionQuestions": [
+        "How important is fitting in to you (1-10)?",
+        "Have you compromised your faith to fit in?",
+        "Where can you share your faith boldly?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/some-things-are-too-important-to-worry-about-fitting-in"
+    },
+    {
+      "day": 41,
+      "originalSession": 15,
+      "title": "What the resurrection did for you",
+      "reading": [
+        {
+          "book": "Mark",
+          "chapter": 16,
+          "reference": "Mark 16:1-8"
+        }
+      ],
+      "summary": "The resurrection brings believers forgiveness, focus and a future.",
+      "reflectionQuestions": [
+        "When did you last thank Jesus for your salvation?",
+        "How is your future different because Jesus is alive?",
+        "Does your focus need to change?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/mark-a-6-week-devotional/what-the-resurrection-did-for-you"
+    }
+  ]
+}

@@ -13,10 +13,10 @@ Leaders do **RRR** (Read, Reflect, Respond) in a paper notebook, then check in o
 
 ## Status
 
-**Phases 2–6 of 9 (accounts, check-ins, Bible reader, notebook scan, overseer view and streaks): code complete, being tested on a phone.** An admin website is also in progress.
+**Phases 2–6 of 9 (accounts, check-ins, Bible reader, notebook scan, overseer view and streaks): code complete, being tested on a phone.** The admin website is done. Now building **guided reading plans** in the Bible tab.
 
 ```
-Overall  ████████████░░░░░░░░  ~60%
+Overall  █████████████░░░░░░░  ~65%
 ```
 
 ```mermaid
@@ -46,6 +46,7 @@ flowchart LR
 - [x] Database: `profiles`, `groups` and `group_members` tables, with Row Level Security
 - [x] Open sign-up; a new account only sees its own data until it joins a group
 - [x] Sign-in / sign-up screens; the app remembers who's signed in
+- [x] Show/hide password button
 - [x] Separate tabs for overseers (Today, Leaders) and leaders (Home, Heroes)
 - [x] Overseers create small groups (cell groups or ministries) and share each group's join code
 - [x] Leaders join one or more groups with a code from Profile; their group's overseer can then see them
@@ -58,16 +59,30 @@ flowchart LR
 - [x] Guided mode: Read → Reflect → Respond steps with notebook reminders
 - [x] Check in for yesterday if you forgot
 - [x] Celebration screen after each check-in
+- [x] Passage is picked from a list (book → chapter → verse or verse range), not typed
 - [ ] Tested end-to-end on an Android phone
 
 ### Phase 4 progress
 
 - [x] Bible tab: pick a book and chapter, previous/next, remembers where you were
-- [x] Versions: English (BSB, WEB, KJV), Tagalog (ULB), Cebuano (OCB, ULB)
-- [x] Chapters saved on the phone, so re-reading works offline
+- [x] Versions: every English, Tagalog and Cebuano version our YouVersion key is licensed for (e.g. NIV)
+- [x] Bible text from YouVersion (NIV and other licensed versions) through a Supabase Edge Function, so the key stays secret
 - [x] Each version's copyright and licence shown under the text
 - [x] Highlights: tap a verse, pick one of 4 colours; only the verse reference (e.g. `JHN.3.16`) is stored
 - [ ] Connect to check-in: the Read step opens today's passage
+- [ ] Tested end-to-end on an Android phone
+
+### Reading plans (in the Bible tab)
+
+Guided RRR plans: each day gives a passage and reflection questions. A day counts as done only when the leader checks in for it, so missing a calendar day never skips a reading.
+
+- [x] 4 Gospel plans (Matthew 28 days, Mark 41, Luke 24, John 21) from NewSpring Church devotionals, in [`assets/guided_plans/`](assets/guided_plans/)
+- [x] `lib/plans.ts` loads and checks them; `npm run check:plans` validates every plan file
+- [x] `user_plans` table: one active plan per user (enforced by the database), pause and resume, restart after finishing
+- [x] Check-ins can record which plan day they were for; a plan only moves forward when that check-in exists
+- [x] Bible tab: **Bible | Plans** switch, *My plan* card with progress, filter chips, plan list
+- [ ] "Continue today's RRR" opens the guided check-in with the day's passage and questions
+- [ ] Plan detail screen with "Start this plan"
 - [ ] Tested end-to-end on an Android phone
 
 ### Phase 5 progress
@@ -101,7 +116,7 @@ flowchart LR
 | App | [Expo](https://expo.dev) (React Native) + TypeScript, [Expo Router](https://docs.expo.dev/router/introduction/) |
 | Backend | [Supabase](https://supabase.com): Postgres, Auth, Realtime, Edge Functions (free plan) |
 | Text recognition | Google ML Kit, on-device |
-| Scripture | [Free Use Bible API](https://bible.helloao.org) (free, no key, no limits) |
+| Scripture | [YouVersion Platform](https://platform.youversion.com) via the `youversion` Edge Function (free for non-commercial apps) |
 
 ## Running it locally
 
@@ -115,9 +130,15 @@ flowchart LR
    npx supabase link --project-ref <your-project-ref>
    npx supabase db push
    ```
-4. Start the app and scan the QR code with [Expo Go](https://expo.dev/go) on your Android phone:
+4. Set the YouVersion app key for the Bible (it stays on Supabase, never in the app):
    ```bash
-   npx expo start
+   npx supabase functions deploy youversion
+   npx supabase secrets set YVP_APP_KEY=<your-youversion-app-key>
+   ```
+5. Start the app. With the Abide development build installed, open it and connect; or use [Expo Go](https://expo.dev/go) (notebook scan is hidden there):
+   ```bash
+   npx expo start        # development build
+   npx expo start --go   # Expo Go
    ```
 
 ## Admin website
@@ -150,6 +171,8 @@ src/app/          Screens (file-based routes)
 src/components/   Reusable UI (Button, TextField, Screen, …)
 src/constants/    Theme: colours, spacing, fonts
 src/lib/          Supabase client and data functions
+assets/guided_plans/  Reading plans (JSON)
+scripts/          Dev checks (e.g. check-plans.mts)
 supabase/         Database migrations and Edge Functions
 admin/            Admin website (separate app)
 ```

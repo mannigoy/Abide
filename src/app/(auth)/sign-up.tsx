@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
 import { Screen } from '@/components/screen';
+import { PasswordField } from '@/components/password-field';
 import { TextField } from '@/components/text-field';
 import { Colors, Spacing } from '@/constants/theme';
 import { signUp } from '@/lib/auth';
@@ -70,11 +71,10 @@ export default function SignUpScreen() {
         keyboardType="email-address"
         textContentType="emailAddress"
       />
-      <TextField
+      <PasswordField
         label="Password"
         value={password}
         onChangeText={setPassword}
-        secureTextEntry
         autoComplete="new-password"
         textContentType="newPassword"
         placeholder="At least 6 characters"

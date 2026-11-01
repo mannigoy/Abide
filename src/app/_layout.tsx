@@ -70,6 +70,7 @@ function RootNavigator() {
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="check-in" />
           <Stack.Screen name="leader/[id]" />
+          <Stack.Screen name="plans/[id]" />
         </Stack.Protected>
         <Stack.Protected guard={!isSignedIn} redirectTo="/">
           <Stack.Screen name="(auth)" />

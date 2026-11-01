@@ -14,6 +14,14 @@ export const Colors = {
   textSecondary: '#5E6B66',
   border: '#E8E2D8',
   overlay: 'rgba(31, 42, 38, 0.4)', // dims the screen behind a bottom sheet
+  track: '#ECE8E1', // behind the segmented control
+} as const;
+
+/** Soft backgrounds for a plan's icon tile. */
+export const TileColors = {
+  green: '#E3EEE9',
+  blue: '#E3EAF4',
+  amber: '#FBEFD9',
 } as const;
 
 /** Soft verse highlight colours, light enough to read dark text on. */

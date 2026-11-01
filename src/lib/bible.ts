@@ -1,40 +1,43 @@
 import Storage from 'expo-sqlite/kv-store';
 
+import { htmlToItems, type ChapterItem } from '@/lib/bible-html';
+import { supabase } from '@/lib/supabase';
+
+export { verseId, type ChapterItem } from '@/lib/bible-html';
+
 /**
- * Bible text from the Free Use Bible API (https://bible.helloao.org): free,
- * no API key, no request limit. Text is only ever saved on the phone, never
- * in our database (we store verse references like JHN.3.16, not text).
+ * Bible text from the YouVersion Platform, through our `youversion` Edge
+ * Function (the app key is a secret, so it lives on Supabase, not in the app).
+ *
+ * What we save on the phone: the list of versions and each version's books
+ * and verse counts. No Scripture. Chapter text is only kept in memory while
+ * the app is open, because the publishers' licences (e.g. NIV) don't let us
+ * keep copies. We never store Bible text in our database either, only verse
+ * references like JHN.3.16.
  */
-const API = 'https://bible.helloao.org/api';
 
 export type BibleVersion = {
-  /** The API's translation id. */
+  /** YouVersion's Bible id, as a string, e.g. "111". */
   id: string;
   shortName: string;
   name: string;
   language: string;
 };
 
-/** The versions offered in the app. Any translation id from the API can be added here. */
-export const VERSIONS: BibleVersion[] = [
-  { id: 'BSB', shortName: 'BSB', name: 'Berean Standard Bible', language: 'English' },
-  { id: 'ENGWEBP', shortName: 'WEB', name: 'World English Bible', language: 'English' },
-  { id: 'eng_kjv', shortName: 'KJV', name: 'King James Version', language: 'English' },
-  { id: 'tgl_ulb', shortName: 'ULB', name: 'Tagalog Bible', language: 'Tagalog' },
-  { id: 'ceb_ocb', shortName: 'OCB', name: 'Ang Pulong sa Dios', language: 'Cebuano' },
-  { id: 'ceb_ulb', shortName: 'ULB', name: 'Cebuano Bible', language: 'Cebuano' },
-];
-
-export const DEFAULT_VERSION_ID = 'BSB';
+/** Berean Standard Bible: public domain, so every app key can read it. */
+export const DEFAULT_VERSION_ID = '3034';
 export const DEFAULT_POSITION: BiblePosition = { bookId: 'JHN', chapter: 1 };
 
 export type BiblePosition = { bookId: string; chapter: number };
 
-export type Book = { id: string; name: string; numberOfChapters: number };
+export type Book = {
+  id: string;
+  name: string;
+  numberOfChapters: number;
+  /** verseCounts[0] is the number of verses in chapter 1, and so on. */
+  verseCounts: number[];
+};
 
-export type ChapterItem =
-  | { type: 'heading'; text: string }
-  | { type: 'verse'; number: number; verseId: string; text: string };
 
 export type Chapter = {
   versionId: string;
@@ -44,20 +47,44 @@ export type Chapter = {
   items: ChapterItem[];
   previous: BiblePosition | null;
   next: BiblePosition | null;
-  /** Shown under the text: who the translation belongs to and its licence. */
-  attribution: { name: string; shortName: string; publicDomain: boolean; licenseUrl: string };
+  /** Shown under the text, as the publisher's licence requires. */
+  attribution: { name: string; shortName: string; copyright: string; url: string };
 };
 
-/** A verse's id is the same in every translation, e.g. JHN.3.16. */
-export function verseId(bookId: string, chapter: number, verse: number) {
-  return `${bookId}.${chapter}.${verse}`;
+/** Why loading failed, so the screen can say something helpful. */
+export class BibleError extends Error {
+  constructor(public reason: 'offline' | 'busy' | 'not_licensed' | 'other') {
+    super(reason);
+  }
+}
+
+
+// ---------------------------------------------------------------------------
+// Talking to the Edge Function
+// ---------------------------------------------------------------------------
+
+type YouVersionRequest =
+  | { action: 'bibles'; language: string }
+  | { action: 'bible'; bibleId: string }
+  | { action: 'index'; bibleId: string }
+  | { action: 'chapter'; bibleId: string; chapterId: string };
+
+async function callYouVersion<T>(request: YouVersionRequest): Promise<T> {
+  // functions.invoke sends the signed-in user's token along automatically.
+  const { data, error } = await supabase.functions.invoke('youversion', { body: request });
+  if (!error) return data as T;
+  const status = (error as { context?: Response }).context?.status;
+  if (status === 429) throw new BibleError('busy');
+  if (status === 403) throw new BibleError('not_licensed');
+  if (status === undefined) throw new BibleError('offline');
+  throw new BibleError('other');
 }
 
 // ---------------------------------------------------------------------------
-// Loading, with a copy saved on the phone
+// Saving on the phone (only lists and counts, never Scripture)
 // ---------------------------------------------------------------------------
 
-const REFRESH_AFTER_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+const REFRESH_AFTER_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 /**
  * Returns the saved copy if it's recent; otherwise downloads a fresh one and
@@ -78,110 +105,133 @@ async function cached<T>(key: string, download: () => Promise<T>): Promise<T> {
   }
 }
 
-async function getJson<T>(path: string): Promise<T> {
-  const response = await fetch(`${API}${path}`);
-  if (!response.ok) throw new Error(`Bible API ${response.status} for ${path}`);
-  return response.json() as Promise<T>;
-}
+// ---------------------------------------------------------------------------
+// Versions, books and chapters
+// ---------------------------------------------------------------------------
 
-export function getBooks(versionId: string): Promise<Book[]> {
-  return cached(`bible.books.${versionId}`, async () => {
-    const data = await getJson<{ books: { id: string; name: string; numberOfChapters: number }[] }>(
-      `/${versionId}/books.json`,
-    );
-    return data.books.map(({ id, name, numberOfChapters }) => ({ id, name, numberOfChapters }));
+type ApiBible = {
+  id: number;
+  abbreviation: string;
+  localized_abbreviation?: string;
+  title: string;
+  language_tag: string;
+  copyright?: string | null;
+  promotional_content?: string | null;
+  youversion_deep_link?: string;
+};
+
+/** The languages we offer, in the order they're shown. YouVersion may tag Tagalog as tl or fil. */
+const LANGUAGES = [
+  { codes: ['en'], name: 'English' },
+  { codes: ['tl', 'fil'], name: 'Tagalog' },
+  { codes: ['ceb'], name: 'Cebuano' },
+];
+
+/** Every version our YouVersion app key is licensed to show, grouped by language. */
+export function getVersions(): Promise<BibleVersion[]> {
+  return cached('yv.versions', async () => {
+    const versions: BibleVersion[] = [];
+    for (const language of LANGUAGES) {
+      for (const code of language.codes) {
+        const result = await callYouVersion<{ data: ApiBible[] }>({ action: 'bibles', language: code });
+        for (const bible of result.data) {
+          if (versions.some((v) => v.id === String(bible.id))) continue;
+          versions.push({
+            id: String(bible.id),
+            shortName: bible.localized_abbreviation || bible.abbreviation,
+            name: bible.title,
+            language: language.name,
+          });
+        }
+      }
+    }
+    return versions;
   });
 }
 
-export function getChapter(versionId: string, position: BiblePosition): Promise<Chapter> {
-  const { bookId, chapter } = position;
-  return cached(`bible.chapter.${versionId}.${bookId}.${chapter}`, async () => {
-    const data = await getJson<ApiChapterResponse>(`/${versionId}/${bookId}/${chapter}.json`);
+type VersionDetails = { name: string; shortName: string; copyright: string; url: string };
+
+function getVersionDetails(versionId: string): Promise<VersionDetails> {
+  return cached(`yv.version.${versionId}`, async () => {
+    const bible = await callYouVersion<ApiBible>({ action: 'bible', bibleId: versionId });
     return {
-      versionId,
-      bookId,
-      bookName: data.book.name,
-      chapter: data.chapter.number,
-      items: toItems(bookId, chapter, data.chapter.content),
-      previous: toPosition(data.previousChapterReference),
-      next: toPosition(data.nextChapterReference),
-      attribution: {
-        name: data.translation.name,
-        shortName: data.translation.shortName,
-        publicDomain: data.translation.license?.publicDomain ?? false,
-        licenseUrl: data.translation.licenseUrl,
-      },
+      name: bible.title,
+      shortName: bible.localized_abbreviation || bible.abbreviation,
+      // Publishers sometimes wrap the line in quote marks.
+      copyright: (bible.copyright?.trim() || bible.promotional_content?.trim() || '').replace(/^"|"$/g, ''),
+      url: bible.youversion_deep_link ?? 'https://www.bible.com',
     };
   });
 }
 
-// ---------------------------------------------------------------------------
-// Turning the API's format into something simple to show
-// ---------------------------------------------------------------------------
-
-type ApiInline =
-  | string
-  | { text: string }
-  | { heading: string }
-  | { lineBreak: true }
-  | { noteId: number };
-
-type ApiContent =
-  | { type: 'heading'; content: string[] }
-  | { type: 'verse'; number: number; content: ApiInline[] }
-  | { type: 'line_break' }
-  | { type: 'hebrew_subtitle'; content: ApiInline[] };
-
-type ApiReference = { book: string; chapter: number } | null | undefined;
-
-type ApiChapterResponse = {
-  translation: {
-    name: string;
-    shortName: string;
-    licenseUrl: string;
-    license?: { publicDomain?: boolean };
-  };
-  book: { name: string };
-  chapter: { number: number; content: ApiContent[] };
-  previousChapterReference: ApiReference;
-  nextChapterReference: ApiReference;
+type ApiIndex = {
+  books: {
+    id: string;
+    title: string;
+    chapters: { id: number | string; verses: unknown[] }[];
+  }[];
 };
 
-function inlineText(parts: ApiInline[]): string {
-  return parts
-    .map((part) => {
-      if (typeof part === 'string') return part;
-      if ('text' in part) return part.text;
-      if ('heading' in part) return part.heading;
-      return ''; // footnote markers and line breaks are left out
-    })
-    .join(' ')
-    .replace(/\s+/g, ' ')
-    .trim();
+export function getBooks(versionId: string): Promise<Book[]> {
+  return cached(`yv.books.${versionId}`, async () => {
+    const index = await callYouVersion<ApiIndex>({ action: 'index', bibleId: versionId });
+    return index.books.map((book) => {
+      // Skip book introductions; keep numbered chapters only.
+      const chapters = book.chapters.filter((c) => /^\d+$/.test(String(c.id)));
+      return {
+        id: book.id,
+        name: book.title,
+        numberOfChapters: chapters.length,
+        verseCounts: chapters.map((c) => c.verses.length),
+      };
+    });
+  });
 }
 
-function toItems(bookId: string, chapter: number, content: ApiContent[]): ChapterItem[] {
-  const items: ChapterItem[] = [];
-  for (const block of content) {
-    if (block.type === 'heading') {
-      items.push({ type: 'heading', text: block.content.join(' ') });
-    } else if (block.type === 'hebrew_subtitle') {
-      // e.g. "A Psalm of David" at the top of a psalm
-      items.push({ type: 'heading', text: inlineText(block.content) });
-    } else if (block.type === 'verse') {
-      items.push({
-        type: 'verse',
-        number: block.number,
-        verseId: verseId(bookId, chapter, block.number),
-        text: inlineText(block.content),
-      });
-    }
-  }
-  return items;
+// Chapters are kept in memory only, so they're gone when the app closes.
+const chapterMemory = new Map<string, Chapter>();
+
+export async function getChapter(versionId: string, position: BiblePosition): Promise<Chapter> {
+  const { bookId, chapter } = position;
+  const key = `${versionId}.${bookId}.${chapter}`;
+  const remembered = chapterMemory.get(key);
+  if (remembered) return remembered;
+
+  const [books, details, passage] = await Promise.all([
+    getBooks(versionId),
+    getVersionDetails(versionId),
+    callYouVersion<{ content: string }>({
+      action: 'chapter',
+      bibleId: versionId,
+      chapterId: `${bookId}.${chapter}`,
+    }),
+  ]);
+
+  const bookIndex = books.findIndex((b) => b.id === bookId);
+  const book = books[bookIndex];
+  const result: Chapter = {
+    versionId,
+    bookId,
+    bookName: book?.name ?? bookId,
+    chapter,
+    items: htmlToItems(bookId, chapter, passage.content),
+    previous: neighbour(books, bookIndex, chapter, -1),
+    next: neighbour(books, bookIndex, chapter, 1),
+    attribution: details,
+  };
+  chapterMemory.set(key, result);
+  return result;
 }
 
-function toPosition(ref: ApiReference): BiblePosition | null {
-  return ref ? { bookId: ref.book, chapter: ref.chapter } : null;
+/** The chapter before (-1) or after (+1), crossing into the next book if needed. */
+function neighbour(books: Book[], bookIndex: number, chapter: number, step: -1 | 1): BiblePosition | null {
+  const book = books[bookIndex];
+  if (!book) return null;
+  const target = chapter + step;
+  if (target >= 1 && target <= book.numberOfChapters) return { bookId: book.id, chapter: target };
+  const other = books[bookIndex + step];
+  if (!other) return null;
+  return { bookId: other.id, chapter: step === 1 ? 1 : other.numberOfChapters };
 }
 
 // ---------------------------------------------------------------------------
@@ -192,7 +242,9 @@ export async function loadReaderState(): Promise<{ versionId: string; position: 
   const saved = await Storage.getItem('bible.reader');
   if (saved) {
     const parsed = JSON.parse(saved) as { versionId: string; position: BiblePosition };
-    if (VERSIONS.some((v) => v.id === parsed.versionId)) return parsed;
+    // Older app versions saved ids like "BSB" from the previous Bible service.
+    if (/^\d+$/.test(parsed.versionId)) return parsed;
+    return { versionId: DEFAULT_VERSION_ID, position: parsed.position };
   }
   return { versionId: DEFAULT_VERSION_ID, position: DEFAULT_POSITION };
 }

@@ -1,0 +1,529 @@
+{
+  "id": "matthew-28-day",
+  "title": "Matthew: A 28-Day Devotional",
+  "description": "One chapter of Matthew each day, ordered Matthew 1–28, with a short theme and reflection questions.",
+  "durationDays": 28,
+  "source": {
+    "name": "NewSpring Church",
+    "url": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study"
+  },
+  "days": [
+    {
+      "day": 1,
+      "originalSession": 26,
+      "title": "How to boost your reputation",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 1,
+          "reference": "Matthew 1"
+        }
+      ],
+      "summary": "Joseph risked his reputation to obey God, and his obedience left a lasting legacy.",
+      "reflectionQuestions": [
+        "Are you choosing between the world's opinion and God's plan?",
+        "Who could you pray for in that situation?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/how-to-boost-your-reputation"
+    },
+    {
+      "day": 2,
+      "originalSession": 27,
+      "title": "Can you hear God's voice?",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 2,
+          "reference": "Matthew 2"
+        }
+      ],
+      "summary": "God speaks clearly through His Son and His Word, revealing His love and forgiveness.",
+      "reflectionQuestions": [
+        "How has God spoken to you in the past?",
+        "What is He telling you now?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/can-you-hear-gods-voice"
+    },
+    {
+      "day": 3,
+      "originalSession": 28,
+      "title": "Why baptism is our first next step",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 3,
+          "reference": "Matthew 3"
+        }
+      ],
+      "summary": "Jesus was baptized in obedience to the Father; baptism is a public first step of faith.",
+      "reflectionQuestions": [
+        "If you haven't been baptized since trusting Christ, what's holding you back?",
+        "What is your next step?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/step-one"
+    },
+    {
+      "day": 4,
+      "originalSession": 1,
+      "title": "Three steps to overcoming temptation",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 4,
+          "reference": "Matthew 4:1-11"
+        }
+      ],
+      "summary": "Jesus' wilderness temptation shows how to resist: stay alert, use Scripture, and rely on God's provision.",
+      "reflectionQuestions": [
+        "What tempts you most?",
+        "How can God's promises help you resist?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/fighting-temptation"
+    },
+    {
+      "day": 5,
+      "originalSession": 2,
+      "title": "What it means to be the light of the world",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 5,
+          "reference": "Matthew 5"
+        }
+      ],
+      "summary": "Followers of Jesus reflect His light by living and speaking as He did, making their faith visible.",
+      "reflectionQuestions": [
+        "What circumstance requires you to trust God right now?",
+        "How can you share your faith in it?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/light-me-up"
+    },
+    {
+      "day": 6,
+      "originalSession": 3,
+      "title": "How to get rid of worry",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 6,
+          "reference": "Matthew 6"
+        }
+      ],
+      "summary": "Worry grows from doubting God's provision; the cure starts with a relationship with Jesus and trust in His promises.",
+      "reflectionQuestions": [
+        "What do you worry about most?",
+        "Do you fully trust God to provide?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/dont-worry-trust-jesus"
+    },
+    {
+      "day": 7,
+      "originalSession": 4,
+      "title": "How to know you know the real Jesus",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 7,
+          "reference": "Matthew 7"
+        }
+      ],
+      "summary": "Jesus doesn't save only \"good people\"; genuine faith shows itself through good fruit.",
+      "reflectionQuestions": [
+        "Have you made a wrong assumption about someone that proved untrue?",
+        "What good fruit is God producing in your life?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/no-more-lies"
+    },
+    {
+      "day": 8,
+      "originalSession": 5,
+      "title": "Are you living in faith or fear?",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 8,
+          "reference": "Matthew 8"
+        }
+      ],
+      "summary": "Real faith in God's promises drives action and pushes out fear.",
+      "reflectionQuestions": [
+        "Does your faith move you to act each day?",
+        "Where are you doubting God's promises?",
+        "What role does God want you to play?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/faith-or-fear"
+    },
+    {
+      "day": 9,
+      "originalSession": 6,
+      "title": "Being right with God is not the same as being perfect",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 9,
+          "reference": "Matthew 9"
+        }
+      ],
+      "summary": "Jesus came for sinners; salvation is new life received by grace, not earned by rule-keeping.",
+      "reflectionQuestions": [
+        "Is your relationship with Jesus clear?",
+        "Are you still trying to earn God's acceptance?",
+        "What can you let God fix?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/its-not-about-being-perfect"
+    },
+    {
+      "day": 10,
+      "originalSession": 7,
+      "title": "Three instructions we can all benefit from following",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 10,
+          "reference": "Matthew 10"
+        }
+      ],
+      "summary": "Jesus' instructions to His disciples teach living simply and generously, being wise, and not being afraid.",
+      "reflectionQuestions": [
+        "How can you be generous with what you have?",
+        "Where do you need more wisdom?",
+        "What changes would help you live more simply?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/the-simple-life"
+    },
+    {
+      "day": 11,
+      "originalSession": 8,
+      "title": "Are you carrying too much?",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 11,
+          "reference": "Matthew 11"
+        }
+      ],
+      "summary": "Our sin and sorrow are too heavy to carry alone; Jesus invites us to give Him the load and find rest.",
+      "reflectionQuestions": [
+        "Have you given control of your life to Jesus?",
+        "What load do you need His help with today?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/overload"
+    },
+    {
+      "day": 12,
+      "originalSession": 9,
+      "title": "If you're feeling disliked, you're in good company",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 12,
+          "reference": "Matthew 12"
+        }
+      ],
+      "summary": "Opposed by the Pharisees, Jesus heals a man's withered hand, valuing people over rigid rules.",
+      "reflectionQuestions": [
+        "What needs restoring in your life?",
+        "Are you following rules rather than Jesus' example?",
+        "What can you learn about faith under opposition?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/rebel-with-a-cause"
+    },
+    {
+      "day": 13,
+      "originalSession": 10,
+      "title": "Don't let obstacles get in your way",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 13,
+          "reference": "Matthew 13"
+        }
+      ],
+      "summary": "Jesus met people where they were with parables; we can share the gospel the same way.",
+      "reflectionQuestions": [
+        "What obstacles keep you from sharing the gospel?",
+        "How can you overcome them?",
+        "Could you share your story?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/tell-me-a-story"
+    },
+    {
+      "day": 14,
+      "originalSession": 11,
+      "title": "Are you in need of a little R&R?",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 14,
+          "reference": "Matthew 14"
+        }
+      ],
+      "summary": "Jesus balanced serving crowds with withdrawing to pray; rest and loving others go together.",
+      "reflectionQuestions": [
+        "How can you rearrange your day to spend time with God?",
+        "How can you serve people who need your time?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/a-little-rr"
+    },
+    {
+      "day": 15,
+      "originalSession": 12,
+      "title": "You don't have to follow rules to follow Jesus",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 15,
+          "reference": "Matthew 15"
+        }
+      ],
+      "summary": "Jesus invites us to follow Him, not meet a list of requirements; only His power changes the heart.",
+      "reflectionQuestions": [
+        "What in your heart should you ask Jesus to change?",
+        "Have you asked Jesus into your life?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/no-rules-to-follow"
+    },
+    {
+      "day": 16,
+      "originalSession": 13,
+      "title": "Who are you putting first in your life?",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 16,
+          "reference": "Matthew 16"
+        }
+      ],
+      "summary": "Following Jesus means denying self and submitting fully to Him.",
+      "reflectionQuestions": [
+        "Are you willing to give everything to follow Jesus?",
+        "Are you all in or holding onto your rights?",
+        "Who can you share Jesus with today?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/not-i-but-christ"
+    },
+    {
+      "day": 17,
+      "originalSession": 14,
+      "title": "Your faith makes a difference",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 17,
+          "reference": "Matthew 17"
+        }
+      ],
+      "summary": "A father's persistent faith and the mustard-seed teaching show that God's Word strengthens faith and brings change.",
+      "reflectionQuestions": [
+        "What does your Bible reading look like?",
+        "Do your actions reflect what you believe about God's Word?",
+        "Have you seen a miracle?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/the-faith-that-makes-a-difference"
+    },
+    {
+      "day": 18,
+      "originalSession": 15,
+      "title": "Experience is a teacher, but not always the best teacher",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 18,
+          "reference": "Matthew 18"
+        }
+      ],
+      "summary": "Learning through hurt is costly; Jesus calls us to set boundaries that keep us from sin.",
+      "reflectionQuestions": [
+        "Which parts of your life put you most at risk of sin?",
+        "What must you change today?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/learn-like-children"
+    },
+    {
+      "day": 19,
+      "originalSession": 16,
+      "title": "Do you know who you're talking to?",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 19,
+          "reference": "Matthew 19"
+        }
+      ],
+      "summary": "The rich young ruler saw Jesus as only a good teacher and walked away, missing that he was talking with God.",
+      "reflectionQuestions": [
+        "Is your appreciation of Jesus growing or shrinking?",
+        "What would you do differently if Jesus showed up at your door?",
+        "What step of faith can you take?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/whos-talking"
+    },
+    {
+      "day": 20,
+      "originalSession": 17,
+      "title": "You don't have to earn God's love",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 20,
+          "reference": "Matthew 20"
+        }
+      ],
+      "summary": "The workers paid the same wage show that God's grace comes through relationship, not performance.",
+      "reflectionQuestions": [
+        "How has God been generous to you?",
+        "How can you show that generosity to others?",
+        "Is God calling you to give more?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/a-paycheck-you-dont-have-to-earn"
+    },
+    {
+      "day": 21,
+      "originalSession": 18,
+      "title": "How to be righteous",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 21,
+          "reference": "Matthew 21"
+        }
+      ],
+      "summary": "Jesus gives an example to follow, not just directions, and Scripture guides us toward righteousness.",
+      "reflectionQuestions": [
+        "Where are you trying to control an outcome?",
+        "Have you brought it to God in Scripture and prayer?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/yall-turn-right-toward-righteousness"
+    },
+    {
+      "day": 22,
+      "originalSession": 19,
+      "title": "What if we all discovered a new four-letter word?",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 22,
+          "reference": "Matthew 22"
+        }
+      ],
+      "summary": "Jesus answered hostility with love; the greatest commands are to love God and love your neighbor.",
+      "reflectionQuestions": [
+        "How are you experiencing Jesus' love?",
+        "How can you draw closer to Him?",
+        "What is one way to serve someone today?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/a-better-four-letter-word"
+    },
+    {
+      "day": 23,
+      "originalSession": 20,
+      "title": "Does what you say match what you do?",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 23,
+          "reference": "Matthew 23"
+        }
+      ],
+      "summary": "Jesus warns against hypocrisy; faith that's only rules, not relationship, misleads others.",
+      "reflectionQuestions": [
+        "Do your actions reflect Jesus' love?",
+        "Are you letting Him change your heart, not just your behavior?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/does-what-you-say-match-what-you-do"
+    },
+    {
+      "day": 24,
+      "originalSession": 21,
+      "title": "The best place to find the truth",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 24,
+          "reference": "Matthew 24"
+        }
+      ],
+      "summary": "No one knows the day of Christ's return, so rely on Jesus, Scripture, prayer and obedience, not predictions.",
+      "reflectionQuestions": [
+        "Where do you turn when the Bible is hard to understand?",
+        "Who can you ask?",
+        "What is your next step?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/tell-me-the-truth"
+    },
+    {
+      "day": 25,
+      "originalSession": 22,
+      "title": "Are you playing it safe?",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 25,
+          "reference": "Matthew 25"
+        }
+      ],
+      "summary": "The parable of the talents calls for faithful action, not burying what God has given.",
+      "reflectionQuestions": [
+        "Where are you living in \"safe mode\"?",
+        "What is holding you back?",
+        "How can you invest what God has given you?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/stop-playing-it-safe"
+    },
+    {
+      "day": 26,
+      "originalSession": 23,
+      "title": "How to be on the upside of every exchange",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 26,
+          "reference": "Matthew 26"
+        }
+      ],
+      "summary": "The woman who anoints Jesus and Judas' betrayal show the daily choice to worship or betray Him.",
+      "reflectionQuestions": [
+        "What are you tempted to trade for the full life Jesus offers?",
+        "Do you get more or less than you give when following Him?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/be-on-the-upside-of-every-exchange"
+    },
+    {
+      "day": 27,
+      "originalSession": 24,
+      "title": "Why the crucifixion?",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 27,
+          "reference": "Matthew 27"
+        }
+      ],
+      "summary": "Sin's wage is death; Jesus' willing sacrifice paid the debt and restored us to God.",
+      "reflectionQuestions": [
+        "What sin should you ask God to reveal, and how will you turn from it?",
+        "Have you asked Jesus into your life?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/why-the-crucifixion"
+    },
+    {
+      "day": 28,
+      "originalSession": 25,
+      "title": "Go ahead and tell everybody",
+      "reading": [
+        {
+          "book": "Matthew",
+          "chapter": 28,
+          "reference": "Matthew 28"
+        }
+      ],
+      "summary": "Like sharing good news with friends, we share the gospel, knowing Jesus is with us as we make disciples.",
+      "reflectionQuestions": [
+        "Who needs to hear about Jesus?",
+        "What keeps you from sharing?",
+        "What has Jesus done for you that you could share today?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/matthew-a-28-day-bible-study/go-ahead-and-tell-everybody"
+    }
+  ]
+}

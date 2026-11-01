@@ -44,7 +44,7 @@ export function ChapterText({ items, highlights, selectedVerseId, onVersePress }
                       color && { backgroundColor: HighlightColors[color] },
                       selectedVerseId === verse.verseId && styles.selected,
                     ]}>
-                    <Text style={styles.verseNumber}>{verse.number} </Text>
+                    <Text style={styles.verseNumber}>{verse.endNumber ? `${verse.number}–${verse.endNumber}` : verse.number} </Text>
                     {verse.text}{' '}
                   </Text>
                 );

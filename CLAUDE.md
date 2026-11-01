@@ -17,7 +17,7 @@ Full plan: "Church Leaders Bible Reading Tracker – App Plan" (Google Doc). Des
 - Supabase: Postgres, Auth, Realtime, Edge Functions – Free plan
 - On-device OCR: Google ML Kit text recognition (needs an Expo development build, not Expo Go)
 - expo-image-picker, expo-image-manipulator, expo-notifications (local reminders), expo-sqlite (local cache)
-- Bible text: Free Use Bible API (https://bible.helloao.org) – free, no API key, no request limit. Chapters are cached on the phone (expo-sqlite kv-store).
+- Bible text: YouVersion Platform API (free for non-commercial apps), called only through the `youversion` Edge Function – the app key is a Supabase secret (YVP_APP_KEY). Chapter text is kept in memory only, never saved (publisher licences); the version list and book/verse counts are cached on the phone (expo-sqlite kv-store).
 
 ## Hard rules
 - Must stay $0. Do not add paid services or libraries that need a paid plan.
@@ -34,7 +34,8 @@ Full plan: "Church Leaders Bible Reading Tracker – App Plan" (Google Doc). Des
 - profiles: id (= auth user id), full_name, role (leader/overseer/admin), overseer_id, mode (guided/simple), reminder_time, push_token, created_at
 - groups: id, name, type (cell_group/ministry), overseer_id, join_code, created_at
 - group_members: group_id, user_id, joined_at – a leader can be in several groups. Overseers see members of the groups they lead. The first group a leader joins sets profiles.overseer_id (their main overseer, for 1:1 chat).
-- checkins: id, user_id, reading_date, passage, read_text, reflect_text, respond_text, created_at, updated_at – unique (user_id, reading_date)
+- checkins: id, user_id, reading_date, passage, read_text, reflect_text, respond_text, plan_id, plan_day, created_at, updated_at – unique (user_id, reading_date); plan_id + plan_day set together when the RRR was from a plan
+- user_plans: user_id, plan_id, status (active/paused/completed), current_day, started_at, updated_at, completed_at – one row per user per plan; one active plan per user (partial unique index). Changed only via start_plan / pause_plan / complete_plan_day; a day advances only when a check-in for it exists. Plan content lives in assets/guided_plans, loaded via lib/plans.ts
 - streak_adjustments: id, user_id, admin_id, reading_date, reason, created_at
 - user_badges: user_id, badge_key, unlocked_at (badge/character definitions live in app code)
 - highlights: id, user_id, verse_id, color, note, created_at
@@ -53,7 +54,7 @@ Streaks are calculated from checkins + streak_adjustments, never stored. One gra
 1. Setup: run on phone, Supabase client, env vars, theme, tab layout
 2. Sign-in + profiles + small groups (join codes) + roles
 3. Check-in: Simple mode, then Guided RRR screens
-4. Bible reader: Free Use Bible API, version picker, highlights
+4. Bible reader: YouVersion Platform, version picker, highlights
 5. Notebook scan: camera/gallery, on-device OCR, review screen (dev build)
 6. Overseer view + streaks with grace days
 7. Gamification: badges, My Bible Heroes

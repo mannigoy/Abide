@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
 import { Screen } from '@/components/screen';
+import { PasswordField } from '@/components/password-field';
 import { TextField } from '@/components/text-field';
 import { Colors, Spacing } from '@/constants/theme';
 import { signIn } from '@/lib/auth';
@@ -45,11 +46,10 @@ export default function SignInScreen() {
         keyboardType="email-address"
         textContentType="emailAddress"
       />
-      <TextField
+      <PasswordField
         label="Password"
         value={password}
         onChangeText={setPassword}
-        secureTextEntry
         autoComplete="current-password"
         textContentType="password"
         onSubmitEditing={handleSignIn}

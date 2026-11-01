@@ -1,0 +1,407 @@
+{
+  "id": "john-21-day",
+  "title": "John: A 21-Day Devotional",
+  "description": "Read one chapter of the Gospel of John each day, reflect on the theme, and spend time with God using the questions.",
+  "durationDays": 21,
+  "source": {
+    "name": "NewSpring Church",
+    "url": "https://newspring.cc/devotionals/john-21-day-guide"
+  },
+  "days": [
+    {
+      "day": 1,
+      "originalSession": 1,
+      "title": "What if God was one of us?",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 1,
+          "reference": "John 1"
+        }
+      ],
+      "summary": "Jesus was with God at creation and stepped into ordinary human life; John 1 shows who He is through many encounters.",
+      "reflectionQuestions": [
+        "What does this chapter teach you about Jesus?",
+        "Why does it matter that Jesus lived as a man?",
+        "What next step might God be asking of you?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-1"
+    },
+    {
+      "day": 2,
+      "originalSession": 2,
+      "title": "Maybe God is waiting on you",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 2,
+          "reference": "John 2"
+        }
+      ],
+      "summary": "At the wedding in Cana, servants obey Jesus's instruction, showing He invites people to take part in His miracles.",
+      "reflectionQuestions": [
+        "What does Jesus teach here?",
+        "What step of obedience is God asking of you?",
+        "Are you giving Him your best?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-2"
+    },
+    {
+      "day": 3,
+      "originalSession": 3,
+      "title": "Are you afraid of the dark?",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 3,
+          "reference": "John 3"
+        }
+      ],
+      "summary": "Nicodemus visits Jesus at night; salvation comes through belief, and confession brings forgiveness, not condemnation.",
+      "reflectionQuestions": [
+        "What do you need to confess?",
+        "How do you respond when others confess to you?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-3"
+    },
+    {
+      "day": 4,
+      "originalSession": 4,
+      "title": "There's only one way to heal your pain",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 4,
+          "reference": "John 4"
+        }
+      ],
+      "summary": "Jesus offers the Samaritan woman living water that satisfies what the world cannot.",
+      "reflectionQuestions": [
+        "What have you tried to fill your emptiness with?",
+        "What do you keep returning to?",
+        "How have you recently experienced Jesus's peace, joy, or love?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-4"
+    },
+    {
+      "day": 5,
+      "originalSession": 5,
+      "title": "Follow Jesus, not a bunch of rules",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 5,
+          "reference": "John 5"
+        }
+      ],
+      "summary": "Leaders object to a Sabbath healing; faith is a relationship with Jesus, not a checklist.",
+      "reflectionQuestions": [
+        "How has Jesus healed you?",
+        "Why do we reduce our relationship with Him to rules?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-5"
+    },
+    {
+      "day": 6,
+      "originalSession": 6,
+      "title": "Do you have everything you need?",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 6,
+          "reference": "John 6"
+        }
+      ],
+      "summary": "Jesus feeds the 5,000, walks on water, and calls Himself the bread of life; He alone meets our needs.",
+      "reflectionQuestions": [
+        "What do you learn about Jesus?",
+        "What are you afraid to surrender to Him?",
+        "Are you living a full life?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-6"
+    },
+    {
+      "day": 7,
+      "originalSession": 7,
+      "title": "What to do when friendship hurts",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 7,
+          "reference": "John 7"
+        }
+      ],
+      "summary": "Jesus faced mockery and rejection without bitterness, so loneliness need not defeat us.",
+      "reflectionQuestions": [
+        "What do you learn about Jesus?",
+        "How should you respond to a troubled relationship?",
+        "Is fear keeping you from a decision?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-7"
+    },
+    {
+      "day": 8,
+      "originalSession": 8,
+      "title": "Who you know matters more than what you know",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 8,
+          "reference": "John 8"
+        }
+      ],
+      "summary": "Jesus's \"I am\" claim and the woman caught in adultery show that knowing Scripture isn't the same as knowing God.",
+      "reflectionQuestions": [
+        "What do you learn about Jesus?",
+        "Ask God to help you know Him, not just His words.",
+        "How can you apply a verse to your life now?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-8"
+    },
+    {
+      "day": 9,
+      "originalSession": 9,
+      "title": "What has Jesus done for you?",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 9,
+          "reference": "John 9"
+        }
+      ],
+      "summary": "Jesus heals a man born blind; every believer has a before-and-after story worth sharing.",
+      "reflectionQuestions": [
+        "What do you learn about Jesus?",
+        "Who could you share your story with?",
+        "Have you given your life to Jesus?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-9"
+    },
+    {
+      "day": 10,
+      "originalSession": 10,
+      "title": "Why working harder doesn't make you happier",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 10,
+          "reference": "John 10"
+        }
+      ],
+      "summary": "Jesus is the good shepherd and the gate; abundant life comes from Him, not from striving or possessions.",
+      "reflectionQuestions": [
+        "What do you strive for compared with what Jesus pursued?",
+        "What traps keep you from the full life He offers?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-10"
+    },
+    {
+      "day": 11,
+      "originalSession": 11,
+      "title": "Jesus, where are you?",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 11,
+          "reference": "John 11"
+        }
+      ],
+      "summary": "Jesus raises Lazarus; God can be trusted even when His timing differs from ours.",
+      "reflectionQuestions": [
+        "What do you learn about Jesus?",
+        "Have you doubted God's timing, and what did you learn?",
+        "Will you surrender uncertain circumstances to Him?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-111"
+    },
+    {
+      "day": 12,
+      "originalSession": 12,
+      "title": "Would you give it all?",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 12,
+          "reference": "John 12"
+        }
+      ],
+      "summary": "Mary pours costly perfume on Jesus's feet, a model of radical trust and generosity.",
+      "reflectionQuestions": [
+        "What do you learn about Jesus?",
+        "What keeps you from laying your security at His feet?",
+        "Is anything still withheld from God?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-12"
+    },
+    {
+      "day": 13,
+      "originalSession": 13,
+      "title": "This is what forgiveness looks like",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 13,
+          "reference": "John 13"
+        }
+      ],
+      "summary": "Jesus washes the disciples' feet, including Judas and Peter; we extend the grace we've received.",
+      "reflectionQuestions": [
+        "What do you learn about Jesus?",
+        "Have you accepted His forgiveness?",
+        "Whom do you need to forgive?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-13"
+    },
+    {
+      "day": 14,
+      "originalSession": 14,
+      "title": "How to show Jesus you love Him",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 14,
+          "reference": "John 14"
+        }
+      ],
+      "summary": "Jesus promises the Counselor; love for Him shows up as obedience.",
+      "reflectionQuestions": [
+        "What do you learn about Jesus?",
+        "Which areas of your life don't yet look like His?",
+        "What one step can you take today?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-14"
+    },
+    {
+      "day": 15,
+      "originalSession": 15,
+      "title": "Does your life need some pruning?",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 15,
+          "reference": "John 15"
+        }
+      ],
+      "summary": "The vine and branches: stay connected to Jesus and bear fruit; pruning is a sign of growth.",
+      "reflectionQuestions": [
+        "What do you learn about Jesus?",
+        "Is there evidence of fruit in your life?",
+        "How can you stay connected to Him?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-15"
+    },
+    {
+      "day": 16,
+      "originalSession": 16,
+      "title": "Who is the Holy Spirit?",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 16,
+          "reference": "John 16"
+        }
+      ],
+      "summary": "Jesus promises the Spirit who comforts, convicts, guides, and gives peace.",
+      "reflectionQuestions": [
+        "What do you learn about Jesus?",
+        "Is the Spirit nudging you toward a next step or a sin to address?",
+        "Do you trust that the Spirit is always with you?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-16"
+    },
+    {
+      "day": 17,
+      "originalSession": 17,
+      "title": "Who do you pray for?",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 17,
+          "reference": "John 17"
+        }
+      ],
+      "summary": "Jesus prays for Himself, His disciples, and all future believers, and He still intercedes for us.",
+      "reflectionQuestions": [
+        "What do you learn about Jesus?",
+        "How does it encourage you that He prayed for you?",
+        "How can confidence in God's love shape how you treat those who oppose you?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-17"
+    },
+    {
+      "day": 18,
+      "originalSession": 18,
+      "title": "Where do you turn when everything goes wrong?",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 18,
+          "reference": "John 18"
+        }
+      ],
+      "summary": "Jesus is arrested and Peter denies Him, yet Jesus stays in control and trusts the Father's plan.",
+      "reflectionQuestions": [
+        "What do you learn about Jesus?",
+        "How does knowing God is in control change how you see your difficulties?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-18"
+    },
+    {
+      "day": 19,
+      "originalSession": 19,
+      "title": "Jesus did what we could not",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 19,
+          "reference": "John 19"
+        }
+      ],
+      "summary": "Jesus is crucified and declares \"It is finished\"; His death pays for sin.",
+      "reflectionQuestions": [
+        "What do you learn about Jesus?",
+        "What overwhelming area can you bring to Him for strength?",
+        "Do you fear He is surprised by your sin?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-19"
+    },
+    {
+      "day": 20,
+      "originalSession": 20,
+      "title": "You can start over",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 20,
+          "reference": "John 20"
+        }
+      ],
+      "summary": "The empty tomb and resurrection appearances free us from old habits for a new life.",
+      "reflectionQuestions": [
+        "What do you learn about Jesus?",
+        "Which old habits do you need to leave behind?",
+        "What does Jesus want you to start doing?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-20"
+    },
+    {
+      "day": 21,
+      "originalSession": 21,
+      "title": "You can come back from that",
+      "reading": [
+        {
+          "book": "John",
+          "chapter": 21,
+          "reference": "John 21"
+        }
+      ],
+      "summary": "Jesus restores Peter by the sea; God forgives and still uses people who have failed.",
+      "reflectionQuestions": [
+        "What do you learn about Jesus?",
+        "Has a sin made you feel useless to God, and will you seek help?",
+        "Is there anyone you have yet to forgive?"
+      ],
+      "sourceUrl": "https://newspring.cc/devotionals/john-21-day-guide/john-21"
+    }
+  ]
+}

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
-import { TextField } from '@/components/text-field';
+import { PassagePicker } from '@/components/passage-picker';
 import { Colors } from '@/constants/theme';
 import { createCheckin } from '@/lib/checkins';
 
@@ -35,14 +35,7 @@ export function SimpleCheckinForm({ userId, readingDate, buttonTitle, onSaved }:
 
   return (
     <>
-      <TextField
-        label="What did you read? (optional)"
-        placeholder="e.g. John 3"
-        value={passage}
-        onChangeText={setPassage}
-        maxLength={100}
-        autoCapitalize="words"
-      />
+      <PassagePicker label="What did you read? (optional)" value={passage} onChange={setPassage} optional />
       {error && <AppText style={{ color: Colors.primary }}>{error}</AppText>}
       <Button title={buttonTitle} onPress={handleCheckIn} loading={saving} />
     </>
