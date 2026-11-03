@@ -1,8 +1,9 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/app-text';
+import { PassageSheet } from '@/components/bible/passage-sheet';
 import { Button } from '@/components/button';
 import { Card } from '@/components/card';
 import { NotebookScanButtons } from '@/components/notebook-scan-buttons';
@@ -10,31 +11,65 @@ import { PassagePicker } from '@/components/passage-picker';
 import { Screen } from '@/components/screen';
 import { SimpleCheckinForm } from '@/components/simple-checkin-form';
 import { TextField } from '@/components/text-field';
-import { Colors, Radius, Spacing } from '@/constants/theme';
+import { Colors, Fonts, Radius, Spacing } from '@/constants/theme';
 import { createCheckin } from '@/lib/checkins';
 import { isCheckinDateAllowed, manilaDate } from '@/lib/dates';
+import type { Plan, PlanDay } from '@/lib/plans';
 import type { RrrText } from '@/lib/rrr-text';
 import { useSession } from '@/lib/session';
+import { completePlanDay, getTodayPlanDay } from '@/lib/userPlans';
+
+type PlanToday = { plan: Plan; day: PlanDay };
 
 /**
  * Check-in for today, or yesterday via `/check-in?date=YYYY-MM-DD`.
  * Guided leaders get the three RRR steps; Simple leaders get the one-tap form.
+ *
+ * From a reading plan: `/check-in?planId=john-21-day&planDay=3`. That's always
+ * Guided (plans are guided RRR) and always for today.
  */
 export default function CheckinScreen() {
   const { profile } = useSession();
+  const userId = profile?.id;
   // useLocalSearchParams reads values from the URL, like ?date=2026-10-23.
-  const params = useLocalSearchParams<{ date?: string }>();
+  const params = useLocalSearchParams<{ date?: string; planId?: string; planDay?: string }>();
+  const { planId, planDay } = params;
+
+  // undefined = still loading; null = not a plan check-in (or that day isn't today's any more)
+  const [planToday, setPlanToday] = useState<PlanToday | null | undefined>(planId ? undefined : null);
+  useEffect(() => {
+    if (!planId || !userId) return;
+    let ignore = false;
+    // Double-check it's really the user's current plan day, in case the link is old.
+    getTodayPlanDay(userId).then((today) => {
+      const matches = today && today.plan.id === planId && String(today.day.day) === planDay;
+      if (!ignore) setPlanToday(matches ? today : null);
+    });
+    return () => {
+      ignore = true;
+    };
+  }, [planId, planDay, userId]);
+
   const readingDate =
-    params.date && isCheckinDateAllowed(params.date) ? params.date : manilaDate(0);
+    !planId && params.date && isCheckinDateAllowed(params.date) ? params.date : manilaDate(0);
   const dayLabel = readingDate === manilaDate(0) ? 'today' : 'yesterday';
 
-  if (!profile) return null;
+  if (!profile || planToday === undefined) return null;
 
   // router.replace swaps this screen for the celebration, so "back" goes home, not here.
-  const goToDone = () => router.replace('/check-in/done');
+  const goToDone = (planMessage?: string) =>
+    router.replace({ pathname: '/check-in/done', params: planMessage ? { planMessage } : {} });
 
-  if (profile.mode === 'guided') {
-    return <GuidedCheckin userId={profile.id} readingDate={readingDate} dayLabel={dayLabel} onSaved={goToDone} />;
+  if (profile.mode === 'guided' || planToday) {
+    return (
+      <GuidedCheckin
+        userId={profile.id}
+        readingDate={readingDate}
+        dayLabel={dayLabel}
+        planToday={planToday}
+        onSaved={goToDone}
+      />
+    );
   }
 
   return (
@@ -45,7 +80,7 @@ export default function CheckinScreen() {
           userId={profile.id}
           readingDate={readingDate}
           buttonTitle={`I did my RRR ${dayLabel}`}
-          onSaved={goToDone}
+          onSaved={() => goToDone()}
         />
       </Card>
       <Button title="Cancel" variant="secondary" onPress={() => router.back()} />
@@ -93,18 +128,24 @@ type GuidedCheckinProps = {
   userId: string;
   readingDate: string;
   dayLabel: string;
-  onSaved: () => void;
+  /** Set when this RRR is a reading plan's day: its passage and questions are used. */
+  planToday: PlanToday | null;
+  /** `planMessage` is shown on the celebration screen, e.g. "Day 3 of John done". */
+  onSaved: (planMessage?: string) => void;
 };
 
-function GuidedCheckin({ userId, readingDate, dayLabel, onSaved }: GuidedCheckinProps) {
+function GuidedCheckin({ userId, readingDate, dayLabel, planToday, onSaved }: GuidedCheckinProps) {
   const [step, setStep] = useState(0);
-  const [passage, setPassage] = useState('');
+  const [passage, setPassage] = useState(planToday?.day.passage ?? '');
+  const [reading, setReading] = useState(false);
   const [text, setText] = useState<RrrText>({ read: '', reflect: '', respond: '' });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const current = STEPS[step];
   const isLastStep = step === REVIEW_STEP;
+  // A plan day brings its own Reflect questions.
+  const prompts = planToday && current.title === 'Reflect' ? planToday.day.reflectionQuestions : current.prompts;
 
   function updatePart(part: keyof RrrText, value: string) {
     // State should be replaced, not changed in place, so React notices the change.
@@ -146,13 +187,28 @@ function GuidedCheckin({ userId, readingDate, dayLabel, onSaved }: GuidedCheckin
       readText: text.read,
       reflectText: text.reflect,
       respondText: text.respond,
+      planId: planToday?.plan.id,
+      planDay: planToday?.day.day,
     });
-    setSaving(false);
     if (message) {
+      setSaving(false);
       setError(message);
-    } else {
-      onSaved();
+      return;
     }
+    // The check-in is saved; now move the plan to the next day. If this fails
+    // (e.g. no signal), the Plans screen finishes it the next time it opens.
+    let planMessage: string | undefined;
+    if (planToday) {
+      const { plan, day } = planToday;
+      const row = await completePlanDay(plan.id, day.day);
+      if (row?.status === 'completed') {
+        planMessage = `You finished ${plan.title}! 🎉`;
+      } else if (row && row.current_day > day.day) {
+        planMessage = `Day ${day.day} of ${plan.durationDays} done in ${plan.title}.`;
+      }
+    }
+    setSaving(false);
+    onSaved(planMessage);
   }
 
   return (
@@ -167,13 +223,22 @@ function GuidedCheckin({ userId, readingDate, dayLabel, onSaved }: GuidedCheckin
       </AppText>
 
       <AppText variant="title">{current.title}</AppText>
-      <AppText>{current.intro}</AppText>
+      <AppText>{planToday && step === 0 ? 'Today’s reading from your plan.' : current.intro}</AppText>
 
-      {step === 0 && (
-        <PassagePicker label="Passage" value={passage} onChange={setPassage} />
+      {step === 0 && planToday && (
+        <Card highlight>
+          <AppText variant="caption">
+            {planToday.plan.title} · Day {planToday.day.day} of {planToday.plan.durationDays}
+          </AppText>
+          <AppText variant="heading">{planToday.day.passage}</AppText>
+          <AppText style={styles.dayTitle}>{planToday.day.title}</AppText>
+          <AppText variant="caption">{planToday.day.summary}</AppText>
+          <Button title="Read it here" variant="secondary" onPress={() => setReading(true)} />
+        </Card>
       )}
+      {step === 0 && !planToday && <PassagePicker label="Passage" value={passage} onChange={setPassage} />}
 
-      {current.prompts.map((prompt) => (
+      {prompts.map((prompt) => (
         <Card key={prompt}>
           <AppText variant="heading">{prompt}</AppText>
         </Card>
@@ -223,6 +288,15 @@ function GuidedCheckin({ userId, readingDate, dayLabel, onSaved }: GuidedCheckin
         loading={saving}
       />
       <Button title={step === 0 ? 'Cancel' : 'Back'} variant="secondary" onPress={handleBack} />
+
+      {planToday && (
+        <PassageSheet
+          visible={reading}
+          readings={planToday.day.readings}
+          title={planToday.day.passage}
+          onClose={() => setReading(false)}
+        />
+      )}
     </Screen>
   );
 }
@@ -240,6 +314,9 @@ const styles = StyleSheet.create({
   },
   progressBarDone: {
     backgroundColor: Colors.primary,
+  },
+  dayTitle: {
+    fontFamily: Fonts.semiBold,
   },
   noteInput: {
     minHeight: 100,

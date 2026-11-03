@@ -16,13 +16,13 @@ Leaders do **RRR** (Read, Reflect, Respond) in a paper notebook, then check in o
 **Phases 2–6 of 9 (accounts, check-ins, Bible reader, notebook scan, overseer view and streaks): code complete, being tested on a phone.** The admin website is done. Now building **guided reading plans** in the Bible tab.
 
 ```
-Overall  █████████████░░░░░░░  ~65%
+Overall  ███████████████░░░░░  ~75%
 ```
 
 ```mermaid
 flowchart LR
   P1["1 · Setup"]:::done --> P2["2 · Sign-in"]:::wip --> P3["3 · Check-in"]:::wip --> P4["4 · Bible reader"]:::wip --> P5["5 · Notebook scan"]:::wip
-  P5 --> P6["6 · Overseer view + streaks"]:::wip --> P7["7 · Badges & Heroes"]:::todo --> P8["8 · Pilot"]:::todo --> P9["9 · Chat"]:::todo
+  P5 --> P6["6 · Overseer view + streaks"]:::wip --> P7["7 · Friends"]:::wip --> P8["8 · Pilot"]:::todo --> P9["9 · Chat"]:::todo
 
   classDef done fill:#2F5D50,stroke:#2F5D50,color:#FFFFFF
   classDef wip fill:#E9A23B,stroke:#E9A23B,color:#1F2A26
@@ -37,7 +37,7 @@ flowchart LR
 | 4 | **Bible reader** | Read Scripture in the app, version picker, highlights | 🟡 Testing |
 | 5 | **Notebook scan** | Snap your notebook page; on-device text recognition fills in your check-in | 🟡 Testing |
 | 6 | **Overseer view & streaks** | "Who read today" for overseers; streaks with a weekly grace day | 🟡 Testing |
-| 7 | **Gamification** | Badges and *My Bible Heroes* | ⬜ Planned |
+| 7 | **Friends** | Add friends and encourage each other (replaces badges / *My Bible Heroes*, dropped) | 🟡 Testing |
 | 8 | **Pilot** | Daily reminders, backups, Android APK for 5–10 leaders | ⬜ Planned |
 | 9 | **Chat** | 1:1 leader–overseer and cell-group chats | ⬜ After launch |
 
@@ -78,11 +78,23 @@ Guided RRR plans: each day gives a passage and reflection questions. A day count
 
 - [x] 4 Gospel plans (Matthew 28 days, Mark 41, Luke 24, John 21) from NewSpring Church devotionals, in [`assets/guided_plans/`](assets/guided_plans/)
 - [x] `lib/plans.ts` loads and checks them; `npm run check:plans` validates every plan file
-- [x] `user_plans` table: one active plan per user (enforced by the database), pause and resume, restart after finishing
+- [x] `user_plans` table: one active plan per user, **locked until it's finished** (no pausing or switching, enforced by the database), restart after finishing
 - [x] Check-ins can record which plan day they were for; a plan only moves forward when that check-in exists
 - [x] Bible tab: **Bible | Plans** switch, *My plan* card with progress, filter chips, plan list
-- [ ] "Continue today's RRR" opens the guided check-in with the day's passage and questions
-- [ ] Plan detail screen with "Start this plan"
+- [x] "Continue today's RRR" opens the guided check-in with the day's passage, theme and Reflect questions; "Read it here" shows just that day's verses
+- [x] Saving the check-in moves the plan to the next day (and finishes it after the last day); the celebration screen says which day was done
+- [x] Plan detail screen: what you'll read, Start / Start again, or "Finish your current plan first" while another plan is active
+- [ ] Tested end-to-end on an Android phone
+
+### Phase 7 progress: Friends
+
+- [x] Every account has a friend code (8 letters/numbers, no look-alikes); share it from the Friends tab
+- [x] Add a friend with their code; they accept or decline. If you both add each other, it's accepted straight away
+- [x] Friends see each other's "read today" and streak only, never passages or notebook text (enforced by the database)
+- [x] Encourage a friend with one tap: 🙏 Praying for you, 💪 Keep going!, 🎉 Well done today!, 💛 Thinking of you (one per friend per day, no free text)
+- [x] New encouragements show on Home and in the Friends tab
+- [x] Leader tabs: Home, Bible, Chats, Friends, Profile (My Bible Heroes was dropped)
+- [ ] Push notification when a friend encourages you (Phase 8, with reminders)
 - [ ] Tested end-to-end on an Android phone
 
 ### Phase 5 progress

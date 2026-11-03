@@ -31,13 +31,14 @@ Full plan: "Church Leaders Bible Reading Tracker – App Plan" (Google Doc). Des
 - Android first. Don't rely on iOS-only APIs.
 
 ## Data model (version 1)
-- profiles: id (= auth user id), full_name, role (leader/overseer/admin), overseer_id, mode (guided/simple), reminder_time, push_token, created_at
+- profiles: id (= auth user id), full_name, role (leader/overseer/admin), overseer_id, mode (guided/simple), reminder_time, push_token, friend_code (unique, generated, not editable), created_at
 - groups: id, name, type (cell_group/ministry), overseer_id, join_code, created_at
 - group_members: group_id, user_id, joined_at – a leader can be in several groups. Overseers see members of the groups they lead. The first group a leader joins sets profiles.overseer_id (their main overseer, for 1:1 chat).
 - checkins: id, user_id, reading_date, passage, read_text, reflect_text, respond_text, plan_id, plan_day, created_at, updated_at – unique (user_id, reading_date); plan_id + plan_day set together when the RRR was from a plan
-- user_plans: user_id, plan_id, status (active/paused/completed), current_day, started_at, updated_at, completed_at – one row per user per plan; one active plan per user (partial unique index). Changed only via start_plan / pause_plan / complete_plan_day; a day advances only when a check-in for it exists. Plan content lives in assets/guided_plans, loaded via lib/plans.ts
+- user_plans: user_id, plan_id, status (active/paused/completed), current_day, started_at, updated_at, completed_at – one row per user per plan; one active plan per user (partial unique index). The active plan is locked: start_plan refuses another plan until it's completed (no pausing). Changed only via start_plan / complete_plan_day; a day advances only when a check-in for it exists. Plan content lives in assets/guided_plans, loaded via lib/plans.ts
+- friendships: requester_id, addressee_id, status (pending/accepted), created_at, accepted_at – one per pair; added only with the other person's friend_code, both must agree. Friends see each other's "read today" and streak only (my_friends()), never passages or RRR text
+- encouragements: id, sender_id, recipient_id, kind (praying/keep_going/well_done/thinking_of_you – words live in app code), sent_on, created_at, read_at – friends only, one per friend per day; no free text
 - streak_adjustments: id, user_id, admin_id, reading_date, reason, created_at
-- user_badges: user_id, badge_key, unlocked_at (badge/character definitions live in app code)
 - highlights: id, user_id, verse_id, color, note, created_at
 - feedback: id, user_id, message, resolved_at, created_at
 - Later (chat): conversations, conversation_members (last_read_at), messages
@@ -48,7 +49,7 @@ Streaks are calculated from checkins + streak_adjustments, never stored. One gra
 - Keep Supabase calls in `lib/` (e.g. `lib/supabase.ts`, `lib/checkins.ts`), not inside screens.
 - Reusable UI in `components/`. Colours and spacing in one theme file.
 - Design: warm cream background #FAF7F2, deep green #2F5D50, amber #E9A23B, Inter font. Encouraging tone, never shaming.
-- Leader tabs: Home, Bible, Chats, Heroes, Profile. Overseer tabs: Today, Leaders, Bible, Chats, Profile.
+- Leader tabs: Home, Bible, Chats, Friends, Profile. Overseer tabs: Today, Leaders, Bible, Chats, Profile.
 
 ## Build phases
 1. Setup: run on phone, Supabase client, env vars, theme, tab layout
@@ -57,7 +58,7 @@ Streaks are calculated from checkins + streak_adjustments, never stored. One gra
 4. Bible reader: YouVersion Platform, version picker, highlights
 5. Notebook scan: camera/gallery, on-device OCR, review screen (dev build)
 6. Overseer view + streaks with grace days
-7. Gamification: badges, My Bible Heroes
+7. Friends: add friends and encourage each other (replaces badges / My Bible Heroes, dropped)
 8. Pilot: reminders, weekly backups, 5–10 leaders, Android APK
 9. After launch: chat (1:1 leader–overseer, cell-group chats)
 yow 

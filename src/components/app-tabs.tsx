@@ -8,7 +8,7 @@ import { useSession } from '@/lib/session';
  * The tab bar. Each `name` matches a file in `src/app/(tabs)/`.
  * `md` icons are Material Symbols for Android and `sf` icons are SF Symbols for iOS.
  *
- * Leader tabs:   Home,  Bible, Chats, Heroes,  Profile
+ * Leader tabs:   Home,  Bible, Chats, Friends, Profile
  * Overseer tabs: Today, Leaders, Bible, Chats, Profile
  *
  * The first tab (`index`) is shared: it shows Home or Today depending on the
@@ -28,18 +28,11 @@ export default function AppTabs() {
         default: { color: Colors.textSecondary, fontFamily: Fonts.medium },
         selected: { color: Colors.primary, fontFamily: Fonts.semiBold },
       }}>
+      {/* Label and Icon must be direct children of the Trigger (not inside a
+          <>…</> fragment), or the tab bar can't find them and shows "index". */}
       <NativeTabs.Trigger name="index">
-        {isOverseer ? (
-          <>
-            <NativeTabs.Trigger.Label>Today</NativeTabs.Trigger.Label>
-            <NativeTabs.Trigger.Icon md="today" sf="sun.max.fill" />
-          </>
-        ) : (
-          <>
-            <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
-            <NativeTabs.Trigger.Icon md="home" sf="house.fill" />
-          </>
-        )}
+        <NativeTabs.Trigger.Label>{isOverseer ? 'Today' : 'Home'}</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon md={isOverseer ? 'today' : 'home'} sf={isOverseer ? 'sun.max.fill' : 'house.fill'} />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="leaders" hidden={!isOverseer}>
@@ -57,9 +50,9 @@ export default function AppTabs() {
         <NativeTabs.Trigger.Icon md="chat" sf="bubble.left.and.bubble.right.fill" />
       </NativeTabs.Trigger>
 
-      <NativeTabs.Trigger name="heroes" hidden={isOverseer}>
-        <NativeTabs.Trigger.Label>Heroes</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon md="military_tech" sf="star.fill" />
+      <NativeTabs.Trigger name="friends" hidden={isOverseer}>
+        <NativeTabs.Trigger.Label>Friends</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon md="group" sf="person.2.fill" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="profile">

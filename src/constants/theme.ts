@@ -24,6 +24,13 @@ export const TileColors = {
   amber: '#FBEFD9',
 } as const;
 
+/** Text that sits on a white pill inside a coloured tile (e.g. "14 days"). */
+export const TileInkColors = {
+  green: '#2F5D50',
+  blue: '#4F6F9A',
+  amber: '#8A5A12',
+} as const;
+
 /** Soft verse highlight colours, light enough to read dark text on. */
 export const HighlightColors = {
   yellow: '#FCE8A6',

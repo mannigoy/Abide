@@ -1,3 +1,4 @@
+import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useState, type ReactNode } from 'react';
 import { Linking, Pressable, StyleSheet, View } from 'react-native';
 
@@ -42,7 +43,14 @@ type TabView = 'bible' | 'plans';
 
 /** The Bible tab: a switch at the top between the reader and reading plans. */
 export default function BibleTab() {
-  const [view, setView] = useState<TabView>('bible');
+  // Other screens can open the Plans side with /bible?view=plans (e.g. Home).
+  const { view: requested } = useLocalSearchParams<{ view?: string }>();
+  const fromLink: TabView = requested === 'plans' ? 'plans' : 'bible';
+  // Remember which link the choice was made under, so a new link wins
+  // but tapping the switch afterwards still works.
+  const [choice, setChoice] = useState<{ link?: string; view: TabView }>({ link: requested, view: fromLink });
+  const view = choice.link === requested ? choice.view : fromLink;
+  const setView = (next: TabView) => setChoice({ link: requested, view: next });
   const header = (
     <SegmentedControl
       options={[

@@ -7,14 +7,17 @@ import { Button } from '@/components/button';
 import { Card } from '@/components/card';
 import { Screen } from '@/components/screen';
 import { SimpleCheckinForm } from '@/components/simple-checkin-form';
-import { StreakCard } from '@/components/streak-card';
-import { Colors, Fonts, Spacing } from '@/constants/theme';
+import { StreakWeekCard } from '@/components/home/streak-week-card';
+import { TodayReadingCard } from '@/components/home/today-reading-card';
+import { Colors, Fonts, Spacing, TileColors } from '@/constants/theme';
 import { getCheckin, type Checkin } from '@/lib/checkins';
-import { formatShortDate, manilaDate } from '@/lib/dates';
-import { getMyGroups } from '@/lib/groups';
+import { formatLongDate, formatShortDate, manilaDate, manilaHour } from '@/lib/dates';
 import { usesOverseerTabs } from '@/lib/profiles';
-import { getLeadersToday, getStreak, type LeaderToday, type Streak } from '@/lib/progress';
+import { ENCOURAGEMENTS, getEncouragements, type Encouragement } from '@/lib/friends';
+import { getPlan, type Plan, type PlanDay } from '@/lib/plans';
+import { getLeaderHistory, getLeadersToday, getStreak, type LeaderToday, type Streak } from '@/lib/progress';
 import { useSession } from '@/lib/session';
+import { getTodayPlanDay } from '@/lib/userPlans';
 
 /** The first tab: Home for leaders, Today for overseers and admins. */
 export default function FirstTab() {
@@ -22,16 +25,37 @@ export default function FirstTab() {
   return usesOverseerTabs(profile?.role) ? <TodayScreen /> : <HomeScreen />;
 }
 
-// undefined = still loading (or failed), null = no check-in that day
-type DayStatus = Checkin | null | undefined;
+type HomeData = {
+  // undefined = failed to load, null = no check-in that day
+  today: Checkin | null | undefined;
+  yesterday: Checkin | null | undefined;
+  /** The plan today's check-in was for, if any. */
+  todayCheckinPlan: Plan | null;
+  streak: Streak | null;
+  readThisWeek: Set<string>;
+  planToday: { plan: Plan; day: PlanDay } | null;
+  /** Encouragements from friends that haven't been seen yet. */
+  newEncouragements: Encouragement[];
+};
+
+/** "Maayong buntag" (morning), "Maayong hapon" (afternoon) or "Maayong gabii" (evening), in Manila time. */
+function greeting() {
+  const hour = manilaHour();
+  if (hour < 12) return 'Maayong buntag';
+  if (hour < 18) return 'Maayong hapon';
+  return 'Maayong gabii';
+}
+
+/** "John: A 21-Day Devotional" → "John" */
+function shortPlanName(plan: Plan) {
+  return plan.title.split(':')[0];
+}
 
 function HomeScreen() {
   const { profile } = useSession();
   const userId = profile?.id;
-  const [today, setToday] = useState<DayStatus>(undefined);
-  const [yesterday, setYesterday] = useState<DayStatus>(undefined);
-  const [hasGroup, setHasGroup] = useState(true);
-  const [streak, setStreak] = useState<Streak | null>(null);
+  // undefined = still loading
+  const [data, setData] = useState<HomeData | undefined>(undefined);
 
   // useFocusEffect is like useEffect, but runs every time this tab comes back
   // into view — e.g. after finishing a check-in — so the status is always fresh.
@@ -41,84 +65,141 @@ function HomeScreen() {
     useCallback(() => {
       if (!userId) return;
       let ignore = false;
-      Promise.all([
-        getCheckin(userId, manilaDate(0)),
-        getCheckin(userId, manilaDate(-1)),
-        getMyGroups(userId),
-        getStreak(userId),
-      ]).then(([todayResult, yesterdayResult, groups, streakResult]) => {
+      async function load(id: string) {
+        const [today, yesterday, streak, history, planToday, received] = await Promise.all([
+          getCheckin(id, manilaDate(0)),
+          getCheckin(id, manilaDate(-1)),
+          getStreak(id),
+          getLeaderHistory(id, 7),
+          getTodayPlanDay(id),
+          getEncouragements(),
+        ]);
+        const todayCheckinPlan = today?.plan_id ? await getPlan(today.plan_id) : null;
         if (ignore) return;
-        setToday(todayResult);
-        setYesterday(yesterdayResult);
-        setStreak(streakResult);
-        // If loading groups failed (null), don't nag.
-        setHasGroup(groups === null || groups.length > 0);
-      });
+        setData({
+          today,
+          yesterday,
+          todayCheckinPlan,
+          streak,
+          readThisWeek: new Set((history ?? []).map((day) => day.reading_date)),
+          planToday,
+          newEncouragements: (received ?? []).filter((e) => !e.read),
+        });
+      }
+      load(userId);
       return () => {
         ignore = true;
       };
     }, [userId]),
   );
 
-  if (!userId) return null;
-  const isGuided = profile?.mode === 'guided';
+  if (!userId || !profile) return null;
+  const firstName = profile.full_name.trim().split(/\s+/)[0] ?? '';
+  const isGuided = profile.mode === 'guided';
 
   return (
     <Screen>
-      <AppText variant="title">Good morning</AppText>
-      <AppText variant="caption">Read · Reflect · Respond</AppText>
-
-      {!hasGroup && (
-        <Card>
-          <AppText variant="heading">Join your small group</AppText>
-          <AppText>
-            Ask your overseer for your group’s code so they can cheer you on.
+      <View style={styles.header}>
+        <View style={styles.headerText}>
+          <AppText style={styles.date}>{formatLongDate(manilaDate(0))}</AppText>
+          <AppText style={styles.greeting}>
+            {greeting()}
+            {firstName ? `, ${firstName}` : ''}
           </AppText>
-          <Button title="Enter a group code" variant="secondary" onPress={() => router.push('/profile')} />
-        </Card>
+        </View>
+        <Pressable
+          style={styles.avatar}
+          onPress={() => router.navigate('/profile')}
+          accessibilityRole="button"
+          accessibilityLabel="Profile">
+          <AppText style={styles.avatarText}>{firstName.charAt(0).toUpperCase()}</AppText>
+        </Pressable>
+      </View>
+
+      {data && data.newEncouragements.length > 0 && (
+        <Pressable onPress={() => router.navigate('/friends')} accessibilityRole="button">
+          <Card highlight>
+            <AppText>
+              💛 <AppText style={styles.bold}>{data.newEncouragements[0].from}</AppText>:{' '}
+              {ENCOURAGEMENTS[data.newEncouragements[0].kind]}
+            </AppText>
+            {data.newEncouragements.length > 1 && (
+              <AppText variant="caption">+ {data.newEncouragements.length - 1} more from your friends</AppText>
+            )}
+          </Card>
+        </Pressable>
       )}
 
-      <Card highlight>
-        {today === undefined && <AppText variant="caption">Loading…</AppText>}
+      {data?.streak && <StreakWeekCard streak={data.streak} readDates={data.readThisWeek} />}
 
-        {today && (
-          <>
-            <AppText variant="heading">You’ve checked in today ✓</AppText>
-            <AppText>
-              {today.passage ? `You read ${today.passage}. ` : ''}Thank you for meeting with God
-              today.
-            </AppText>
-          </>
-        )}
+      {data === undefined && <AppText variant="caption">Loading…</AppText>}
+      {data && <TodayCard data={data} userId={userId} isGuided={isGuided} />}
 
-        {today === null && (
-          <>
-            <AppText variant="heading">Today’s reading</AppText>
-            <AppText>Done your RRR in your notebook? Check in here.</AppText>
-            {isGuided ? (
-              <Button title="Start today’s RRR" onPress={() => router.push('/check-in')} />
-            ) : (
-              <SimpleCheckinForm
-                userId={userId}
-                readingDate={manilaDate(0)}
-                buttonTitle="I’ve done my RRR today"
-                onSaved={() => router.push('/check-in/done')}
-              />
-            )}
-          </>
-        )}
-      </Card>
-
-      {yesterday === null && (
-        <Link
-          href={{ pathname: '/check-in', params: { date: manilaDate(-1) } }}
-          style={styles.link}>
+      {data?.yesterday === null && (
+        <Link href={{ pathname: '/check-in', params: { date: manilaDate(-1) } }} style={styles.link}>
           <AppText style={styles.linkText}>Read yesterday but didn’t check in? Check in for yesterday</AppText>
         </Link>
       )}
 
-      {streak && <StreakCard streak={streak} />}
     </Screen>
+  );
+}
+
+/** "Today's reading": done, today's plan day, or a free choice of passage. */
+function TodayCard({ data, userId, isGuided }: { data: HomeData; userId: string; isGuided: boolean }) {
+  const { today, todayCheckinPlan, planToday } = data;
+
+  if (today) {
+    return (
+      <TodayReadingCard
+        badge={todayCheckinPlan && today.plan_day ? `${shortPlanName(todayCheckinPlan)} · Day ${today.plan_day}` : undefined}
+        title={today.passage ?? 'Done for today'}
+        description="You’ve checked in today ✓ Thank you for meeting with God today."
+      />
+    );
+  }
+
+  if (planToday) {
+    const { plan, day } = planToday;
+    return (
+      <TodayReadingCard
+        badge={`${shortPlanName(plan)} · Day ${day.day}`}
+        title={day.passage}
+        description="Read, then reflect and respond in your notebook. About 15 minutes.">
+        <Button
+          title="Start today’s RRR"
+          onPress={() =>
+            router.push({ pathname: '/check-in', params: { planId: plan.id, planDay: String(day.day) } })
+          }
+        />
+      </TodayReadingCard>
+    );
+  }
+
+  return (
+    <TodayReadingCard
+      title="Your daily RRR"
+      description={
+        isGuided
+          ? 'Read any passage, then reflect and respond in your notebook.'
+          : 'Done your RRR in your notebook? Check in here.'
+      }>
+      {isGuided ? (
+        <Button title="Start today’s RRR" onPress={() => router.push('/check-in')} />
+      ) : (
+        <SimpleCheckinForm
+          userId={userId}
+          readingDate={manilaDate(0)}
+          buttonTitle="I’ve done my RRR today"
+          onSaved={() => router.push('/check-in/done')}
+        />
+      )}
+      <Pressable
+        onPress={() => router.navigate({ pathname: '/bible', params: { view: 'plans' } })}
+        accessibilityRole="link">
+        <AppText style={styles.linkText}>Or follow a reading plan ›</AppText>
+      </Pressable>
+    </TodayReadingCard>
   );
 }
 
@@ -215,6 +296,42 @@ function LeaderRow({ leader }: { leader: LeaderToday }) {
 }
 
 const styles = StyleSheet.create({
+  bold: {
+    fontFamily: Fonts.semiBold,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  headerText: {
+    flex: 1,
+    gap: 2,
+  },
+  date: {
+    fontFamily: Fonts.medium,
+    fontSize: 13,
+    color: Colors.textSecondary,
+  },
+  greeting: {
+    fontFamily: Fonts.bold,
+    fontSize: 22,
+    lineHeight: 28,
+    color: Colors.text,
+  },
+  avatar: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: TileColors.green,
+  },
+  avatarText: {
+    fontFamily: Fonts.semiBold,
+    fontSize: 16,
+    color: Colors.primary,
+  },
   link: {
     padding: Spacing.sm,
   },

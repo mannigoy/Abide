@@ -64,6 +64,51 @@ export type Database = {
           },
         ]
       }
+      encouragements: {
+        Row: {
+          created_at: string
+          id: string
+          kind: string
+          read_at: string | null
+          recipient_id: string
+          sender_id: string
+          sent_on: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kind: string
+          read_at?: string | null
+          recipient_id: string
+          sender_id: string
+          sent_on?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kind?: string
+          read_at?: string | null
+          recipient_id?: string
+          sender_id?: string
+          sent_on?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "encouragements_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "encouragements_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       feedback: {
         Row: {
           created_at: string
@@ -90,6 +135,45 @@ export type Database = {
           {
             foreignKeyName: "feedback_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      friendships: {
+        Row: {
+          accepted_at: string | null
+          addressee_id: string
+          created_at: string
+          requester_id: string
+          status: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          addressee_id: string
+          created_at?: string
+          requester_id: string
+          status?: string
+        }
+        Update: {
+          accepted_at?: string | null
+          addressee_id?: string
+          created_at?: string
+          requester_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "friendships_addressee_id_fkey"
+            columns: ["addressee_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "friendships_requester_id_fkey"
+            columns: ["requester_id"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
@@ -217,6 +301,7 @@ export type Database = {
       profiles: {
         Row: {
           created_at: string
+          friend_code: string
           full_name: string
           id: string
           mode: Database["public"]["Enums"]["checkin_mode"]
@@ -227,6 +312,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          friend_code?: string
           full_name: string
           id: string
           mode?: Database["public"]["Enums"]["checkin_mode"]
@@ -237,6 +323,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          friend_code?: string
           full_name?: string
           id?: string
           mode?: Database["public"]["Enums"]["checkin_mode"]
@@ -394,6 +481,7 @@ export type Database = {
         }
         Returns: undefined
       }
+      are_friends: { Args: { p_a: string; p_b: string }; Returns: boolean }
       can_view_progress: { Args: { p_user_id: string }; Returns: boolean }
       complete_plan_day: {
         Args: { p_day: number; p_plan_id: string; p_total_days: number }
@@ -435,6 +523,28 @@ export type Database = {
         }[]
       }
       manila_today: { Args: never; Returns: string }
+      mark_encouragements_read: { Args: never; Returns: undefined }
+      my_encouragements: {
+        Args: never
+        Returns: {
+          created_at: string
+          id: string
+          kind: string
+          read_at: string
+          sender_name: string
+        }[]
+      }
+      my_friends: {
+        Args: never
+        Returns: {
+          checked_in_today: boolean
+          friend_id: string
+          full_name: string
+          relation: string
+          since: string
+          streak: number
+        }[]
+      }
       my_leaders_today: {
         Args: never
         Returns: {
@@ -451,6 +561,7 @@ export type Database = {
         Args: never
         Returns: Database["public"]["Enums"]["user_role"]
       }
+      new_friend_code: { Args: never; Returns: string }
       overseer_set_mode: {
         Args: {
           p_mode: Database["public"]["Enums"]["checkin_mode"]
@@ -459,26 +570,24 @@ export type Database = {
         Returns: undefined
       }
       oversees: { Args: { p_user_id: string }; Returns: boolean }
-      pause_plan: {
-        Args: { p_plan_id: string }
-        Returns: {
-          completed_at: string | null
-          current_day: number
-          plan_id: string
-          started_at: string
-          status: string
-          updated_at: string
-          user_id: string
-        }
-        SetofOptions: {
-          from: "*"
-          to: "user_plans"
-          isOneToOne: true
-          isSetofReturn: false
-        }
-      }
       read_on: { Args: { p_day: string; p_user_id: string }; Returns: boolean }
+      remove_friend: { Args: { p_friend: string }; Returns: undefined }
       require_admin: { Args: never; Returns: undefined }
+      respond_friend_request: {
+        Args: { p_accept: boolean; p_requester: string }
+        Returns: undefined
+      }
+      send_encouragement: {
+        Args: { p_kind: string; p_to: string }
+        Returns: undefined
+      }
+      send_friend_request: {
+        Args: { p_code: string }
+        Returns: {
+          friend_name: string
+          status: string
+        }[]
+      }
       start_plan: {
         Args: { p_plan_id: string }
         Returns: {

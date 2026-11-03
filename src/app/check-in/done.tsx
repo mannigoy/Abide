@@ -1,10 +1,11 @@
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
 import { Screen } from '@/components/screen';
+import { Card } from '@/components/card';
 import { Spacing } from '@/constants/theme';
 
 const MESSAGES = [
@@ -19,6 +20,8 @@ const MESSAGES = [
 export default function CheckinDoneScreen() {
   // useState with a function runs it once, so the message doesn't change on re-render.
   const [message] = useState(() => MESSAGES[Math.floor(Math.random() * MESSAGES.length)]);
+  // Set when the check-in was a reading plan's day, e.g. "Day 3 of 21 done in John…".
+  const { planMessage } = useLocalSearchParams<{ planMessage?: string }>();
 
   return (
     <Screen>
@@ -29,7 +32,12 @@ export default function CheckinDoneScreen() {
         </AppText>
         <AppText style={styles.centerText}>{message}</AppText>
       </View>
-      <Button title="Back to Home" onPress={() => router.back()} />
+      {planMessage && (
+        <Card highlight>
+          <AppText>📖 {planMessage}</AppText>
+        </Card>
+      )}
+      <Button title={planMessage ? 'Done' : 'Back to Home'} onPress={() => router.back()} />
     </Screen>
   );
 }

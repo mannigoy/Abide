@@ -36,3 +36,28 @@ export function weekdayLetter(date: string): string {
 export function isCheckinDateAllowed(date: string): boolean {
   return date === manilaDate(0) || date === manilaDate(-1);
 }
+
+const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const MONTH_NAMES = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+];
+
+/** '2026-10-23' → 'Friday, October 23' */
+export function formatLongDate(date: string): string {
+  const [, month, day] = date.split('-').map(Number);
+  const weekday = WEEKDAYS[new Date(`${date}T00:00:00Z`).getUTCDay()];
+  return `${weekday}, ${MONTH_NAMES[month - 1]} ${day}`;
+}
+
+/** This week's dates in Manila, Monday to Sunday (the same week as the grace day). */
+export function manilaWeekDates(): string[] {
+  const weekday = new Date(`${manilaDate(0)}T00:00:00Z`).getUTCDay(); // 0 = Sunday
+  const daysSinceMonday = (weekday + 6) % 7;
+  return Array.from({ length: 7 }, (_, i) => manilaDate(i - daysSinceMonday));
+}
+
+/** The hour in Manila, 0–23, e.g. to say good morning or good evening. */
+export function manilaHour(): number {
+  return new Date(Date.now() + MANILA_OFFSET_MS).getUTCHours();
+}

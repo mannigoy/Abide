@@ -10,6 +10,9 @@ export type CheckinInput = {
   readText?: string;
   reflectText?: string;
   respondText?: string;
+  /** Set both when the RRR was a reading plan's day. */
+  planId?: string;
+  planDay?: number;
 };
 
 /** The leader's check-in for one date, or null if there isn't one. `undefined` means it failed to load. */
@@ -42,6 +45,8 @@ export async function createCheckin(input: CheckinInput): Promise<string | null>
     read_text: clean(input.readText),
     reflect_text: clean(input.reflectText),
     respond_text: clean(input.respondText),
+    plan_id: input.planId ?? null,
+    plan_day: input.planDay ?? null,
   };
 
   for (let attempt = 0; attempt < 3; attempt++) {

@@ -13,7 +13,7 @@ import { getCheckin } from '@/lib/checkins';
 import { manilaDate } from '@/lib/dates';
 import { getCategories, getPlans, type Plan } from '@/lib/plans';
 import { useSession } from '@/lib/session';
-import { getActivePlan, type ActivePlan } from '@/lib/userPlans';
+import { completePlanDay, getActivePlan, type ActivePlan } from '@/lib/userPlans';
 
 type PlansViewProps = {
   /** Shown at the top, above "My plan" (the Bible | Plans switch). */
@@ -43,12 +43,20 @@ export function PlansView({ header }: PlansViewProps) {
     useCallback(() => {
       if (!userId) return;
       let ignore = false;
-      Promise.all([getActivePlan(userId), getCheckin(userId, manilaDate(0))]).then(([activePlan, checkin]) => {
+      async function load(id: string) {
+        let [activePlan, checkin] = await Promise.all([getActivePlan(id), getCheckin(id, manilaDate(0))]);
+        // Safety net: today's plan check-in was saved, but the plan didn't move
+        // on (e.g. the signal dropped right after saving). Finish it now.
+        if (activePlan && checkin?.plan_id === activePlan.plan.id && checkin.plan_day === activePlan.currentDay) {
+          await completePlanDay(activePlan.plan.id, activePlan.currentDay);
+          activePlan = await getActivePlan(id);
+        }
         if (ignore) return;
         let today: TodayStatus = 'ready';
         if (activePlan && checkin) today = checkin.plan_id === activePlan.plan.id ? 'done' : 'checked-in';
         setMine({ activePlan: activePlan ?? null, today });
-      });
+      }
+      load(userId);
       return () => {
         ignore = true;
       };
@@ -67,10 +75,11 @@ export function PlansView({ header }: PlansViewProps) {
   }
 
   function continueToday(active: ActivePlan) {
-    // TODO (step 4): open the guided RRR with this plan day's passage and
-    // questions, save plan_id + plan_day with the check-in, then call
-    // completePlanDay. For now we only log which day it would open.
-    console.log('[plans] Continue today’s RRR:', active.plan.id, 'day', active.currentDay);
+    // Opens the guided RRR with this plan day's passage and questions.
+    router.push({
+      pathname: '/check-in',
+      params: { planId: active.plan.id, planDay: String(active.currentDay) },
+    });
   }
 
   return (
