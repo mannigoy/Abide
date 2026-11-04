@@ -1,14 +1,16 @@
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Linking, Pressable, StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
 import { Card } from '@/components/card';
+import { DeleteAccountSheet } from '@/components/delete-account-sheet';
 import { JoinGroupForm } from '@/components/join-group-form';
 import { ReportProblemSheet } from '@/components/report-problem-sheet';
 import { Screen } from '@/components/screen';
-import { Spacing } from '@/constants/theme';
+import { PRIVACY_POLICY_URL } from '@/constants/links';
+import { Colors, Spacing } from '@/constants/theme';
 import { signOut } from '@/lib/auth';
 import { getMyGroups, groupTypeLabels, type MemberGroup } from '@/lib/groups';
 import { roleLabels } from '@/lib/profiles';
@@ -21,6 +23,7 @@ export default function ProfileScreen() {
   // undefined = still loading, null = failed to load
   const [groups, setGroups] = useState<MemberGroup[] | null | undefined>(undefined);
   const [reporting, setReporting] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   // Reload every time this tab comes back into view.
   useFocusEffect(
@@ -79,7 +82,21 @@ export default function ProfileScreen() {
         <Button title="Sign out" variant="secondary" onPress={() => signOut()} />
       </View>
 
+      <View style={styles.quietLinks}>
+        <Pressable onPress={() => Linking.openURL(PRIVACY_POLICY_URL)} accessibilityRole="link" hitSlop={8}>
+          <AppText variant="caption" style={styles.link}>
+            Privacy policy
+          </AppText>
+        </Pressable>
+        <Pressable onPress={() => setDeleting(true)} accessibilityRole="button" hitSlop={8}>
+          <AppText variant="caption" style={styles.link}>
+            Delete my account
+          </AppText>
+        </Pressable>
+      </View>
+
       {userId && <ReportProblemSheet visible={reporting} userId={userId} onClose={() => setReporting(false)} />}
+      <DeleteAccountSheet visible={deleting} onClose={() => setDeleting(false)} />
     </Screen>
   );
 }
@@ -88,5 +105,13 @@ const styles = StyleSheet.create({
   section: {
     gap: Spacing.xs,
     marginTop: Spacing.lg,
+  },
+  quietLinks: {
+    alignItems: 'center',
+    gap: Spacing.md,
+    marginTop: Spacing.md,
+  },
+  link: {
+    color: Colors.primary,
   },
 });

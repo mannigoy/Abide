@@ -50,6 +50,29 @@ export async function signOut(): Promise<string | null> {
   return error ? friendlyMessage(error) : null;
 }
 
+/**
+ * Deletes the signed-in person's account and everything that belongs to it
+ * (check-ins, notes, highlights, plans, friends, encouragements), then signs
+ * out on this phone. Returns an error message, or `null` when it worked.
+ *
+ * The database function `delete_my_account` does the work and refuses while
+ * the person still leads a group, because deleting them would delete the
+ * whole group for everyone in it.
+ */
+export async function deleteMyAccount(): Promise<string | null> {
+  const { error } = await supabase.rpc('delete_my_account');
+  if (error) {
+    if (error.code === '55000') {
+      return 'You still lead a group. Please ask an admin to move your groups to another overseer first, then try again.';
+    }
+    console.warn('Could not delete account', error.message);
+    return 'Couldn’t delete your account. Check your connection and try again.';
+  }
+  // The account is gone from the server, so only clear the session saved on this phone.
+  await supabase.auth.signOut({ scope: 'local' });
+  return null;
+}
+
 function friendlyMessage(error: AuthError): string {
   switch (error.code) {
     case 'invalid_credentials':

@@ -505,6 +505,7 @@ export type Database = {
         Args: { p_user_id: string }
         Returns: Record<string, unknown>
       }
+      delete_my_account: { Args: never; Returns: undefined }
       get_streak: {
         Args: { p_user_id: string }
         Returns: {

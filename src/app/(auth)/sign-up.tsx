@@ -1,12 +1,13 @@
 import { Link } from 'expo-router';
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
 import { Screen } from '@/components/screen';
 import { PasswordField } from '@/components/password-field';
 import { TextField } from '@/components/text-field';
+import { PRIVACY_POLICY_URL } from '@/constants/links';
 import { Colors, Spacing } from '@/constants/theme';
 import { signUp } from '@/lib/auth';
 
@@ -85,6 +86,18 @@ export default function SignUpScreen() {
 
       <Button title="Create account" onPress={handleSignUp} loading={loading} />
 
+      <AppText variant="caption" style={styles.agree}>
+        By creating an account you agree to our{' '}
+        <AppText
+          variant="caption"
+          style={styles.linkText}
+          accessibilityRole="link"
+          onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}>
+          Privacy policy
+        </AppText>
+        .
+      </AppText>
+
       <Link href="/sign-in" style={styles.link}>
         <AppText style={styles.linkText}>Already have an account? Sign in</AppText>
       </Link>
@@ -100,6 +113,9 @@ const styles = StyleSheet.create({
   },
   error: {
     color: Colors.primary,
+  },
+  agree: {
+    textAlign: 'center',
   },
   link: {
     alignSelf: 'center',
