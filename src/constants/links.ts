@@ -3,7 +3,7 @@
  * needs updating here.
  */
 
-// PLACEHOLDER: replace with the real public address once the privacy policy
-// is published (Play Store plan, item A8). Google Play checks that this link
-// works, so it must be updated before the first upload.
-export const PRIVACY_POLICY_URL = 'https://example.com/abide-privacy-policy-placeholder';
+// Published from the `gh-pages` branch (GitHub Pages). The text lives in
+// docs/privacy-policy.md and docs/delete-account.md; republish after changes.
+export const PRIVACY_POLICY_URL = 'https://mannigoy.github.io/Abide/privacy.html';
+export const DELETE_ACCOUNT_URL = 'https://mannigoy.github.io/Abide/delete-account.html';

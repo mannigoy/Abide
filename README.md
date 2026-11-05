@@ -22,7 +22,7 @@ Overall  ███████████████░░░░░  ~75%
 ```mermaid
 flowchart LR
   P1["1 · Setup"]:::done --> P2["2 · Sign-in"]:::wip --> P3["3 · Check-in"]:::wip --> P4["4 · Bible reader"]:::wip --> P5["5 · Notebook scan"]:::wip
-  P5 --> P6["6 · Overseer view + streaks"]:::wip --> P7["7 · Friends"]:::wip --> P8["8 · Pilot"]:::todo --> P9["9 · Chat"]:::todo
+  P5 --> P6["6 · Overseer view + streaks"]:::wip --> P7["7 · Friends"]:::wip --> P8["8 · Pilot"]:::wip --> P9["9 · Chat"]:::todo
 
   classDef done fill:#2F5D50,stroke:#2F5D50,color:#FFFFFF
   classDef wip fill:#E9A23B,stroke:#E9A23B,color:#1F2A26
@@ -38,7 +38,7 @@ flowchart LR
 | 5 | **Notebook scan** | Snap your notebook page; on-device text recognition fills in your check-in | 🟡 Testing |
 | 6 | **Overseer view & streaks** | "Who read today" for overseers; streaks with a weekly grace day | 🟡 Testing |
 | 7 | **Friends** | Add friends and encourage each other (replaces badges / *My Bible Heroes*, dropped) | 🟡 Testing |
-| 8 | **Pilot** | Daily reminders, backups, Android APK for 5–10 leaders | ⬜ Planned |
+| 8 | **Pilot** | Daily reminders, backups, Android APK for 5–10 leaders | 🟡 In progress |
 | 9 | **Chat** | 1:1 leader–overseer and cell-group chats | ⬜ After launch |
 
 ### Phase 2 progress
@@ -85,6 +85,17 @@ Guided RRR plans: each day gives a passage and reflection questions. A day count
 - [x] Saving the check-in moves the plan to the next day (and finishes it after the last day); the celebration screen says which day was done
 - [x] Plan detail screen: what you'll read, Start / Start again, or "Finish your current plan first" while another plan is active
 - [ ] Tested end-to-end on an Android phone
+
+### Phase 8 progress: Pilot
+
+- [x] App icon and splash: an open book with a sprout (`scripts/make-icons.py`), plus Play Store icon and feature graphic in `assets/store/`
+- [x] Daily reading reminder: pick a time in Profile; scheduled on the phone, works offline
+- [x] Encouragement alerts: a push notification when a friend encourages you (sent by the database via Expo; needs Firebase set up once)
+- [x] Privacy policy and account deletion pages (GitHub Pages, `gh-pages` branch); Delete my account in Profile
+- [x] Version 1 APK built with EAS
+- [ ] Firebase (FCM) credentials uploaded to EAS, so push alerts arrive
+- [ ] Weekly backups
+- [ ] Pilot with 15–20 leaders (Google Play closed testing needs 12+ testers for 14 days)
 
 ### Phase 7 progress: Friends
 

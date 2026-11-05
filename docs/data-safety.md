@@ -4,7 +4,8 @@
 > Based on the code as of 2026-11-04 (before Phase 8 reminders and Phase 9 chat). **Re-check when either ships:**
 > a stored push token adds "Device or other IDs → App functionality", and chat adds "Messages → Other in-app messages" with free text.
 > Also re-read Google's ML Kit disclosure (https://developers.google.com/ml-kit/android-data-disclosure) just before submitting.
-> Placeholder still open: `[DELETE ACCOUNT URL]` (from plan item A8).
+> **Update 2026-11-05:** Phase 8 now stores a push token (`profiles.push_token`) and the reminder time. Add **Device or other IDs → collected, not shared, App functionality, required for encouragement alerts**. The reminder time falls under App activity / app functionality.
+> Delete-account URL: https://mannigoy.github.io/Abide/delete-account.html (once GitHub Pages is on).
 
 ## Section 1: Data collection and security
 

@@ -1,7 +1,8 @@
 import type { Tables } from '@/lib/database.types';
 import { supabase } from '@/lib/supabase';
 
-export type Profile = Tables<'profiles'>;
+/** push_token is never read back by the app (only the database uses it to send notifications). */
+export type Profile = Omit<Tables<'profiles'>, 'push_token'>;
 export type Role = Profile['role'];
 
 export const roleLabels: Record<Role, string> = {
@@ -17,7 +18,11 @@ export function usesOverseerTabs(role: Role | undefined): boolean {
 
 /** The signed-in person's own profile. RLS makes sure nobody can read someone else's this way. */
 export async function getMyProfile(userId: string): Promise<Profile | null> {
-  const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single();
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('id, full_name, role, overseer_id, mode, reminder_time, friend_code, created_at')
+    .eq('id', userId)
+    .single();
   if (error) {
     console.warn('Could not load profile', error.message);
     return null;

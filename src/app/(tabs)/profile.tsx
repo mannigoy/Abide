@@ -7,12 +7,14 @@ import { Button } from '@/components/button';
 import { Card } from '@/components/card';
 import { DeleteAccountSheet } from '@/components/delete-account-sheet';
 import { JoinGroupForm } from '@/components/join-group-form';
+import { ReminderSheet } from '@/components/reminder-sheet';
 import { ReportProblemSheet } from '@/components/report-problem-sheet';
 import { Screen } from '@/components/screen';
 import { PRIVACY_POLICY_URL } from '@/constants/links';
 import { Colors, Spacing } from '@/constants/theme';
 import { signOut } from '@/lib/auth';
 import { getMyGroups, groupTypeLabels, type MemberGroup } from '@/lib/groups';
+import { formatTime, parseTime } from '@/lib/notifications';
 import { roleLabels } from '@/lib/profiles';
 import { useSession } from '@/lib/session';
 
@@ -24,6 +26,8 @@ export default function ProfileScreen() {
   const [groups, setGroups] = useState<MemberGroup[] | null | undefined>(undefined);
   const [reporting, setReporting] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [choosingReminder, setChoosingReminder] = useState(false);
+  const reminder = profile?.reminder_time ? parseTime(profile.reminder_time) : null;
 
   // Reload every time this tab comes back into view.
   useFocusEffect(
@@ -53,6 +57,20 @@ export default function ProfileScreen() {
         <AppText variant="heading">{profile?.full_name ?? 'Your profile'}</AppText>
         <AppText variant="caption">{session?.user.email}</AppText>
         {profile && <AppText variant="caption">{roleLabels[profile.role]}</AppText>}
+      </Card>
+
+      <Card>
+        <AppText variant="heading">Daily reminder</AppText>
+        <AppText variant="caption">
+          {reminder
+            ? `Every day at ${formatTime(reminder.hour, reminder.minute)}. Friends’ encouragements will notify you too.`
+            : 'Off. A gentle nudge each day helps the habit stick.'}
+        </AppText>
+        <Button
+          title={reminder ? 'Change time' : 'Set a reminder'}
+          variant="secondary"
+          onPress={() => setChoosingReminder(true)}
+        />
       </Card>
 
       <View style={styles.section}>
@@ -97,6 +115,15 @@ export default function ProfileScreen() {
 
       {userId && <ReportProblemSheet visible={reporting} userId={userId} onClose={() => setReporting(false)} />}
       <DeleteAccountSheet visible={deleting} onClose={() => setDeleting(false)} />
+      {userId && (
+        <ReminderSheet
+          visible={choosingReminder}
+          userId={userId}
+          current={profile?.reminder_time ?? null}
+          onClose={() => setChoosingReminder(false)}
+          onSaved={refreshProfile}
+        />
+      )}
     </Screen>
   );
 }

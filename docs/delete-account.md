@@ -1,10 +1,9 @@
-# Delete your Abide account (DRAFT web page for the owner to review)
+# Delete your Abide account
 
-> **Draft only. Not published.** Replace `[DEVELOPER NAME]`, `[CONTACT EMAIL]` and `[PRIVACY POLICY URL]`,
-> publish it at a free public URL (Play Store plan, item A8), and put that URL in Play Console → App content → Data deletion.
-> It can be its own page or a "Delete your account" section of the privacy policy page. Then delete this box.
+<!-- Published at https://mannigoy.github.io/Abide/delete-account.html (gh-pages branch, without the admin section
+     at the bottom). Put that URL in Play Console → App content → Data deletion. -->
 
-**Abide** (Bible reading check-ins for church leaders) by **[DEVELOPER NAME]**
+**Abide** (Bible reading check-ins for church leaders) by **Emman Roy Pielago**
 
 You can delete your Abide account and its data at any time.
 
@@ -19,7 +18,7 @@ Your account is deleted straight away and you're signed out.
 
 ## Option 2: without the app
 
-Email **[CONTACT EMAIL]** from the email address you signed up with, with the subject **"Delete my Abide account"**. We'll delete your account and data within 30 days and reply to confirm.
+Email **emmanroy.pielago03@gmail.com** from the email address you signed up with, with the subject **"Delete my Abide account"**. We'll delete your account and data within 30 days and reply to confirm.
 
 ## What gets deleted
 
@@ -29,6 +28,7 @@ Email **[CONTACT EMAIL]** from the email address you signed up with, with the su
 - Your highlights and highlight notes
 - Your reading plan progress
 - Your friendships and the encouragements you sent or received
+- Your reminder time and notification token
 - Your small group memberships
 - Any "Report a problem" messages you sent
 
@@ -40,7 +40,7 @@ Email **[CONTACT EMAIL]** from the email address you signed up with, with the su
 
 Notebook photos are never uploaded or saved, so there's nothing to delete there.
 
-More details: [PRIVACY POLICY URL]
+More details: https://mannigoy.github.io/Abide/privacy.html
 
 ---
 

@@ -5,17 +5,20 @@ import {
   Inter_700Bold,
   useFonts,
 } from '@expo-google-fonts/inter';
-import { Stack } from 'expo-router';
+import * as Notifications from 'expo-notifications';
+import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 
 import { Colors } from '@/constants/theme';
+import { registerPushToken, setUpNotificationHandler, syncDailyReminder } from '@/lib/notifications';
 import { SessionProvider, useSession } from '@/lib/session';
 
 // Keep the splash screen up until fonts and the saved session have loaded,
 // so the app never flashes the wrong font or the sign-in screen by mistake.
 SplashScreen.preventAutoHideAsync();
+setUpNotificationHandler();
 
 export default function RootLayout() {
   return (
@@ -26,7 +29,17 @@ export default function RootLayout() {
 }
 
 function RootNavigator() {
-  const { session, isLoading } = useSession();
+  const { session, isLoading, profile } = useSession();
+  const userId = profile?.id;
+  const reminderTime = profile?.reminder_time ?? null;
+
+  // When someone signs in (or opens the app), make this phone's daily reminder
+  // match their profile, and refresh the push token for encouragement alerts.
+  useEffect(() => {
+    if (!userId) return;
+    syncDailyReminder(reminderTime);
+    registerPushToken(userId);
+  }, [userId, reminderTime]);
 
   // useFonts is a hook: it loads the fonts and re-renders this component
   // when loading finishes, which flips `fontsLoaded` to true.
@@ -46,6 +59,25 @@ function RootNavigator() {
       SplashScreen.hideAsync();
     }
   }, [ready]);
+
+  // Tapping a notification opens the screen it points to (data.url), e.g. /friends.
+  // Only once the screens exist and someone is signed in.
+  const canNavigate = ready && session !== null;
+  useEffect(() => {
+    if (!canNavigate) return;
+    function open(response: Notifications.NotificationResponse | null) {
+      const url = response?.notification.request.content.data?.url;
+      if (typeof url !== 'string') return;
+      router.push(url as never);
+      // So the same tap isn't handled again next time.
+      Notifications.clearLastNotificationResponseAsync();
+    }
+    // The tap that opened the app, if it was closed…
+    Notifications.getLastNotificationResponseAsync().then(open);
+    // …and taps while it's running.
+    const subscription = Notifications.addNotificationResponseReceivedListener(open);
+    return () => subscription.remove();
+  }, [canNavigate]);
 
   if (!ready) {
     return null;

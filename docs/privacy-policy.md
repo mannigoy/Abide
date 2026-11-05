@@ -1,13 +1,11 @@
-# Abide privacy policy (DRAFT for the owner to review)
+# Abide privacy policy
 
-> **Draft only. Not published.** Before publishing (Play Store plan, item A8), replace every `[PLACEHOLDER]`:
-> `[DEVELOPER NAME]` (the Play Console account holder, a person or the church), `[CONTACT EMAIL]`,
-> `[EFFECTIVE DATE]`, `[DELETE ACCOUNT URL]`. Then delete this box.
-> Re-check this policy whenever the app starts collecting something new (Phase 8 push reminders, Phase 9 chat).
+<!-- Published at https://mannigoy.github.io/Abide/privacy.html (gh-pages branch). Re-check this policy and
+     republish whenever the app starts collecting something new (e.g. Phase 9 chat). -->
 
-**Effective date:** [EFFECTIVE DATE]
+**Effective date:** November 5, 2026
 
-Abide is a free app that helps church leaders build a daily Bible reading habit together. It is made by [DEVELOPER NAME] ("we"). This policy explains what Abide collects, why, who can see it, and how to delete it. We've kept it short and plain.
+Abide is a free app that helps church leaders build a daily Bible reading habit together. It is made by Emman Roy Pielago ("we"). This policy explains what Abide collects, why, who can see it, and how to delete it. We've kept it short and plain.
 
 Abide has no ads, sells nothing, and never sells or rents your information.
 
@@ -23,6 +21,8 @@ Abide has no ads, sells nothing, and never sells or rents your information.
 | **Highlights** | The verse reference (not the Bible text), the colour you chose, and any note you add. |
 | **Reading plan progress** | Which plan you're on and how far you've got. |
 | **Friends and encouragements** | Who you're friends with, and the short ready-made encouragements you send ("Praying for you", etc.). There is no free-text messaging. |
+| **Reminder time** | The time you choose for your daily reading reminder, so the app can remind you. |
+| **A notification token** | A code from your phone that lets Abide send you a notification when a friend encourages you. It isn't your phone number and can't be used to identify you outside Abide. |
 | **Problem reports** | What you write when you tap "Report a problem", with your name, so we can follow up. |
 | **App diagnostics from Google ML Kit** | See "Notebook scan" below. |
 
@@ -52,7 +52,7 @@ We never share your information with anyone else, unless the law requires it.
 
 - **Supabase** stores the app's data and handles sign-in. Its servers are in Japan (Tokyo). Data is sent over an encrypted (HTTPS) connection.
 - **Google** provides ML Kit (on-device text recognition) and distributes the app through Google Play.
-- **Expo** is used to build and update the app. *(When reminder notifications are added, Expo and Google's Firebase Cloud Messaging will also deliver them.)*
+- **Expo** builds the app and, with **Google Firebase Cloud Messaging**, delivers notifications when a friend encourages you. They receive your notification token and the short message (e.g. "Ana: 🙏 Praying for you"). Daily reading reminders are created on your phone and don't go through any server.
 - **YouVersion** provides Bible text, and receives no personal information (see above).
 
 ## How long we keep it
@@ -64,7 +64,7 @@ If you lead a group as an overseer, an admin first moves your groups to another 
 ## Deleting your account
 
 - **In the app:** Profile → **Delete my account**.
-- **Without the app:** follow the steps at [DELETE ACCOUNT URL], or email [CONTACT EMAIL] from the address you signed up with. We'll delete your account and data within 30 days.
+- **Without the app:** follow the steps at https://mannigoy.github.io/Abide/delete-account.html, or email emmanroy.pielago03@gmail.com from the address you signed up with. We'll delete your account and data within 30 days.
 
 ## Keeping your data safe
 
@@ -80,5 +80,5 @@ If we change this policy, we'll update the date at the top and, for important ch
 
 ## Contact
 
-Questions or requests: **[CONTACT EMAIL]**
-[DEVELOPER NAME], Cebu, Philippines
+Questions or requests: **emmanroy.pielago03@gmail.com**
+Emman Roy Pielago, Cebu, Philippines
