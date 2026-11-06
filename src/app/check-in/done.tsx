@@ -21,7 +21,8 @@ export default function CheckinDoneScreen() {
   // useState with a function runs it once, so the message doesn't change on re-render.
   const [message] = useState(() => MESSAGES[Math.floor(Math.random() * MESSAGES.length)]);
   // Set when the check-in was a reading plan's day, e.g. "Day 3 of 21 done in John…".
-  const { planMessage } = useLocalSearchParams<{ planMessage?: string }>();
+  // `queued` is set when there was no internet: the check-in is waiting on the phone.
+  const { planMessage, queued } = useLocalSearchParams<{ planMessage?: string; queued?: string }>();
 
   return (
     <Screen>
@@ -32,6 +33,11 @@ export default function CheckinDoneScreen() {
         </AppText>
         <AppText style={styles.centerText}>{message}</AppText>
       </View>
+      {queued && (
+        <Card>
+          <AppText>📶 No internet right now, so it’s saved on your phone. It will send by itself when you’re back online.</AppText>
+        </Card>
+      )}
       {planMessage && (
         <Card highlight>
           <AppText>📖 {planMessage}</AppText>

@@ -4,15 +4,15 @@ import { AppText } from '@/components/app-text';
 import { Button } from '@/components/button';
 import { PassagePicker } from '@/components/passage-picker';
 import { Colors } from '@/constants/theme';
-import { createCheckin } from '@/lib/checkins';
+import { saveCheckin } from '@/lib/checkins';
 
 type SimpleCheckinFormProps = {
   userId: string;
   /** 'YYYY-MM-DD' in Manila time: today or yesterday. */
   readingDate: string;
   buttonTitle: string;
-  /** Called once the check-in is saved. */
-  onSaved: () => void;
+  /** Called once the check-in is saved. `queued` = no internet, waiting on the phone. */
+  onSaved: (queued: boolean) => void;
 };
 
 /** Simple mode: an optional passage and one button. Used on Home and for yesterday's check-in. */
@@ -24,12 +24,12 @@ export function SimpleCheckinForm({ userId, readingDate, buttonTitle, onSaved }:
   async function handleCheckIn() {
     setSaving(true);
     setError(null);
-    const message = await createCheckin({ userId, readingDate, passage });
+    const result = await saveCheckin({ userId, readingDate, passage });
     setSaving(false);
-    if (message) {
-      setError(message);
+    if (result.status === 'error') {
+      setError(result.message);
     } else {
-      onSaved();
+      onSaved(result.status === 'queued');
     }
   }
 

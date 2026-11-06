@@ -1,3 +1,5 @@
+import Storage from 'expo-sqlite/kv-store';
+
 import type { Tables } from '@/lib/database.types';
 import { supabase } from '@/lib/supabase';
 
@@ -25,7 +27,25 @@ export async function getMyProfile(userId: string): Promise<Profile | null> {
     .single();
   if (error) {
     console.warn('Could not load profile', error.message);
+    // Offline: use the copy saved last time, so the app still opens.
+    return readSavedProfile(userId);
+  }
+  await Storage.setItem(profileKey(userId), JSON.stringify(data)).catch(() => {});
+  return data;
+}
+
+const profileKey = (userId: string) => `profile.${userId}`;
+
+async function readSavedProfile(userId: string): Promise<Profile | null> {
+  try {
+    const saved = await Storage.getItem(profileKey(userId));
+    return saved ? (JSON.parse(saved) as Profile) : null;
+  } catch {
     return null;
   }
-  return data;
+}
+
+/** Removes the saved copy of a profile from this phone (sign-out, account deletion). */
+export async function forgetSavedProfile(userId: string) {
+  await Storage.removeItem(profileKey(userId)).catch(() => {});
 }

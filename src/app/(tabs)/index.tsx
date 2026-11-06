@@ -10,7 +10,7 @@ import { SimpleCheckinForm } from '@/components/simple-checkin-form';
 import { StreakWeekCard } from '@/components/home/streak-week-card';
 import { TodayReadingCard } from '@/components/home/today-reading-card';
 import { Colors, Fonts, Spacing, TileColors } from '@/constants/theme';
-import { getCheckin, type Checkin } from '@/lib/checkins';
+import { getCheckin, sendPendingCheckins, type Checkin } from '@/lib/checkins';
 import { formatLongDate, formatShortDate, manilaDate, manilaHour } from '@/lib/dates';
 import { usesOverseerTabs } from '@/lib/profiles';
 import { ENCOURAGEMENTS, getEncouragements, type Encouragement } from '@/lib/friends';
@@ -66,6 +66,8 @@ function HomeScreen() {
       if (!userId) return;
       let ignore = false;
       async function load(id: string) {
+        // Send any check-ins saved while offline first, so the streak below is up to date.
+        await sendPendingCheckins(id);
         const [today, yesterday, streak, history, planToday, received] = await Promise.all([
           getCheckin(id, manilaDate(0)),
           getCheckin(id, manilaDate(-1)),
@@ -81,7 +83,12 @@ function HomeScreen() {
           yesterday,
           todayCheckinPlan,
           streak,
-          readThisWeek: new Set((history ?? []).map((day) => day.reading_date)),
+          // Check-ins still waiting on the phone count as read, too.
+          readThisWeek: new Set(
+            [...(history ?? []).map((day) => day.reading_date), today, yesterday].flatMap((day) =>
+              typeof day === 'string' ? [day] : day?.pending ? [day.reading_date] : [],
+            ),
+          ),
           planToday,
           newEncouragements: (received ?? []).filter((e) => !e.read),
         });
@@ -154,7 +161,11 @@ function TodayCard({ data, userId, isGuided }: { data: HomeData; userId: string;
       <TodayReadingCard
         badge={todayCheckinPlan && today.plan_day ? `${shortPlanName(todayCheckinPlan)} · Day ${today.plan_day}` : undefined}
         title={today.passage ?? 'Done for today'}
-        description="You’ve checked in today ✓ Thank you for meeting with God today."
+        description={
+          today.pending
+            ? 'You’ve checked in today ✓ It’s saved on your phone and will send when you’re back online.'
+            : 'You’ve checked in today ✓ Thank you for meeting with God today.'
+        }
       />
     );
   }
@@ -191,7 +202,7 @@ function TodayCard({ data, userId, isGuided }: { data: HomeData; userId: string;
           userId={userId}
           readingDate={manilaDate(0)}
           buttonTitle="I’ve done my RRR today"
-          onSaved={() => router.push('/check-in/done')}
+          onSaved={(queued) => router.push({ pathname: '/check-in/done', params: queued ? { queued: '1' } : {} })}
         />
       )}
       <Pressable

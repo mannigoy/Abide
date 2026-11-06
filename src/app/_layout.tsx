@@ -10,8 +10,10 @@ import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
+import { AppState } from 'react-native';
 
 import { Colors } from '@/constants/theme';
+import { sendPendingCheckins } from '@/lib/checkins';
 import { registerPushToken, setUpNotificationHandler, syncDailyReminder } from '@/lib/notifications';
 import { SessionProvider, useSession } from '@/lib/session';
 
@@ -40,6 +42,18 @@ function RootNavigator() {
     syncDailyReminder(reminderTime);
     registerPushToken();
   }, [userId, reminderTime]);
+
+  // Offline first: check-ins saved on the phone without internet are sent when
+  // the app opens, and again every time it comes back to the foreground.
+  useEffect(() => {
+    if (!userId) return;
+    sendPendingCheckins(userId);
+    // AppState tells us when the app moves between foreground ('active') and background.
+    const subscription = AppState.addEventListener('change', (state) => {
+      if (state === 'active') sendPendingCheckins(userId);
+    });
+    return () => subscription.remove();
+  }, [userId]);
 
   // useFonts is a hook: it loads the fonts and re-renders this component
   // when loading finishes, which flips `fontsLoaded` to true.

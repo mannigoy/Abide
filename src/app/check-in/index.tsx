@@ -12,7 +12,7 @@ import { Screen } from '@/components/screen';
 import { SimpleCheckinForm } from '@/components/simple-checkin-form';
 import { TextField } from '@/components/text-field';
 import { Colors, Fonts, Radius, Spacing } from '@/constants/theme';
-import { createCheckin } from '@/lib/checkins';
+import { saveCheckin } from '@/lib/checkins';
 import { isCheckinDateAllowed, manilaDate } from '@/lib/dates';
 import type { Plan, PlanDay } from '@/lib/plans';
 import type { RrrText } from '@/lib/rrr-text';
@@ -57,8 +57,11 @@ export default function CheckinScreen() {
   if (!profile || planToday === undefined) return null;
 
   // router.replace swaps this screen for the celebration, so "back" goes home, not here.
-  const goToDone = (planMessage?: string) =>
-    router.replace({ pathname: '/check-in/done', params: planMessage ? { planMessage } : {} });
+  const goToDone = (planMessage?: string, queued?: boolean) =>
+    router.replace({
+      pathname: '/check-in/done',
+      params: { ...(planMessage ? { planMessage } : {}), ...(queued ? { queued: '1' } : {}) },
+    });
 
   if (profile.mode === 'guided' || planToday) {
     return (
@@ -80,7 +83,7 @@ export default function CheckinScreen() {
           userId={profile.id}
           readingDate={readingDate}
           buttonTitle={`I did my RRR ${dayLabel}`}
-          onSaved={() => goToDone()}
+          onSaved={(queued) => goToDone(undefined, queued)}
         />
       </Card>
       <Button title="Cancel" variant="secondary" onPress={() => router.back()} />
@@ -130,8 +133,11 @@ type GuidedCheckinProps = {
   dayLabel: string;
   /** Set when this RRR is a reading plan's day: its passage and questions are used. */
   planToday: PlanToday | null;
-  /** `planMessage` is shown on the celebration screen, e.g. "Day 3 of John done". */
-  onSaved: (planMessage?: string) => void;
+  /**
+   * `planMessage` is shown on the celebration screen, e.g. "Day 3 of John done".
+   * `queued` means there was no internet, so it's waiting on the phone.
+   */
+  onSaved: (planMessage?: string, queued?: boolean) => void;
 };
 
 function GuidedCheckin({ userId, readingDate, dayLabel, planToday, onSaved }: GuidedCheckinProps) {
@@ -180,7 +186,7 @@ function GuidedCheckin({ userId, readingDate, dayLabel, planToday, onSaved }: Gu
       return;
     }
     setSaving(true);
-    const message = await createCheckin({
+    const result = await saveCheckin({
       userId,
       readingDate,
       passage,
@@ -190,9 +196,15 @@ function GuidedCheckin({ userId, readingDate, dayLabel, planToday, onSaved }: Gu
       planId: planToday?.plan.id,
       planDay: planToday?.day.day,
     });
-    if (message) {
+    if (result.status === 'error') {
       setSaving(false);
-      setError(message);
+      setError(result.message);
+      return;
+    }
+    if (result.status === 'queued') {
+      // No internet: it's safe on the phone, and the plan moves on once it's sent.
+      setSaving(false);
+      onSaved(undefined, true);
       return;
     }
     // The check-in is saved; now move the plan to the next day. If this fails

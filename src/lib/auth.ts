@@ -1,6 +1,8 @@
 import type { AuthError } from '@supabase/supabase-js';
 
+import { forgetPendingCheckins, sendPendingCheckins } from '@/lib/checkins';
 import { forgetThisPhone } from '@/lib/notifications';
+import { forgetSavedProfile } from '@/lib/profiles';
 import { supabase } from '@/lib/supabase';
 
 /**
@@ -47,6 +49,13 @@ export async function signUp(input: SignUpInput): Promise<SignUpResult> {
 }
 
 export async function signOut(): Promise<string | null> {
+  const userId = (await supabase.auth.getSession()).data.session?.user.id;
+  if (userId) {
+    // Try to send check-ins saved offline. Any still waiting stay on the phone
+    // and are sent the next time this person signs in here.
+    await sendPendingCheckins(userId);
+    await forgetSavedProfile(userId);
+  }
   // Stop this phone getting the person's reminders and encouragement alerts.
   await forgetThisPhone();
   const { error } = await supabase.auth.signOut();
@@ -63,6 +72,7 @@ export async function signOut(): Promise<string | null> {
  * whole group for everyone in it.
  */
 export async function deleteMyAccount(): Promise<string | null> {
+  const userId = (await supabase.auth.getSession()).data.session?.user.id;
   const { error } = await supabase.rpc('delete_my_account');
   if (error) {
     if (error.code === '55000') {
@@ -71,7 +81,11 @@ export async function deleteMyAccount(): Promise<string | null> {
     console.warn('Could not delete account', error.message);
     return 'Couldn’t delete your account. Check your connection and try again.';
   }
-  // The account is gone from the server, so only clear the session saved on this phone.
+  // The account is gone from the server, so clear what's saved on this phone.
+  if (userId) {
+    await forgetPendingCheckins(userId);
+    await forgetSavedProfile(userId);
+  }
   await supabase.auth.signOut({ scope: 'local' });
   return null;
 }
