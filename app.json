@@ -8,6 +8,7 @@
     "scheme": "abide",
     "userInterfaceStyle": "light",
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "backgroundColor": "#2F5D50",
         "foregroundImage": "./assets/images/android-icon-foreground.png",

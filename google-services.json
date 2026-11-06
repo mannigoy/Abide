@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1098475126275",
+    "project_id": "abide-de925",
+    "storage_bucket": "abide-de925.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098475126275:android:59f99ed7c4aa2b4519d836",
+        "android_client_info": {
+          "package_name": "com.mannigoy.abide"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq7HceJ6mdfF8qvrudBc_iZv3EPcb9B9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

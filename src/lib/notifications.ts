@@ -116,7 +116,7 @@ export async function setReminderTime(userId: string, time: string | null): Prom
   }
   await syncDailyReminder(time);
   // Allowing notifications for reminders also turns on encouragement alerts.
-  if (time) await registerPushToken(userId);
+  if (time) await registerPushToken();
   return null;
 }
 
@@ -128,7 +128,7 @@ export async function setReminderTime(userId: string, time: string | null): Prom
  * Saves this phone's push token to the profile, if notifications are allowed.
  * Never prompts. Push doesn't work in Expo Go on Android, so it's skipped there.
  */
-export async function registerPushToken(userId: string): Promise<void> {
+export async function registerPushToken(): Promise<void> {
   if (Constants.executionEnvironment === ExecutionEnvironment.StoreClient) return;
   if (!(await hasNotificationPermission())) return;
   const projectId = Constants.expoConfig?.extra?.eas?.projectId ?? Constants.easConfig?.projectId;
@@ -136,7 +136,8 @@ export async function registerPushToken(userId: string): Promise<void> {
   try {
     await ensureChannels();
     const { data: token } = await Notifications.getExpoPushTokenAsync({ projectId });
-    const { error } = await supabase.from('profiles').update({ push_token: token }).eq('id', userId);
+    // The database also takes this token off any other account (a shared phone).
+    const { error } = await supabase.rpc('set_my_push_token', { p_token: token });
     if (error) console.warn('Could not save push token', error.message);
   } catch (error) {
     // No internet, or push isn't set up yet (Firebase): reminders still work.
@@ -144,8 +145,13 @@ export async function registerPushToken(userId: string): Promise<void> {
   }
 }
 
-/** Call before signing out, so this phone stops getting that person's notifications. */
-export async function forgetThisPhone(userId: string): Promise<void> {
+/**
+ * Call before signing out, so this phone stops getting that person's
+ * notifications. If clearing the token fails (e.g. offline), it's still safe:
+ * the next person to sign in here takes the token over (set_my_push_token).
+ */
+export async function forgetThisPhone(): Promise<void> {
   await Notifications.cancelScheduledNotificationAsync(REMINDER_ID).catch(() => {});
-  await supabase.from('profiles').update({ push_token: null }).eq('id', userId);
+  const { error } = await supabase.rpc('clear_my_push_token');
+  if (error) console.warn('Could not clear push token', error.message);
 }

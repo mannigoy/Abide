@@ -48,8 +48,7 @@ export async function signUp(input: SignUpInput): Promise<SignUpResult> {
 
 export async function signOut(): Promise<string | null> {
   // Stop this phone getting the person's reminders and encouragement alerts.
-  const { data } = await supabase.auth.getSession();
-  if (data.session) await forgetThisPhone(data.session.user.id);
+  await forgetThisPhone();
   const { error } = await supabase.auth.signOut();
   return error ? friendlyMessage(error) : null;
 }

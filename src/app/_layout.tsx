@@ -38,7 +38,7 @@ function RootNavigator() {
   useEffect(() => {
     if (!userId) return;
     syncDailyReminder(reminderTime);
-    registerPushToken(userId);
+    registerPushToken();
   }, [userId, reminderTime]);
 
   // useFonts is a hook: it loads the fonts and re-renders this component

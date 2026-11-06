@@ -483,6 +483,7 @@ export type Database = {
       }
       are_friends: { Args: { p_a: string; p_b: string }; Returns: boolean }
       can_view_progress: { Args: { p_user_id: string }; Returns: boolean }
+      clear_my_push_token: { Args: never; Returns: undefined }
       complete_plan_day: {
         Args: { p_day: number; p_plan_id: string; p_total_days: number }
         Returns: {
@@ -589,6 +590,7 @@ export type Database = {
           status: string
         }[]
       }
+      set_my_push_token: { Args: { p_token: string }; Returns: undefined }
       start_plan: {
         Args: { p_plan_id: string }
         Returns: {
